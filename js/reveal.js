@@ -24,10 +24,10 @@
   ].join(',');
   const BOXES = '.rbox.card, .notebook-card, .contact-card, .article-card, .empty-notes';
   const SKIP_TAGS = new Set(['SCRIPT', 'STYLE', 'SVG', 'INPUT', 'BUTTON', 'TEXTAREA', 'PRE']);
-  const WORD_DELAY = 32;       // ms between words
+  const WORD_DELAY = 22;       // ms between words (words overlap, so the pen moves in one flowing wave)
   const MAX_UNIT_TIME = 1700;  // ms: very long paragraphs speed up so they never drag
-  const BOX_TIME = 450;        // ms a box takes to open before its content is written
-  const MAX_WAIT = 1200;       // ms: longest a block waits for the pen before starting
+  const BOX_TIME = 300;        // ms a box takes to fade in before its content is written
+  const MAX_WAIT = 700;        // ms: longest a block waits for the pen before starting
 
   const wrapWords = (unit) => {
     const nodes = [];
@@ -66,7 +66,7 @@
   const unwrapWords = (unit) => {
     unit.querySelectorAll('.rv-w').forEach((w) => w.replaceWith(document.createTextNode(w.textContent)));
     unit.normalize();
-    unit.classList.remove('rv', 'rv-on');
+    unit.classList.remove('rv', 'rv-on', 'rv-whole');
   };
 
   // Everything that becomes visible is written in reading order (top to bottom, left to right),
@@ -87,19 +87,13 @@
         const start = Math.min(Math.max(now, queueEnd), now + MAX_WAIT);
         el.style.setProperty('--base', Math.round(start - now) + 'ms');
         // Boxes only delay what follows slightly; text hands the pen over a bit early.
-        queueEnd = start + (isBox ? duration * 0.6 : duration * 0.85);
+        queueEnd = start + (isBox ? duration * 0.5 : duration * 0.6);
         el.classList.add('rv-on');
-        if (isBox) {
-          el.addEventListener('transitionend', function done(ev) {
-            if (ev.target !== el || ev.propertyName !== 'clip-path') return;
-            el.classList.add('rv-done'); // drop clip-path so hover scale/rotate is never clipped
-            el.removeEventListener('transitionend', done);
-          });
-        }
       });
   }, { rootMargin: '0px 0px -60px 0px', threshold: 0.01 });
 
-  const isWrapped = (unit) => unit.classList.contains('rv') && unit.querySelector('.rv-w');
+  const isWrapped = (unit) => unit.classList.contains('rv') &&
+    (unit.classList.contains('rv-whole') || unit.querySelector('.rv-w'));
 
   /** Prepares every not-yet-prepared unit, box and doodle under `root` for reveal. */
   const scan = (root = document) => {
@@ -111,8 +105,14 @@
       if (isWrapped(u)) return;
       if (u.classList.contains('rv')) unwrapWords(u); // text was replaced after wrapping
       if (!u.textContent.trim()) return;
-      wrapWords(u);
-      u.classList.add('rv');
+      if (getComputedStyle(u).filter !== 'none') {
+        // Filtered blocks (titles) are revealed as a single piece, see .rv-whole in the CSS.
+        u.classList.add('rv', 'rv-whole');
+        u.dataset.rvTime = '600';
+      } else {
+        wrapWords(u);
+        u.classList.add('rv');
+      }
       io.observe(u);
     });
     root.querySelectorAll(BOXES).forEach((b) => {

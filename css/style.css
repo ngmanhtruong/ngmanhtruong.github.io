@@ -1326,13 +1326,31 @@ header {
 .rv-ready .rv-w {
   display: inline-block;
   clip-path: inset(-25% 100% -25% -6%);
-  opacity: 0.2;
-  transition: clip-path 0.22s cubic-bezier(0.3, 0.6, 0.4, 1), opacity 0.22s ease;
+  opacity: 0;
+  translate: 0 0.12em;
+  transition: clip-path 0.45s cubic-bezier(0.25, 0.7, 0.3, 1),
+              opacity 0.35s ease-out,
+              translate 0.45s cubic-bezier(0.25, 0.7, 0.3, 1);
   transition-delay: calc(var(--base, 0ms) + var(--i, 0) * var(--step, 40ms));
 }
 
 .rv-ready .rv.rv-on .rv-w {
   clip-path: inset(-25% -6% -25% -6%);
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* Blocks under an SVG filter (titles) are written as ONE stroke: animating many children
+   inside a filtered element would re-run the filter on every frame and stutter. */
+.rv-ready .rv-whole {
+  clip-path: inset(-40% 100% -40% -10%);
+  opacity: 0;
+  transition: clip-path 0.8s cubic-bezier(0.25, 0.7, 0.3, 1), opacity 0.4s ease-out;
+  transition-delay: var(--base, 0ms);
+}
+
+.rv-ready .rv-whole.rv-on {
+  clip-path: inset(-40% -40% -40% -10%);
   opacity: 1;
 }
 
@@ -1389,20 +1407,17 @@ header {
   transition: transform 0.5s ease-out 0.45s;
 }
 
-/* Boxes open top to bottom, like the border being drawn */
 .rv-ready .rv-box {
-  clip-path: inset(-16px -16px 100% -16px);
-  transition: clip-path 0.45s ease-out, transform 0.25s ease, box-shadow 0.25s ease;
-  transition-delay: var(--base, 0ms), 0s, 0s;
+  opacity: 0;
+  translate: 0 14px;
+  transition: opacity 0.5s ease-out, translate 0.5s cubic-bezier(0.25, 0.7, 0.3, 1),
+              transform 0.25s ease, box-shadow 0.25s ease;
+  transition-delay: var(--base, 0ms), var(--base, 0ms), 0s, 0s;
 }
 
 .rv-ready .rv-box.rv-on {
-  clip-path: inset(-16px -16px -16px -16px);
-}
-
-.rv-ready .rv-box.rv-done {
-  clip-path: none;
-  transition-delay: 0s;
+  opacity: 1;
+  translate: 0 0;
 }
 
 /* Floating doodles fade in */
@@ -1416,9 +1431,10 @@ header {
 }
 
 @media print {
-  .rv-ready .rv-w, .rv-ready .rv-box, .rv-ready .rv-doodle {
+  .rv-ready .rv-w, .rv-ready .rv-whole, .rv-ready .rv-box, .rv-ready .rv-doodle {
     clip-path: none !important;
     opacity: 1 !important;
+    translate: none !important;
   }
   .rv-ready .rv .hl { background-size: 100% 100% !important; }
   .rv-ready .sec-title.rv::after { transform: rotate(-0.35deg) !important; }

@@ -147,3 +147,10 @@ Done:
 - `js/articles.js`: card summaries are now built from markdown via `markdownToPlainText()`/`makeSummary()` (no `**`, `#`, backticks, links, list markers; headings and code blocks skipped; cut at a word boundary). Summary is HTML-escaped when rendered.
 - Root cause of "4 posts on desktop, 6 on phone": unauthenticated GitHub API limit (60 req/h per IP) returned 403, so the desktop fell back to the 4 built-in local articles. On API failure the last cached GitHub catalog (any age) is now used before the local files. Cache key bumped to `portfolio_articles_cache_v2`.
 Unfinished / needs the user: Not pushed. A desktop whose cache was never filled and whose IP is rate-limited still falls back to local files; a token-free fix would be a build/serverless proxy.
+
+## 2026-10-15 — Smoother Reveal (less repaint, flowing wave)
+
+Done:
+- Stutter causes found in the CSS: (1) cards animated with `clip-path` forced the wobbly filtered borders (`#wob`) to be re-rasterized every frame; (2) words inside filtered titles (`#ink`) re-ran `feTurbulence` per frame; (3) per-word 0.22s wipes at 32ms steps looked like discrete pops; (4) long waits for the pen queue.
+- Cards now fade/slide in with `opacity` + `translate` only (compositor friendly); filtered blocks (titles) are written as one piece (`.rv-whole`) instead of word by word; words use a longer overlapping wipe (0.45s, 22ms step) with a small rise; queue waits shortened (max 700ms).
+Unfinished / needs the user: Frame rate was not measured (the in-app browser throttles animation frames while hidden); please judge on a real browser/phone. Tune `WORD_DELAY` / `MAX_WAIT` in `js/reveal.js`.
