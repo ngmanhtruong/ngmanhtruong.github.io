@@ -433,7 +433,9 @@ class PencilDoodleEngine {
   }
 }
 
-// Automatically instantiate when DOM is ready
+// Automatically instantiate when DOM is ready.
+// Skipped on touch-only devices: finger scrolling would leave stray pencil strokes.
 document.addEventListener('DOMContentLoaded', () => {
+  if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
   window.pencilDoodle = new PencilDoodleEngine();
 });

@@ -1154,8 +1154,36 @@ header {
     align-items: flex-start;
   }
 
+  /* Nav takes real space (no overlap with logo) and scrolls sideways on one row */
   .stickwrap {
+    height: auto;
+    top: 6px;
     justify-content: center;
+  }
+
+  .stick {
+    width: 100%;
+    height: auto;
+    margin-top: 12px;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    transform: rotate(0.6deg);
+  }
+
+  .stick::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav {
+    flex-wrap: nowrap;
+  }
+
+  .nav a {
+    flex: 0 0 auto;
+    padding: 6px 4px;
   }
   
   .hero-actions {
@@ -1216,6 +1244,13 @@ header {
   .btn {
     font-size: 28px;
     padding: 8px 20px;
+  }
+
+  .back-to-top {
+    bottom: 16px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
   }
 }
 

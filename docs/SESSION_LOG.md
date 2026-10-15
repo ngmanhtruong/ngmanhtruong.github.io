@@ -93,3 +93,12 @@ Unfinished / needs the user: None. All tasks completed.
 
 
 
+
+## 2026-10-15 — Mobile UI Optimization (Doodle Off on Touch, Compact Nav)
+
+Done:
+- `js/pencil-draw.js`: doodle engine (drawing layer, toolbar, audio) is no longer created on touch-only devices (`(hover: none) and (pointer: coarse)`), so scrolling never leaves pencil strokes and the toolbar no longer covers content.
+- `css/style.css` (≤768px): sticky nav now takes real space (no overlap with the logo) and is a single horizontally scrollable row; smaller back-to-top button on ≤640px.
+- Verified at 375px: no horizontal overflow, nav and hero render cleanly.
+Decisions: Doodle disabled by device capability (not screen width) so narrow desktop windows keep drawing.
+Unfinished / needs the user: Lower sections and articles pages were not visually re-checked at mobile width; the changes are not committed or deployed yet.
