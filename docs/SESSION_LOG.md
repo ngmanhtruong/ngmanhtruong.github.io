@@ -184,3 +184,8 @@ Done:
 - Measured: JS main-thread work is negligible (no long tasks, ~0ms layout for 473 words), so the lag is paint/compositing. The in-app browser throttles frames, so real FPS could not be measured here.
 - Mitigations: (1) the tall article card (~3000px) no longer applies the `#wob` SVG filter to its two border pseudo-elements (`.article-detail-wrap > .rbox::before/::after`), the most expensive raster in the page; (2) `js/reveal.js` unwraps the per-word spans once a block has finished writing (`rv-fin`), so long articles do not keep hundreds of clipped inline-blocks; (3) `?noreveal` URL flag disables the reveal for A/B testing.
 Unfinished / needs the user: Confirm on the real browser/phone; if still laggy, record DevTools Performance while scrolling `article.html?id=6` and compare with `&noreveal`.
+
+## 2026-10-15 — Added Koncierge Plus & Knowledge Base Management (KBTGVN)
+
+Done: Added two bullets under the KBTGVN job in `index.html` (names only, no descriptions were provided).
+Unfinished / needs the user: Replace the placeholder wording with what each project is and what was built (and a link/status if any). Not pushed.
