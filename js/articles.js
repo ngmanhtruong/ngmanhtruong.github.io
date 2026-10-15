@@ -219,6 +219,19 @@ class ArticlesManager {
     const { owner, repo } = GITHUB_CMS_CONFIG;
     if (!owner || !repo) return null;
 
+    // 1. Static snapshot kept in sync by .github/workflows/sync-articles.yml. It is served by
+    //    the site itself, so it never hits GitHub's per-IP API rate limit (60/h, shared IPs).
+    try {
+      const snap = await fetch(`content/issues.json?t=${Math.floor(Date.now() / 60000)}`);
+      if (snap.ok) {
+        const issues = await snap.json();
+        if (Array.isArray(issues) && issues.length > 0) return this.issuesToArticles(issues);
+      }
+    } catch (e) {
+      // Snapshot missing/unreadable: try the live API below.
+    }
+
+    // 2. Live GitHub API (rate limited when unauthenticated).
     const url = `https://api.github.com/repos/${owner}/${repo}/issues?state=open&sort=created&direction=desc&per_page=50`;
     const res = await fetch(url, {
       headers: {
@@ -232,10 +245,16 @@ class ArticlesManager {
 
     const issues = await res.json();
     if (!Array.isArray(issues) || issues.length === 0) return null;
+    return this.issuesToArticles(issues);
+  }
 
-    // Filter out pull requests and format issues into articles
+  /**
+   * Converts GitHub issue objects (API or snapshot) into normalized articles.
+   */
+  issuesToArticles(issues) {
     return issues
-      .filter(item => !item.pull_request)
+      .filter(item => !item.pull_request && (!item.state || item.state === 'open'))
+      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
       .map(issue => {
         const body = issue.body || '';
         const wordCount = body.trim().split(/\s+/).length;
@@ -250,7 +269,6 @@ class ArticlesManager {
         });
 
         const summary = this.makeSummary(body);
-
         const rawLabels = (issue.labels || []).map(l => (typeof l === 'string' ? l : l.name));
 
         return this.normalizeArticle({

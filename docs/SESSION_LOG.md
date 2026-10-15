@@ -161,3 +161,12 @@ Done:
 - `js/pencil-draw.js`: drawing is off by default (`this.enabled`); a "Draw: off/on" button in the toolbar header toggles it. The pencil cursor (`html.doodle-on`) and stroke capture apply only while on, so pages scroll, select text and click normally by default. State is not persisted (always starts off).
 - `article.html` footer hint now tells visitors to switch on "Draw".
 Unfinished / needs the user: Not pushed.
+
+## 2026-10-15 — Fix "Only 4 Articles" on the Deployed Site
+
+Done:
+- Root cause: browser calls to the unauthenticated GitHub API were rate limited (403) on shared IPs, so the site showed the 4 built-in articles instead of the 6 issues.
+- Added `.github/scripts/sync-articles.mjs` + `.github/workflows/sync-articles.yml` generating `content/issues.json`; generated the first snapshot (6 articles) with the local authenticated `gh`.
+- `js/articles.js`: `fetchFromGitHub()` reads the snapshot first, then the live API; extracted `issuesToArticles()`.
+Decisions: See `docs/DECISIONS.md`.
+Unfinished / needs the user: Push; then check the Actions tab runs on a new issue (the push needs a token with `workflow` scope; GitHub may ask to enable Actions).

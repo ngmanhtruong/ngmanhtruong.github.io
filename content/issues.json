@@ -1,0 +1,149 @@
+[
+  {
+    "number": 6,
+    "title": "Investigating Scroll Jank: SVG feTurbulence & GPU Rasterization at high FPS",
+    "state": "open",
+    "created_at": "2026-10-15T10:27:55Z",
+    "html_url": "https://github.com/ngmanhtruong/portfolio-v2/issues/6",
+    "user": {
+      "login": "ngmanhtruong"
+    },
+    "labels": [
+      {
+        "name": "Performance"
+      },
+      {
+        "name": "CSS"
+      },
+      {
+        "name": "Technicals"
+      }
+    ],
+    "body": "**Labels:** `technicals`, `performance`, `css`\n\n## The Context\nRecently, I wanted to add a subtle grainy noise texture to the background of the site. The most elegant, dependency-free way to do this seemed to be using an inline SVG filter with `<feTurbulence>`. It's a neat trick: you define the filter, apply it via CSS, and you get a nice procedural noise effect without loading any external image assets. \n\nIt looked great on my external.\n\n## The Problem\nWhen I tested and started scrolling, the performance completely tanked. The scrolling felt heavy, stuttery. \n\nI fired up the Chrome DevTools Performance tab to record a scrolling session. The flame chart was a mess. The main thread wasn't heavily blocked by JS, but there were massive green blocks indicating huge **Paint** and **Rasterization** times. The GPU was sweating.\n\n## The \"Why\"\nHere is what's happening under the hood:\n1. `<feTurbulence>` is highly computationally expensive. Generating procedural Perlin/fractal noise requires a lot of math per pixel.\n2. When you scroll, depending on how the browser optimizes the rendering pipeline, elements might need to be repainted or re-rasterized if they aren't properly promoted to their own compositor layer, or if the scrolling forces a repaint of the background context.\n3. At 120 FPS, the browser has less than ~8.3ms per frame to do the math, composite, and push the pixels. The GPU just couldn't keep up with rasterizing the SVG filter over a large area (like a full-page background) that fast.\n\n## Failed Attempts\nI initially thought I could just force the browser to throw the noise layer onto the GPU and leave it alone:\n* Tried adding `will-change: transform`.\n* Tried the classic `transform: translateZ(0)`.\n* Tried `pointer-events: none` to ensure no hit-testing was triggering recalculations.\n\nWhile this created a dedicated composite layer, the browser still struggled with the initial rasterization of the massive SVG area, and occasionally re-rasterized it during fast scrolls, causing dropped frames (jank).\n\n## The Solution: Keep It Stupid Simple (KISS)\nI realized I was over-engineering a static effect. A live SVG filter is overkill for static noise. \n\n### The fix:\n1. I used the SVG `feTurbulence` filter *once* in a separate sandbox to generate the noise I liked.\n2. Took a screenshot/export of that noise as a tiny 256x256 `webp` (or `png`) tile.\n3. Applied it using standard CSS:\n   ```css\n   .noise-bg {\n     background-image: url('/assets/noise.webp');\n     background-repeat: repeat;\n     opacity: 0.4; /* Tweak for subtlety */\n   }\n\n### The Result:\nSilky smooth 120 FPS scrolling. The browser's compositor handles repeating a tiny static image tile effortlessly. GPU rasterization time dropped to near zero.\n\n### Takeaway:\nBrowser APIs like SVG filters and CSS backdrop-filter are incredibly powerful, but their render cost is often hidden until you hit high-refresh-rate screens or lower-end devices. Sometimes, the \"dumb\" solution (a tiled static image) is objectively better for UX than the mathematically elegant one."
+  },
+  {
+    "number": 5,
+    "title": "Jev and System One Models: AI That Doesn't Need to Write Text",
+    "state": "open",
+    "created_at": "2026-10-15T09:30:46Z",
+    "html_url": "https://github.com/ngmanhtruong/portfolio-v2/issues/5",
+    "user": {
+      "login": "ngmanhtruong"
+    },
+    "labels": [
+      {
+        "name": "AI"
+      },
+      {
+        "name": "Opinions"
+      }
+    ],
+    "body": "## Introduction\n\nI am a software engineer who is still learning, and **this post is an opinion, not a review**. I have not used Jev yet. Everything I say about how it behaves comes from public sources, and everything I say about how it could fit into my work is my expectation. A follow-up post with hands-on experience will come after I try it.\n\n## What Jev Is\n\nJev is a model from TypeSafe, launched in early access on September 15, 2026. TypeSafe calls it a \"System One\" model. It does not chat, explain, write code, or call tools. You send it a structured question with some data, and it returns one typed answer, such as:\n\n- **Choice**: pick one option from a list you define.\n- **Score**: a position on a scale.\n\nEvery answer comes with calibrated probabilities, so your software can see how sure the model is. Input can be up to **64,000 tokens per request**.\n\nThis is why I think \"agent\" is the wrong word for it. An agent plans, calls tools, and acts. Jev only decides.\n\n## The Core Idea: Decide Here, Generate There\n\nMost AI tools I use today are LLMs that generate text or code. Jev is a different kind of tool. I do not see it as a replacement for Claude Code or Gemini. I see it running next to them:\n\n- **Jev** makes the decision.\n- **A general LLM** generates the code.\n\nThese two jobs are different. Writing a new feature is open-ended work, and a generative model is the right tool. Choosing between a few known options is a classification problem, and a model built for that should be a better fit than one that writes a paragraph of reasoning first.\n\n### A Concrete Example\n\nSay a bug happens and the person using the tool has to pick one of two ways to handle it. Today that choice usually falls on a human, or on an LLM that explains its thinking in prose. With Jev, the system could send the bug context and the two options, get back a score for each, and show the result to the user, who then picks Jev's suggestion or overrides it.\n\nWhen it is time to code a new feature, the same system still hands that work to a normal LLM.\n\nI want to be clear that this is how I expect it to work. I have not tested it, and I expect Jev to be more consistent at this kind of decision because it is trained for exactly this job, not because I have seen proof.\n\n## Why I Am Positive About It\n\nIn many situations, humans are still the final decision makers. We spend a lot of attention on small decisions that have clear inputs and a small set of answers. A helper that handles these well, and tells us how confident it is, would let us save our attention for the decisions that really need a person.\n\nThat is the part I find exciting. It is not about AI taking over decisions. It is about giving people a faster and more consistent assistant for the easy, well-defined ones.\n\n## Speed and Cost\n\nAccording to TypeSafe, Jev:\n\n- responds in roughly **100 ms for most calls** (70 to 500 ms reported),\n- costs **$0.042 per million input tokens**, with output tokens free,\n- is 20 to 200 times faster and 40 to 400 times cheaper than LLMs.\n\nThese numbers come from the vendor, and I have not verified them myself. Even so, going by TypeSafe's own figures, Jev sits among the fastest and cheapest options available right now. For a decision step that might run many times inside a workflow, that matters more to me than anything else.\n\n### What About Benchmarks?\n\nA third-party review put Jev at 72.5% on a 200-item benchmark, against 84.0% for Claude Fable 5.1. I do not think this is the right way to judge Jev. It is not a general-purpose LLM, and a general benchmark measures the wrong thing. Speed, cost, and how well it fits a specific decision are what I would care about.\n\n## Limits and the Human in the Loop\n\nJev is not a magic answer, and I want to be honest about two limits.\n\nFirst, **a person is still the final checkpoint**. When Jev cannot decide, for example when its confidence is low, the decision should go back to a human. Even when it can decide, a human should be the last gate before anything irreversible.\n\nSecond, **Jev can be steered by the content it reads**. TypeSafe's own limitations page says Jev does not treat input as hostile by default. If untrusted text gets into the input, it can push the decision in the wrong direction. This is another good reason to keep a human in the loop.\n\n## Conclusion\n\nJev made me think about AI differently. Not every useful model needs to talk. A model that returns a typed decision, with a probability attached, can sit inside normal software and do one job well, next to the LLMs that write the code.\n\nI plan to try it and write about the real experience in a follow-up post.\n\n## Sources\n\n- [[The New Stack: TypeSafe's Jev, a System One model](https://thenewstack.io/typesafe-jev-system-one/)](https://thenewstack.io/typesafe-jev-system-one/)\n- [[NeuralTrust: Jev by TypeSafe AI and security](https://neuraltrust.ai/blog/jev-typesafe-ai-security)](https://neuraltrust.ai/blog/jev-typesafe-ai-security)"
+  },
+  {
+    "number": 4,
+    "title": "Why Physical Notebooks & Doodles Still Beat Digital Note Apps in 2026",
+    "state": "open",
+    "created_at": "2026-10-15T07:53:16Z",
+    "html_url": "https://github.com/ngmanhtruong/portfolio-v2/issues/4",
+    "user": {
+      "login": "ngmanhtruong"
+    },
+    "labels": [
+      {
+        "name": "Architecture"
+      },
+      {
+        "name": "Productivity"
+      },
+      {
+        "name": "Random Thoughts"
+      }
+    ],
+    "body": "Every year there is a new 'second brain' app with AI graph databases, bidirectional links, and markdown shortcuts.\n\nYet whenever I need to solve a complex architectural dilemma—like state synchronization in WebGL or managing multi-agent context limits—I always close the laptop, pull out an authentic grid notebook, and grab a pencil.\n\nWhy?\n- **Zero friction:** No keyboard shortcuts, no app loading screens, no sync conflicts.\n- **Spatial freedom:** You can draw an arrow that loops around a paragraph, cross out an idea with three furious strokes, and sketch a crooked state machine in 5 seconds.\n- **Physical memory:** Your brain remembers the physical corner of the page where you scribbled that idea.\n\nThat's why I designed this portfolio as a lined notebook with a wooden pencil cursor and authentic paper texture. Sometimes the oldest tools are still the sharpest."
+  },
+  {
+    "number": 3,
+    "title": "How I Work With AI Coding Agents as a Senior Engineer",
+    "state": "open",
+    "created_at": "2026-10-15T07:39:39Z",
+    "html_url": "https://github.com/ngmanhtruong/portfolio-v2/issues/3",
+    "user": {
+      "login": "ngmanhtruong"
+    },
+    "labels": [
+      {
+        "name": "AI"
+      },
+      {
+        "name": "Engineering"
+      },
+      {
+        "name": "Architecture"
+      },
+      {
+        "name": "Productivity"
+      },
+      {
+        "name": "Technicals"
+      }
+    ],
+    "body": "The software engineering landscape has shifted dramatically over the past two years. We went from writing every semicolon by hand to orchestrating multiple autonomous AI agents that can generate entire features, unit tests, and refactors in seconds.\n\nYet, counterintuitively, **senior engineering judgment matters more today than ever before**.\n\n---\n\n## 1. Speed Is Nothing Without Direction\n\nWhen an AI coding agent can draft 500 lines of code in 10 seconds, the bottleneck is no longer code generation. The bottlenecks are:\n\n- **Problem Definition:** Are we building the right feature?\n- **Domain Boundaries:** Does this code belong here or in an isolated domain?\n- **Quality Verification:** Does it handle network edge cases, rate limits, and memory leaks?\n\n> \"Agents write code fast. My job is to decide what is worth building and keep it fast, lean, and reliable on every screen.\"\n\n---\n\n## 2. The AI-First Session Pattern\n\nIn my daily work, I treat AI agents like highly capable junior-to-mid engineers who need crystal-clear specifications:\n\n1. **Context Loading:** Give the agent strict boundary files (`CLAUDE.md`, domain READMEs, architectural decisions).\n2. **Atomic Tasks:** Ask for one contiguous, reviewable change rather than a sprawling rewrite.\n3. **Verification First:** Run lint, tests, and syntax parsers immediately after generation.\n4. **Permanent Memory:** Require the agent to record decisions in `DECISIONS.md` and log progress in `SESSION_LOG.md`.\n\n---\n\n## 3. Architecture Over Generation\n\nAn agent will happily duplicate utility functions across five files if you let it. A human architect ensures:\n\n- Domain logic remains strictly separated.\n- Shared infrastructure is minimal and pure.\n- Assets, dependencies, and bundle sizes are kept lean.\n\nBy combining the raw speed of AI agents with rigorous architectural discipline, we can ship high-quality products in days that previously took months."
+  },
+  {
+    "number": 2,
+    "title": "Lean Front-End Architecture: Shipping Less JS, Getting More Speed",
+    "state": "open",
+    "created_at": "2026-10-15T07:39:36Z",
+    "html_url": "https://github.com/ngmanhtruong/portfolio-v2/issues/2",
+    "user": {
+      "login": "ngmanhtruong"
+    },
+    "labels": [
+      {
+        "name": "Front-end"
+      },
+      {
+        "name": "Performance"
+      },
+      {
+        "name": "Web Standards"
+      },
+      {
+        "name": "CSS"
+      },
+      {
+        "name": "Opinions"
+      }
+    ],
+    "body": "Every year, JavaScript bundles grow larger. Developers import multi-megabyte frameworks, utility libraries, and UI component kits to build static landing pages and portfolio websites.\n\nWhen designing this notebook portfolio, I deliberately set a rule: **Zero client runtime overhead. 100% native web standards.**\n\n---\n\n## 1. What SVG Filters Can Do Without Canvas Runtimes\n\nThe organic, wobbly, hand-drawn aesthetic of this site is entirely driven by native SVG displacement filters:\n\n```html\n<filter id=\"wob\">\n  <feTurbulence type=\"fractalNoise\" baseFrequency=\"0.022\" numOctaves=\"2\" seed=\"4\" result=\"n\"/>\n  <feDisplacementMap in=\"SourceGraphic\" in2=\"n\" scale=\"5\" xChannelSelector=\"R\" yChannelSelector=\"G\"/>\n</filter>\n```\n\nBy pointing regular CSS borders and strokes to `#wob` and `#wob2`, the browser computes the distorted raster in GPU memory. There are no heavy JavaScript animation loops or canvas rendering engines burning your laptop's battery.\n\n---\n\n## 2. Resource Stewardship\n\nA good software engineer respects the user's device:\n\n- **Bandwidth:** Users on mobile networks shouldn't wait 10 seconds for vendor bundles to download.\n- **Battery Life:** Idle pages shouldn't burn CPU cycles polling or re-rendering unnecessarily.\n- **Longevity:** A semantic HTML5 site built on web standards will render identically in 2036.\n\n---\n\n## 3. The Takeaway\n\nBefore reaching for `npm install`, ask yourself: *Can standard CSS and semantic HTML solve this elegantly?*\n\nMore often than not, the answer is a resounding yes."
+  },
+  {
+    "number": 1,
+    "title": "Lessons from Building Metaverse and Real-time Web Experiences",
+    "state": "open",
+    "created_at": "2026-10-15T07:39:34Z",
+    "html_url": "https://github.com/ngmanhtruong/portfolio-v2/issues/1",
+    "user": {
+      "login": "ngmanhtruong"
+    },
+    "labels": [
+      {
+        "name": "Metaverse"
+      },
+      {
+        "name": "WebGL"
+      },
+      {
+        "name": "Unity"
+      },
+      {
+        "name": "GraphQL"
+      },
+      {
+        "name": "Technicals"
+      }
+    ],
+    "body": "During my time working on Raramuri and Agoran, we took on an ambitious challenge: bringing immersive virtual marathon running tracks into the web browser, allowing thousands of global spectators to follow runners in real-time.\n\nHere are the key lessons learned from bridging WebGL/Unity with modern front-end web stacks.\n\n---\n\n## 1. The Boundary Between Canvas and DOM\n\nA common mistake in WebGL applications is trying to render everything—including complex menus, modal forms, and social feeds—inside the WebGL canvas.\n\nWe found that the ideal split was:\n- **Inside Canvas:** The 3D running track, runner avatars, camera physics, and spatial lighting.\n- **Inside DOM (React/HTML):** Leaderboards, participant stats, real-time commentary feeds, and interactive control widgets.\n\nThis ensured screen reader accessibility, natural mobile touch scrolling, and crisp vector typography.\n\n---\n\n## 2. High-Frequency State Synchronization\n\nMarathon runners stream positional telemetry every few milliseconds. Pushing every update through standard React state updates caused severe reconciliation bottlenecks.\n\n**The Solution:**\n- Bypassed React state for high-frequency position updates.\n- Used direct WebGL buffer mutations and WebSockets with binary payloads.\n- Kept React state strictly for low-frequency events (e.g. lap completion, leaderboard ranking changes).\n\n---\n\n## 3. Keep Exploring\n\nBuilding interactive, playful web experiences reminds us of what makes the internet magical. Whether it's a 3D metaverse marathon or a notebook portfolio with a pencil drawing cursor, great software puts a smile on people's faces."
+  }
+]

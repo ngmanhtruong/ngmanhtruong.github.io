@@ -4,7 +4,7 @@
 Provides client-side interactivity across three core modules:
 1. `main.js`: Smooth scrolling, sticky navigation active indicator (ScrollSpy), interactive checkboxes, and back-to-top button.
 2. `pencil-draw.js`: Opt-in drawing (off by default; "Draw: on/off" button in the toolbar; pencil cursor only while on), custom SVG pencil cursor, lightweight vector SVG doodle overlay, floating drawing toolbar, and synthetic Web Audio pencil scratching sound.
-3. `articles.js`: Asynchronous article catalog loader and client-side markdown-to-HTML parser.
+3. `articles.js`: Asynchronous article catalog loader (reads the static snapshot `content/issues.json`, falls back to the live GitHub API, then local files) and client-side markdown-to-HTML parser.
 4. `stats.js`: Footer visit counter and heart button (talks to the `worker/` API).
 5. `reveal.js`: Scroll-triggered "written on the page" reveal on all pages (a MutationObserver on `<main>` picks up articles/markdown rendered later; `window.pageReveal.refresh(el)` re-writes a block whose text was replaced) (words wiped in left-to-right, boxes sweep open, highlights/underlines drawn last). Uses IntersectionObserver + CSS only, skipped for `prefers-reduced-motion`; hidden states are scoped under `.rv-ready` so content stays visible without JS.
 
