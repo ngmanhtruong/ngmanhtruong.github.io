@@ -47,3 +47,20 @@ Done:
 Decisions: See `docs/DECISIONS.md`.
 Unfinished / needs the user: None. Ready for user feedback.
 
+## 2026-10-15 — Push to GitHub and Migrate Articles to Issues CMS
+
+Done:
+- Initialized local Git repository with `.gitignore` and default branch `main`.
+- Connected remote `origin` to `https://github.com/ngmanhtruong/portfolio-v2.git`.
+- Configured `GITHUB_CMS_CONFIG.repo = 'portfolio-v2'` in `js/articles.js`.
+- Pushed complete portfolio codebase to `origin/main`.
+- Created 12 custom category labels on `ngmanhtruong/portfolio-v2` (`AI`, `Engineering`, `Architecture`, `Productivity`, `Front-end`, `Performance`, `Web Standards`, `CSS`, `Metaverse`, `WebGL`, `Unity`, `GraphQL`).
+- Converted and published all 3 portfolio articles as live GitHub Issues with formatted markdown, titles, and labels:
+  - Issue #1: *Lessons from Building Metaverse and Real-time Web Experiences*
+  - Issue #2: *Lean Front-End Architecture: Shipping Less JS, Getting More Speed*
+  - Issue #3: *How I Work With AI Coding Agents as a Senior Engineer*
+- Verified GitHub REST API endpoint successfully delivers the 3 articles for client-side rendering.
+Decisions: See `docs/DECISIONS.md`.
+Unfinished / needs the user: None. All tasks completed.
+
+
