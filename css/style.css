@@ -1234,19 +1234,17 @@ header {
     height: auto;
     margin-top: 12px;
     flex-wrap: nowrap;
-    justify-content: flex-start;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
+    justify-content: space-around;
     transform: rotate(0.6deg);
-  }
-
-  .stick::-webkit-scrollbar {
-    display: none;
   }
 
   .nav {
     flex-wrap: nowrap;
+  }
+
+  /* Keep only the key links (About, Work, Articles, Contact) so nothing scrolls or clips the pin */
+  .nav a.nav-minor {
+    display: none;
   }
 
   .nav a {

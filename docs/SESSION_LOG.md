@@ -111,3 +111,10 @@ Done:
 - Tested worker logic and UI against a local mock.
 Decisions: See `docs/DECISIONS.md`.
 Unfinished / needs the user: Deploy the Worker (see `worker/README.md`) and set `COUNTER_API` in `js/stats.js`; until then counts stay hidden.
+
+## 2026-10-15 — Mobile Nav Trim & Pushpin Clipping Fix
+
+Done:
+- Removed `overflow-x: auto` from the mobile sticky nav (it clipped the top half of the red pushpin).
+- On ≤640px, Skills/Projects/School links (`.nav-minor`) are hidden; About, Work, Contact, Articles remain, evenly spaced with no scrolling.
+Unfinished / needs the user: Not pushed yet; Worker deploy pending (see previous entry).
