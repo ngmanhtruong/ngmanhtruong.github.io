@@ -132,3 +132,11 @@ Done:
 - `js/reveal.js` now writes visible blocks one after another in reading order (queue with `queueEnd`) instead of all at once; words keep a constant ~32ms pace.
 - Card boxes now open top to bottom (was a left-to-right sweep) before their text is written.
 Unfinished / needs the user: Not pushed.
+
+## 2026-10-15 — Reveal on Articles & Article Detail
+
+Done:
+- Generalized `js/reveal.js` (selectors, `scan()`, MutationObserver on `<main>`, `window.pageReveal.refresh`) and loaded it on `articles.html` and `article.html`.
+- Article cards open as boxes and are written in reading order; the article detail card, meta line, tags and rendered markdown body are written the same way (code blocks `pre` are left instant).
+- `article.html` calls `pageReveal.refresh()` after filling meta/tags so the real text is written, not the placeholders.
+Unfinished / needs the user: Not pushed. Tested on desktop only; GitHub API 403s locally fall back to local markdown (expected).

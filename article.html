@@ -23,6 +23,7 @@
   <script src="./js/articles.js" defer></script>
   <script src="./js/pencil-draw.js" defer></script>
   <script src="./js/stats.js" defer></script>
+  <script src="./js/reveal.js" defer></script>
 </head>
 <body>
 
@@ -187,6 +188,12 @@
 
           const renderedHtml = window.articlesManager.renderMarkdownToHtml(markdown);
           document.getElementById('article-body-container').innerHTML = renderedHtml;
+
+          // Meta line and tags were filled in after the reveal wrapped their placeholders.
+          if (window.pageReveal) {
+            window.pageReveal.refresh(metaHeader);
+            window.pageReveal.refresh(tagsContainer);
+          }
         } else {
           document.getElementById('article-body-container').innerHTML = `
             <div style="text-align:center;padding:40px 0">
