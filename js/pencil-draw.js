@@ -13,6 +13,7 @@ class PencilDoodleEngine {
     this.currentPath = null;
     this.currentD = '';
     this.isDrawing = false;
+    this.enabled = false; // drawing is opt-in: the visitor turns it on from the toolbar
     this.points = [];
     
     // Audio engine state
@@ -70,10 +71,12 @@ class PencilDoodleEngine {
     const style = document.createElement('style');
     style.id = 'pencil-cursor-styles';
     style.textContent = `
-      html, body, .pg {
+      html.doodle-on, html.doodle-on body, html.doodle-on .pg {
         cursor: ${cursorUrl} !important;
       }
-      a, button, input, label, select, textarea, .btn, .lk, .enjoy-item, .nav a {
+      html.doodle-on a, html.doodle-on button, html.doodle-on input, html.doodle-on label,
+      html.doodle-on select, html.doodle-on textarea, html.doodle-on .btn, html.doodle-on .lk,
+      html.doodle-on .enjoy-item, html.doodle-on .nav a {
         cursor: ${cursorUrl} !important;
       }
     `;
@@ -194,6 +197,7 @@ class PencilDoodleEngine {
     };
 
     const startDrawing = (e) => {
+      if (!this.enabled) return;
       // Allow interaction with links, buttons, inputs, toolbar widgets
       if (e.target.closest('a, button, input, label, select, textarea, .doodle-toolbar')) {
         return;
@@ -307,6 +311,7 @@ class PencilDoodleEngine {
     toolbar.innerHTML = `
       <div class="toolbar-header">
         <span class="hw" style="font-size:22px;color:var(--red)">✏️ Doodle</span>
+        <button class="tool-btn draw-btn" aria-pressed="false" title="Turn pencil drawing on or off">Draw: off</button>
         <button class="tool-btn toggle-btn" title="Expand toolbar" aria-label="Toggle toolbar">+</button>
       </div>
       <div class="toolbar-body">
@@ -390,6 +395,14 @@ class PencilDoodleEngine {
       .tool-btn:hover {
         background: rgba(211,236,69,0.4);
       }
+      .draw-btn[aria-pressed="true"] {
+        background: rgba(211,236,69,0.7);
+        border-color: var(--red);
+        color: var(--red);
+      }
+      .doodle-toolbar:not(.drawing) .toolbar-body {
+        opacity: 0.55;
+      }
       @media (max-width: 640px) {
         .doodle-toolbar {
           left: 12px;
@@ -416,6 +429,16 @@ class PencilDoodleEngine {
           this.lineWidth = 2.8;
         }
       });
+    });
+
+    // Drawing on/off (default off so the page scrolls, selects and clicks normally)
+    const drawBtn = toolbar.querySelector('.draw-btn');
+    drawBtn.addEventListener('click', () => {
+      this.enabled = !this.enabled;
+      document.documentElement.classList.toggle('doodle-on', this.enabled);
+      toolbar.classList.toggle('drawing', this.enabled);
+      drawBtn.setAttribute('aria-pressed', String(this.enabled));
+      drawBtn.textContent = this.enabled ? 'Draw: on' : 'Draw: off';
     });
 
     // Clear canvas button

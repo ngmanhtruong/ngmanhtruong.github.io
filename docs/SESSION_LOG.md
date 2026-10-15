@@ -154,3 +154,10 @@ Done:
 - Stutter causes found in the CSS: (1) cards animated with `clip-path` forced the wobbly filtered borders (`#wob`) to be re-rasterized every frame; (2) words inside filtered titles (`#ink`) re-ran `feTurbulence` per frame; (3) per-word 0.22s wipes at 32ms steps looked like discrete pops; (4) long waits for the pen queue.
 - Cards now fade/slide in with `opacity` + `translate` only (compositor friendly); filtered blocks (titles) are written as one piece (`.rv-whole`) instead of word by word; words use a longer overlapping wipe (0.45s, 22ms step) with a small rise; queue waits shortened (max 700ms).
 Unfinished / needs the user: Frame rate was not measured (the in-app browser throttles animation frames while hidden); please judge on a real browser/phone. Tune `WORD_DELAY` / `MAX_WAIT` in `js/reveal.js`.
+
+## 2026-10-15 — Doodle Drawing Is Opt-In on Desktop
+
+Done:
+- `js/pencil-draw.js`: drawing is off by default (`this.enabled`); a "Draw: off/on" button in the toolbar header toggles it. The pencil cursor (`html.doodle-on`) and stroke capture apply only while on, so pages scroll, select text and click normally by default. State is not persisted (always starts off).
+- `article.html` footer hint now tells visitors to switch on "Draw".
+Unfinished / needs the user: Not pushed.
