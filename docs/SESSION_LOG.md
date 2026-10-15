@@ -80,5 +80,16 @@ Done:
 Decisions: See `docs/DECISIONS.md`.
 Unfinished / needs the user: None. Ready for user feedback.
 
+## 2026-10-15 — Untrack and Ignore Design Mockups Folder (Portfolio-html)
+
+Done:
+- Added `Portfolio-html/` to `.gitignore`.
+- Removed `Portfolio-html/` from Git index cache (`git rm -r --cached Portfolio-html`) while preserving all files locally on disk.
+- Committed and pushed changes to `origin/main` on `ngmanhtruong/portfolio-v2`.
+- Verified `Portfolio-html` is completely removed from remote repository contents.
+Decisions: See `docs/DECISIONS.md`.
+Unfinished / needs the user: None. All tasks completed.
+
+
 
 
