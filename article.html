@@ -186,7 +186,10 @@
             tagsContainer.innerHTML = meta.tags.map(t => `<a href="articles.html?tag=${encodeURIComponent(t)}" class="article-tag" title="Browse notes tagged #${t}">#${t}</a>`).join('');
           }
 
-          const renderedHtml = window.articlesManager.renderMarkdownToHtml(markdown);
+          // Issues have no "# Title" line in their body (local files do), so add the title heading.
+          const hasTitle = /^\s*(---[\s\S]*?---\s*)?#\s/.test(markdown);
+          const safeTitle = meta.title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          const renderedHtml = window.articlesManager.renderMarkdownToHtml(hasTitle ? markdown : `# ${safeTitle}\n\n${markdown}`);
           document.getElementById('article-body-container').innerHTML = renderedHtml;
 
           // Meta line and tags were filled in after the reveal wrapped their placeholders.

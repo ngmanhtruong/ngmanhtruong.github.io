@@ -184,6 +184,7 @@ class ArticlesManager {
   markdownToPlainText(md) {
     return md
       .replace(/^---[\s\S]*?---\s*/, '')               // front matter
+      .replace(/^\s*\*\*Labels:\*\*.*\n+/, '')          // "Labels: ..." line (tags are shown separately)
       .replace(/```[\s\S]*?```/g, ' ')                  // fenced code blocks
       .replace(/<!--[\s\S]*?-->/g, ' ')                 // html comments
       .replace(/<[^>]+>/g, ' ')                          // html tags
@@ -280,7 +281,7 @@ class ArticlesManager {
           tags: rawLabels,
           rawLabels: rawLabels,
           summary: summary || 'Click to read this note.',
-          author: issue.user ? issue.user.login : 'Matthew Nguyen',
+          author: (issue.user && issue.user.login !== GITHUB_CMS_CONFIG.owner) ? issue.user.login : 'Matthew Nguyen',
           body: body,
           githubUrl: issue.html_url,
           isGitHubIssue: true
@@ -609,7 +610,9 @@ class ArticlesManager {
    * Lightweight Markdown to Notebook-styled HTML converter.
    */
   renderMarkdownToHtml(markdown) {
-    let body = markdown.replace(/^---[\s\S]*?---\s*/, '');
+    let body = markdown.replace(/\r\n?/g, '\n').replace(/^---[\s\S]*?---\s*/, '');
+    // The "Labels: ..." line some issues start with duplicates the tag chips shown above the body.
+    body = body.replace(/^\s*\*\*Labels:\*\*.*\n+/m, '');
 
     const escapeHtml = (str) =>
       str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -620,18 +623,18 @@ class ArticlesManager {
     });
 
     // Inline code
-    body = body.replace(/`([^`]+)`/g, '<code style="background:rgba(211,236,69,0.3);padding:2px 6px;border-radius:3px;font-family:monospace;font-size:0.9em">$1</code>');
+    body = body.replace(/`([^`\n]+)`/g, (m, code) => `<code style="background:rgba(211,236,69,0.3);padding:2px 6px;border-radius:3px;font-family:monospace;font-size:0.9em">${escapeHtml(code)}</code>`);
 
     // Headers
-    body = body.replace(/^# (.*$)/gm, '<h1 class="hw ink" style="font-size: clamp(38px, 6vw, 56px); margin: 36px 0 16px; color: var(--ink);">$1</h1>');
-    body = body.replace(/^## (.*$)/gm, '<h2 class="hw red" style="font-size: 38px; margin: 32px 0 14px; position:relative; display:inline-block;">$1</h2>');
-    body = body.replace(/^### (.*$)/gm, '<h3 class="hw blue" style="font-size: 32px; margin: 24px 0 10px;">$1</h3>');
+    body = body.replace(/^# (.*$)/gm, '<h1 class="hw ink" style="font-size: clamp(38px, 6vw, 56px); margin: 36px 0 16px; color: var(--ink);">$1</h1>\n\n');
+    body = body.replace(/^## (.*$)/gm, '<h2 class="hw red" style="font-size: 38px; margin: 32px 0 14px; position:relative; display:inline-block;">$1</h2>\n\n');
+    body = body.replace(/^### (.*$)/gm, '<h3 class="hw blue" style="font-size: 32px; margin: 24px 0 10px;">$1</h3>\n\n');
 
     // Horizontal rule
-    body = body.replace(/^---$/gm, '<div class="rule" aria-hidden="true"></div>');
+    body = body.replace(/^---$/gm, '\n\n<div class="rule" aria-hidden="true"></div>\n\n');
 
     // Blockquotes
-    body = body.replace(/^> (.*$)/gm, '<blockquote class="rbox alt card" style="margin:24px 0;padding:18px 24px;border-left:4px solid var(--blue);font-family:\'Patrick Hand\',cursive;font-size:24px;line-height:32px;color:var(--blue)">$1</blockquote>');
+    body = body.replace(/^> (.*$)/gm, '<blockquote class="rbox alt card" style="margin:24px 0;padding:18px 24px;border-left:4px solid var(--blue);font-family:\'Patrick Hand\',cursive;font-size:24px;line-height:32px;color:var(--blue)">$1</blockquote>\n\n');
 
     // Bold / Strong / Italics
     body = body.replace(/\*\*([^*]+)\*\*/g, '<strong class="hl">$1</strong>');
@@ -645,11 +648,11 @@ class ArticlesManager {
 
     // Unordered lists
     body = body.replace(/^\s*[-*]\s+(.*)$/gm, '<li class="dash-item">$1</li>');
-    body = body.replace(/(<li class="dash-item">.*<\/li>(\n|$))+/g, '<ul class="dash" style="margin:16px 0;">$&</ul>');
+    body = body.replace(/(<li class="dash-item">.*<\/li>(\n|$))+/g, '\n\n<ul class="dash" style="margin:16px 0;">$&</ul>\n\n');
 
     // Ordered lists
     body = body.replace(/^\s*\d+\.\s+(.*)$/gm, '<li class="num-item" style="margin-left:24px;margin-bottom:8px">$1</li>');
-    body = body.replace(/(<li class="num-item">.*<\/li>(\n|$))+/g, '<ol style="margin:16px 0;padding-left:16px">$&</ol>');
+    body = body.replace(/(<li class="num-item"[^>]*>.*<\/li>(\n|$))+/g, '\n\n<ol style="margin:16px 0;padding-left:16px">$&</ol>\n\n');
 
     // Paragraphs
     const paragraphs = body.split(/\n{2,}/);

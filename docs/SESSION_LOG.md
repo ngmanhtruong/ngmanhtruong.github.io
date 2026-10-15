@@ -170,3 +170,10 @@ Done:
 - `js/articles.js`: `fetchFromGitHub()` reads the snapshot first, then the live API; extracted `issuesToArticles()`.
 Decisions: See `docs/DECISIONS.md`.
 Unfinished / needs the user: Push; then check the Actions tab runs on a new issue (the push needs a token with `workflow` scope; GitHub may ask to enable Actions).
+
+## 2026-10-15 — Article Detail: Title, Heading Layout, Inline Code
+
+Done:
+- `article.html`: issue bodies have no `# Title` line, so the detail page now prepends the issue title as the H1 when the markdown does not start with one (local files keep theirs).
+- `js/articles.js` renderer: headings, rules, blockquotes and lists are now surrounded by blank lines, so text right after `## Heading` becomes its own paragraph instead of flowing next to the inline-block heading; ordered lists now wrap in `<ol>`; inline code content is HTML-escaped (`<feTurbulence>` was being parsed as a tag); CRLF is normalized; the leading `**Labels:** ...` line is hidden (tags are already shown) in both body and card summary; owner-authored issues show "Matthew Nguyen" instead of the GitHub login.
+Unfinished / needs the user: Not pushed.
