@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Articles & Thoughts — Matthew Nguyen</title>
+  <meta name="description" content="Technical thoughts, front-end architecture, and engineering workflows with AI agents by Matthew Nguyen.">
+  <meta name="author" content="Matthew Nguyen">
+  <meta name="theme-color" content="#faf6ea">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Articles & Thoughts — Matthew Nguyen">
+  <meta property="og:description" content="Technical writing on AI coding agents, lean architecture, and front-end engineering.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✏️</text></svg>">
+
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&family=Reenie+Beanie&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="./css/style.css">
+
+  <!-- Scripts -->
+  <script src="./js/articles.js" defer></script>
+  <script src="./js/pencil-draw.js" defer></script>
+</head>
+<body>
+
+  <!-- SVG Filter & Doodle Symbol Definitions -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="wob" x="-3%" y="-3%" width="106%" height="106%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="2" seed="4" result="n"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+      </filter>
+      
+      <filter id="wob2" x="-3%" y="-30%" width="106%" height="160%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="9" result="n"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+      </filter>
+      
+      <filter id="ink" x="-2%" y="-5%" width="104%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="2" result="n"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+      </filter>
+      
+      <filter id="paper" x="0" y="0" width="160" height="160">
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" seed="7" stitchTiles="stitch" result="noise"></feTurbulence>
+        <feColorMatrix in="noise" values="0 0 0 0 0.45  0 0 0 0 0.38  0 0 0 0 0.25  0 0 0 0.28 0"></feColorMatrix>
+      </filter>
+
+      <!-- Seamless repeating paper texture pattern tile -->
+      <pattern id="paper-tile" width="160" height="160" patternUnits="userSpaceOnUse">
+        <rect width="160" height="160" filter="url(#paper)"></rect>
+      </pattern>
+
+      <!-- Doodle Icons -->
+      <symbol id="d-star" viewBox="0 0 80 80">
+        <path d="M40 8 L45 34 L72 40 L45 46 L40 72 L35 46 L8 40 L35 34 Z"></path>
+        <path d="M64 8 L64 20 M58 14 L70 14"></path>
+      </symbol>
+      <symbol id="d-heart" viewBox="0 0 80 80">
+        <path d="M40 68 C8 46 12 14 32 17 C38 18 40 23 40 26 C40 23 42 18 48 17 C68 14 72 46 40 68 Z"></path>
+      </symbol>
+      <symbol id="d-bulb" viewBox="0 0 80 80">
+        <path class="f" d="M40 12 C26 12 20 24 26 34 C30 40 32 42 32 48 L48 48 C48 42 50 40 54 34 C60 24 54 12 40 12 Z"></path>
+        <path d="M40 12 C26 12 20 24 26 34 C30 40 32 42 32 48 L48 48 C48 42 50 40 54 34 C60 24 54 12 40 12 Z"></path>
+        <path d="M33 55 L47 55 M35 62 L45 62 M40 2 L40 6 M10 20 L15 23 M70 20 L65 23 M16 4 L20 9 M64 4 L60 9"></path>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Notebook Page Container -->
+  <div class="pg">
+    <!-- Paper texture overlay (scrolls with page, hardware tiled) -->
+    <svg class="paper-overlay" aria-hidden="true" focusable="false">
+      <rect width="100%" height="100%" fill="url(#paper-tile)"></rect>
+    </svg>
+
+    <div class="wrap">
+
+      <!-- Pinned Sticky Navigation Note -->
+      <div class="stickwrap">
+        <nav class="nav stick" aria-label="Sections" style="width: 480px;">
+          <a href="index.html">← Notebook</a>
+          <a href="articles.html" class="on active">Articles</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+      </div>
+
+      <!-- Header -->
+      <header style="padding-top:24px">
+        <div class="header-bar">
+          <a href="index.html" class="hw blue ink logo-text" style="text-decoration:none">Matthew N.</a>
+        </div>
+
+        <div style="padding: 48px 0 20px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+            <span class="note" style="font-size:34px">thoughts, notes &amp; reflections</span>
+            <svg class="dd b" width="46" height="46"><use href="#d-bulb"></use></svg>
+          </div>
+
+          <h1 class="hw ink" style="font-size:clamp(54px, 8vw, 84px);line-height:1.05;margin:0 0 16px;color:var(--ink)">
+            Articles <span class="red">&amp;</span> Essays<span class="blue">.</span>
+          </h1>
+
+          <p style="font-size:24px;line-height:34px;max-width:680px;margin:0">
+            A collection of notes on <span class="hl">AI coding workflows</span>, web performance, front-end architecture, and building interactive software.
+          </p>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main>
+        <div id="articles-container" class="articles-grid">
+          <!-- Fallback prerendered cards (also enriched dynamically by articles.js) -->
+
+          <article class="rbox card article-card">
+            <span class="tape"></span>
+            <div class="article-meta">
+              <span>Oct 12, 2026</span>
+              <span class="dot">•</span>
+              <span>5 min read</span>
+              <span class="dot">•</span>
+              <span class="blue">By Matthew Nguyen</span>
+            </div>
+            <h3>
+              <a class="lk" href="article.html?slug=ai-coding-agents-workflow" style="color:var(--ink)">
+                How I Work With AI Coding Agents as a Senior Engineer
+              </a>
+            </h3>
+            <p style="margin:12px 0 16px;font-size:22px;line-height:30px">
+              Agents write code fast, but shipping production software requires taste, architectural boundaries, and relentless verification. Here is my daily workflow.
+            </p>
+            <div class="article-tags">
+              <span class="article-tag">AI</span>
+              <span class="article-tag">Engineering</span>
+              <span class="article-tag">Architecture</span>
+            </div>
+            <div style="margin-top:20px">
+              <a class="btn rbox r" href="article.html?slug=ai-coding-agents-workflow" style="font-size:26px;padding:6px 20px">Read note →</a>
+            </div>
+          </article>
+
+          <article class="rbox card alt article-card">
+            <span class="tape"></span>
+            <div class="article-meta">
+              <span>Sep 28, 2026</span>
+              <span class="dot">•</span>
+              <span>4 min read</span>
+              <span class="dot">•</span>
+              <span class="blue">By Matthew Nguyen</span>
+            </div>
+            <h3>
+              <a class="lk" href="article.html?slug=lean-frontend-architecture" style="color:var(--ink)">
+                Lean Front-End Architecture: Shipping Less JS, Getting More Speed
+              </a>
+            </h3>
+            <p style="margin:12px 0 16px;font-size:22px;line-height:30px">
+              Why modern web development doesn't always need 300kB of runtime JavaScript to look incredible and feel fluid.
+            </p>
+            <div class="article-tags">
+              <span class="article-tag">Front-end</span>
+              <span class="article-tag">Performance</span>
+              <span class="article-tag">CSS</span>
+            </div>
+            <div style="margin-top:20px">
+              <a class="btn rbox r" href="article.html?slug=lean-frontend-architecture" style="font-size:26px;padding:6px 20px">Read note →</a>
+            </div>
+          </article>
+
+          <article class="rbox card article-card">
+            <span class="tape"></span>
+            <div class="article-meta">
+              <span>Aug 15, 2026</span>
+              <span class="dot">•</span>
+              <span>6 min read</span>
+              <span class="dot">•</span>
+              <span class="blue">By Matthew Nguyen</span>
+            </div>
+            <h3>
+              <a class="lk" href="article.html?slug=building-interactive-metaverse-web" style="color:var(--ink)">
+                Lessons from Building Metaverse and Real-time Web Experiences
+              </a>
+            </h3>
+            <p style="margin:12px 0 16px;font-size:22px;line-height:30px">
+              Reflections on bridging Unity 3D with React and Next.js for virtual sports arenas and real-time runner tracking.
+            </p>
+            <div class="article-tags">
+              <span class="article-tag">Metaverse</span>
+              <span class="article-tag">WebGL</span>
+              <span class="article-tag">Unity</span>
+              <span class="article-tag">GraphQL</span>
+            </div>
+            <div style="margin-top:20px">
+              <a class="btn rbox r" href="article.html?slug=building-interactive-metaverse-web" style="font-size:26px;padding:6px 20px">Read note →</a>
+            </div>
+          </article>
+
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer style="margin-top:80px;padding-bottom:60px">
+        <div class="rule" aria-hidden="true"></div>
+        <div class="footer-bar">
+          <span class="note" style="display:inline-flex;align-items:center;gap:12px">
+            thanks for reading my thoughts!
+            <svg class="dd r" width="40" height="40" aria-hidden="true"><use href="#d-heart"></use></svg>
+          </span>
+          <span class="hw red" style="font-size:34px">— 2 —</span>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Enhance list dynamically from remote/local JSON if available
+      if (window.articlesManager) {
+        const articles = await window.articlesManager.loadCatalog();
+        const container = document.getElementById('articles-container');
+        if (container && articles && articles.length) {
+          container.innerHTML = articles.map((a, idx) => `
+            <article class="rbox card ${idx % 2 === 1 ? 'alt' : ''} article-card">
+              <span class="tape"></span>
+              <div class="article-meta">
+                <span>${a.date}</span>
+                <span class="dot">•</span>
+                <span>${a.readTime}</span>
+                <span class="dot">•</span>
+                <span class="blue">By ${a.author}</span>
+              </div>
+              <h3>
+                <a class="lk" href="article.html?slug=${a.slug}" style="color:var(--ink)">
+                  ${a.title}
+                </a>
+              </h3>
+              <p style="margin:12px 0 16px;font-size:22px;line-height:30px">
+                ${a.summary}
+              </p>
+              <div class="article-tags">
+                ${a.tags.map(t => `<span class="article-tag">${t}</span>`).join('')}
+              </div>
+              <div style="margin-top:20px">
+                <a class="btn rbox r" href="article.html?slug=${a.slug}" style="font-size:26px;padding:6px 20px">Read note →</a>
+              </div>
+            </article>
+          `).join('');
+        }
+      }
+    });
+  </script>
+</body>
+</html>

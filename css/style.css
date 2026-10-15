@@ -1,0 +1,1029 @@
+/* ==========================================================================
+   Portfolio - Matthew Nguyen
+   Handwritten Notebook Styling & Doodle Aesthetic
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Variables & Theming
+   -------------------------------------------------------------------------- */
+:root {
+  --paper: #faf6ea;
+  --ink: #26283a;
+  --red: #9b2c3a;
+  --blue: #1f40a8;
+  --pencil: #4a4d63;
+  --hl-color: rgba(211, 236, 69, 0.92);
+  --hl-color-soft: rgba(224, 243, 98, 0.85);
+  --tape-color: rgba(232, 214, 128, 0.6);
+  --ml: clamp(44px, 9vw, 130px);
+  --container-max: 1080px;
+}
+
+/* --------------------------------------------------------------------------
+   Base & Reset
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 30px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: 'Patrick Hand', 'Caveat', cursive, -apple-system, sans-serif;
+  font-size: 22px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --------------------------------------------------------------------------
+   Notebook Page Container (.pg)
+   Simulates ruled notebook paper with left red margin & punched binder holes
+   -------------------------------------------------------------------------- */
+.pg {
+  position: relative;
+  overflow-x: clip;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 0 clamp(20px, 5vw, 64px) 60px var(--ml);
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(rgba(110, 165, 215, 0.42) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, rgba(110, 165, 215, 0.42) 1.5px, transparent 1.5px);
+  background-size: 30px 30px;
+  box-shadow: inset 0 0 140px rgba(150, 115, 50, 0.14);
+}
+
+/* Double Red Margin Line (Notebook margin guide) */
+.pg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--ml) - 24px);
+  width: 7px;
+  border-left: 2px solid rgba(155, 44, 58, 0.5);
+  border-right: 2px solid rgba(155, 44, 58, 0.5);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Binder Holes along the left margin */
+.pg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--ml) * 0.2);
+  width: 26px;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    radial-gradient(circle at 13px 13px, #ece6d2 0 9px, rgba(110, 100, 70, 0.55) 10px 11px, transparent 12px) 0 110px / 26px 1440px repeat-y,
+    radial-gradient(circle at 13px 13px, #ece6d2 0 9px, rgba(110, 100, 70, 0.55) 10px 11px, transparent 12px) 0 570px / 26px 1440px repeat-y,
+    radial-gradient(circle at 13px 13px, #ece6d2 0 9px, rgba(110, 100, 70, 0.55) 10px 11px, transparent 12px) 0 1030px / 26px 1440px repeat-y;
+}
+
+/* Grainy Paper Texture Overlay */
+.paper-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.36;
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+
+.wrap {
+  position: relative;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  z-index: 10;
+}
+
+/* --------------------------------------------------------------------------
+   Typography & Accents
+   -------------------------------------------------------------------------- */
+.hw {
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+}
+
+.note {
+  font-family: 'Reenie Beanie', cursive;
+  color: var(--blue);
+  font-size: 32px;
+  line-height: 30px;
+}
+
+.red { color: var(--red); }
+.blue { color: var(--blue); }
+
+/* Highlighter effect */
+.hl {
+  background: linear-gradient(100deg, rgba(211, 236, 69, 0) 0%, var(--hl-color) 2%, var(--hl-color-soft) 96%, rgba(211, 236, 69, 0) 100%);
+  padding: 0 0.22em;
+  margin: 0 -0.08em;
+  border-radius: 4px 10px 5px 9px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Ink bleed filter */
+.ink {
+  filter: url(#ink);
+}
+
+/* Links */
+a {
+  color: var(--blue);
+  text-decoration: none;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+/* Wavy underline for text emphasis */
+.u {
+  position: relative;
+  display: inline-block;
+}
+
+.u::after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  right: -3px;
+  bottom: -1px;
+  border-bottom: 2.5px solid currentColor;
+  transform: rotate(-0.7deg);
+  filter: url(#wob2);
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+/* Hand-drawn link underline */
+.lk {
+  position: relative;
+  display: inline-block;
+  color: var(--blue);
+}
+
+.lk::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  bottom: 1px;
+  border-bottom: 2px solid var(--blue);
+  transform: rotate(-0.6deg);
+  filter: url(#wob2);
+  pointer-events: none;
+}
+
+.lk:hover {
+  background: linear-gradient(100deg, rgba(211, 236, 69, 0), rgba(211, 236, 69, 0.9) 6%, rgba(224, 243, 98, 0.85) 94%, rgba(211, 236, 69, 0));
+}
+
+/* Circled text annotation */
+.circ {
+  position: relative;
+  display: inline-block;
+  color: var(--blue);
+}
+
+.circ::before {
+  content: "";
+  position: absolute;
+  inset: -5px -13px -3px -13px;
+  border: 2.5px solid var(--blue);
+  border-radius: 52% 48% 55% 45% / 58% 52% 48% 42%;
+  transform: rotate(-3deg);
+  filter: url(#wob2);
+  pointer-events: none;
+}
+
+/* Torn piece of yellow tape */
+.tape {
+  position: absolute;
+  top: -17px;
+  left: 50%;
+  width: 96px;
+  height: 30px;
+  margin-left: -48px;
+  background: var(--tape-color);
+  transform: rotate(-3deg);
+  clip-path: polygon(
+    0 8%, 4% 0, 8% 10%, 12% 0, 88% 0, 92% 10%, 96% 0, 100% 8%,
+    100% 92%, 96% 100%, 92% 90%, 88% 100%, 12% 100%, 8% 90%, 4% 100%, 0 92%
+  );
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* --------------------------------------------------------------------------
+   Header & Navigation
+   -------------------------------------------------------------------------- */
+header {
+  padding-top: 24px;
+}
+
+.header-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px 30px;
+}
+
+.logo-text {
+  font-size: 40px;
+  line-height: 60px;
+}
+
+/* --------------------------------------------------------------------------
+   Sticky Navigation Yellow Note with Red Pushpin (.stickwrap & .stick)
+   -------------------------------------------------------------------------- */
+.stickwrap {
+  position: sticky;
+  top: 14px;
+  height: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.stick {
+  pointer-events: auto;
+  position: relative;
+  margin-top: 14px;
+  width: 730px;
+  max-width: 100%;
+  height: 72px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0 16px;
+  padding: 20px 24px 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 40%), #fdf1a3;
+  transform: rotate(1.3deg);
+  border-radius: 2px 2px 8px 2px;
+  box-shadow: 0 8px 16px rgba(70, 50, 10, 0.22), 0 1px 2px rgba(0, 0, 0, 0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stick:hover {
+  transform: rotate(0.8deg) scale(1.01);
+  box-shadow: 0 10px 20px rgba(70, 50, 10, 0.26), 0 2px 4px rgba(0, 0, 0, 0.18);
+}
+
+/* Red spherical 3D pushpin / thumbtack */
+.stick::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  margin-left: -9px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #d9626f, #9b2c3a 60%, #6e1824);
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 16px;
+}
+
+.nav a {
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--red);
+  position: relative;
+  display: inline-block;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1px;
+  border-bottom: 3px solid var(--red);
+  transform: rotate(-1deg) scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease-out;
+  filter: url(#wob2);
+}
+
+.nav a:hover::after,
+.nav a:focus-visible::after,
+.nav a.on::after,
+.nav a.active::after {
+  transform: rotate(-1deg) scaleX(1);
+}
+
+/* --------------------------------------------------------------------------
+   Hand-Drawn Rectangle Boxes (.rbox)
+   -------------------------------------------------------------------------- */
+.rbox {
+  --stroke: var(--pencil);
+  position: relative;
+  background-color: rgba(250, 246, 234, 0.4);
+}
+
+.rbox.r {
+  --stroke: var(--red);
+}
+
+.rbox::before,
+.rbox::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  filter: url(#wob);
+}
+
+.rbox::before {
+  left: -9px;
+  right: -5px;
+  top: 0;
+  bottom: 0;
+  border-top: 2.5px solid var(--stroke);
+  border-bottom: 2px solid var(--stroke);
+  transform: rotate(-0.25deg);
+  opacity: 0.88;
+}
+
+.rbox::after {
+  top: -7px;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  border-left: 2px solid var(--stroke);
+  border-right: 2.5px solid var(--stroke);
+  transform: rotate(0.3deg);
+  opacity: 0.88;
+}
+
+.rbox.alt::before {
+  transform: rotate(0.3deg);
+  left: -5px;
+  right: -10px;
+}
+
+.rbox.alt::after {
+  transform: rotate(-0.35deg);
+  top: -10px;
+  bottom: -6px;
+}
+
+/* Call to action buttons */
+.btn {
+  display: inline-block;
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 36px;
+  padding: 12px 32px;
+  color: var(--red) !important;
+  transition: background 0.2s ease, transform 0.15s ease;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: rgba(211, 236, 69, 0.55);
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* --------------------------------------------------------------------------
+   Hero Section
+   -------------------------------------------------------------------------- */
+.hero-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 36px 64px;
+  align-items: flex-start;
+  padding: 60px 0 30px;
+}
+
+.hero-main {
+  flex: 1 1 540px;
+  min-width: 0;
+}
+
+.hero-greeting {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.hero-title {
+  margin: 6px 0 0;
+  font-size: clamp(64px, 10vw, 116px);
+  line-height: 1.02;
+  font-weight: 700;
+}
+
+.hero-subtitle {
+  margin: 24px 0 0;
+  font-size: clamp(34px, 4vw, 46px);
+  line-height: 60px;
+  font-weight: 500;
+}
+
+.hero-desc {
+  margin: 24px 0 0;
+  max-width: 600px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px 40px;
+  margin-top: 48px;
+}
+
+/* Notebook card on the hero right side */
+.notebook-card-wrapper {
+  flex: 0 1 380px;
+  min-width: 260px;
+  margin: 12px auto 0;
+  transform: rotate(2deg);
+  transition: transform 0.3s ease;
+}
+
+.notebook-card-wrapper:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.notebook-card {
+  padding: 36px 32px 30px;
+}
+
+.fill {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.fill b {
+  font-weight: 400;
+  color: var(--red);
+  flex: 0 0 auto;
+}
+
+.fill span {
+  flex: 1;
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--blue);
+  border-bottom: 2px dashed rgba(74, 77, 99, 0.5);
+  line-height: 34px;
+}
+
+/* --------------------------------------------------------------------------
+   Sections General
+   -------------------------------------------------------------------------- */
+.sec {
+  position: relative;
+  padding: 60px 0 30px;
+  scroll-margin-top: 96px;
+}
+
+.sec-title {
+  position: relative;
+  display: inline-block;
+  margin: 0 0 42px;
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: 62px;
+  line-height: 60px;
+  color: var(--red);
+  filter: url(#ink);
+}
+
+.sec-title .n {
+  font-size: 34px;
+  color: var(--blue);
+  margin-right: 12px;
+  vertical-align: top;
+}
+
+.sec-title::after {
+  content: "";
+  position: absolute;
+  left: -8px;
+  right: -18px;
+  bottom: -9px;
+  height: 9px;
+  border-top: 2.5px solid var(--red);
+  border-bottom: 2px solid var(--red);
+  transform: rotate(-0.35deg);
+  filter: url(#wob);
+  opacity: 0.85;
+}
+
+/* Dash bullet lists */
+.dash {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dash li {
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 6px;
+}
+
+.dash li::before {
+  content: "–";
+  position: absolute;
+  left: 4px;
+  color: var(--red);
+  font-weight: 700;
+}
+
+/* General Notebook Cards */
+.card {
+  padding: 36px 30px 30px;
+  background-color: rgba(250, 246, 234, 0.6);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  box-shadow: 2px 4px 15px rgba(38, 40, 58, 0.08);
+}
+
+.card h3 {
+  margin: 0;
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 42px;
+  color: var(--ink);
+}
+
+.card .tag {
+  font-family: 'Reenie Beanie', cursive;
+  font-size: 30px;
+  line-height: 30px;
+  color: var(--red);
+}
+
+.card:nth-child(odd) {
+  transform: rotate(-0.6deg);
+}
+
+.card:nth-child(even) {
+  transform: rotate(0.5deg);
+}
+
+.card:hover {
+  transform: rotate(0deg) scale(1.015);
+}
+
+/* --------------------------------------------------------------------------
+   About Section
+   -------------------------------------------------------------------------- */
+.enjoy-list {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.enjoy-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.enjoy-item input[type="checkbox"] {
+  display: none;
+}
+
+.enjoy-item .check-box {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 28px;
+}
+
+.enjoy-item input[type="checkbox"]:not(:checked) + .check-box svg path:last-child {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   AI Section Card (.ai-card)
+   -------------------------------------------------------------------------- */
+.ai-card {
+  margin-top: 66px;
+  transform: rotate(-0.4deg);
+  padding: 36px 36px 32px;
+}
+
+.ai-card:hover {
+  transform: rotate(0deg) scale(1.008);
+}
+
+.ai-features-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 36px 40px;
+}
+
+.ai-feature-col {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Articles & Article Detail Styles
+   -------------------------------------------------------------------------- */
+.articles-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  margin-top: 32px;
+}
+
+.article-card {
+  padding: 32px 36px 28px;
+  background-color: rgba(250, 246, 234, 0.7);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.article-card:hover {
+  transform: translateY(-3px) rotate(0.4deg);
+  box-shadow: 2px 6px 18px rgba(38, 40, 58, 0.1);
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  font-family: 'Reenie Beanie', cursive;
+  font-size: 28px;
+  color: var(--pencil);
+  margin-bottom: 8px;
+}
+
+.article-meta .dot {
+  color: var(--red);
+}
+
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.article-tag {
+  font-family: 'Reenie Beanie', cursive;
+  font-size: 26px;
+  line-height: 24px;
+  color: var(--blue);
+  background: rgba(31, 64, 168, 0.08);
+  padding: 2px 12px;
+  border-radius: 4px;
+  border-bottom: 1.5px dashed rgba(31, 64, 168, 0.3);
+}
+
+.article-detail-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.article-content {
+  font-size: 23px;
+  line-height: 1.65;
+  margin-top: 30px;
+}
+
+.article-content h1 {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(38px, 6vw, 56px);
+  color: var(--ink);
+  margin: 40px 0 16px;
+  line-height: 1.15;
+}
+
+.article-content h2 {
+  font-family: 'Caveat', cursive;
+  font-size: 40px;
+  color: var(--red);
+  margin: 36px 0 14px;
+  line-height: 1.2;
+}
+
+.article-content h3 {
+  font-family: 'Caveat', cursive;
+  font-size: 32px;
+  color: var(--blue);
+  margin: 28px 0 10px;
+}
+
+.article-back-nav {
+  margin-bottom: 36px;
+}
+
+.article-back-nav a {
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: 30px;
+  color: var(--red);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   Work Section
+   -------------------------------------------------------------------------- */
+.job {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 36px;
+}
+
+.when {
+  flex: 0 0 190px;
+  font-size: 34px;
+  line-height: 36px;
+  color: var(--red);
+}
+
+.what {
+  flex: 1 1 420px;
+  min-width: 0;
+}
+
+.what h3 {
+  margin: 0 0 6px;
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 48px;
+}
+
+.rule {
+  height: 0;
+  border-top: 2px solid var(--pencil);
+  opacity: 0.55;
+  margin: 36px 0;
+  transform: rotate(-0.15deg);
+  filter: url(#wob2);
+}
+
+.stack {
+  margin: 12px 0 0;
+}
+
+/* --------------------------------------------------------------------------
+   Projects Section
+   -------------------------------------------------------------------------- */
+.projects-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 54px 44px;
+}
+
+.project-card {
+  flex: 1 1 300px;
+}
+
+/* --------------------------------------------------------------------------
+   School & Achievements Section
+   -------------------------------------------------------------------------- */
+.achieve-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.achieve-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.achieve-item svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Contact Section
+   -------------------------------------------------------------------------- */
+.contact-card {
+  max-width: 720px;
+  padding: 36px 40px 30px;
+  transform: rotate(-0.5deg);
+}
+
+.footer-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 60px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   Doodle Icons (.dd)
+   -------------------------------------------------------------------------- */
+.dd {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: url(#wob2);
+  overflow: visible;
+  flex: 0 0 auto;
+}
+
+.dd .f {
+  fill: rgba(211, 236, 69, 0.75);
+  stroke: none;
+}
+
+.dd.b { color: var(--blue); }
+.dd.r { color: var(--red); }
+.dd.p { color: var(--pencil); }
+
+.dd.abs {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  transition: transform 0.3s ease;
+}
+
+/* Floating interactive back-to-top button */
+.back-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 52px;
+  height: 52px;
+  background: var(--paper);
+  border: 2px solid var(--red);
+  border-radius: 50%;
+  color: var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 2px 3px 10px rgba(38, 40, 58, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px) rotate(-4deg);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background 0.2s ease;
+  filter: url(#wob2);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) rotate(-4deg);
+}
+
+.back-to-top:hover {
+  background: rgba(211, 236, 69, 0.4);
+  transform: translateY(-3px) rotate(0deg);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .dd.abs {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .stickwrap {
+    justify-content: center;
+  }
+  
+  .hero-actions {
+    margin-top: 32px;
+  }
+  
+  .job {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .when {
+    flex: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .pg::after {
+    display: none;
+  }
+  
+  .pg {
+    font-size: 20px;
+    padding-left: clamp(24px, 6vw, 44px);
+  }
+  
+  .pg::before {
+    left: 12px;
+  }
+
+  .nav a {
+    font-size: 26px;
+  }
+
+  .stick {
+    height: auto;
+    padding: 18px 14px 8px;
+    gap: 0 8px;
+  }
+  
+  .sec-title {
+    font-size: 48px;
+    line-height: 50px;
+  }
+  
+  .sec-title .n {
+    font-size: 28px;
+  }
+  
+  .card {
+    padding: 24px 20px;
+  }
+  
+  .contact-card {
+    padding: 24px 20px;
+  }
+  
+  .btn {
+    font-size: 28px;
+    padding: 8px 20px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Print Styles
+   -------------------------------------------------------------------------- */
+@media print {
+  body, .pg {
+    background: #ffffff !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+  
+  .pg::before, .pg::after, .paper-overlay, .back-to-top {
+    display: none !important;
+  }
+  
+  .sec {
+    page-break-inside: avoid;
+    padding: 20px 0 !important;
+  }
+}

@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article Detail — Matthew Nguyen</title>
+  <meta name="description" content="Technical thoughts and front-end architecture notes by Matthew Nguyen.">
+  <meta name="author" content="Matthew Nguyen">
+  <meta name="theme-color" content="#faf6ea">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✏️</text></svg>">
+
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&family=Reenie+Beanie&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="./css/style.css">
+
+  <!-- Scripts -->
+  <script src="./js/articles.js" defer></script>
+  <script src="./js/pencil-draw.js" defer></script>
+</head>
+<body>
+
+  <!-- SVG Filter & Doodle Symbol Definitions -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="wob" x="-3%" y="-3%" width="106%" height="106%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="2" seed="4" result="n"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+      </filter>
+      
+      <filter id="wob2" x="-3%" y="-30%" width="106%" height="160%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="9" result="n"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+      </filter>
+      
+      <filter id="ink" x="-2%" y="-5%" width="104%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="2" result="n"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+      </filter>
+      
+      <filter id="paper" x="0" y="0" width="160" height="160">
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" seed="7" stitchTiles="stitch" result="noise"></feTurbulence>
+        <feColorMatrix in="noise" values="0 0 0 0 0.45  0 0 0 0 0.38  0 0 0 0 0.25  0 0 0 0.28 0"></feColorMatrix>
+      </filter>
+
+      <!-- Seamless repeating paper texture pattern tile -->
+      <pattern id="paper-tile" width="160" height="160" patternUnits="userSpaceOnUse">
+        <rect width="160" height="160" filter="url(#paper)"></rect>
+      </pattern>
+
+      <!-- Doodle Icons -->
+      <symbol id="d-star" viewBox="0 0 80 80">
+        <path d="M40 8 L45 34 L72 40 L45 46 L40 72 L35 46 L8 40 L35 34 Z"></path>
+        <path d="M64 8 L64 20 M58 14 L70 14"></path>
+      </symbol>
+      <symbol id="d-heart" viewBox="0 0 80 80">
+        <path d="M40 68 C8 46 12 14 32 17 C38 18 40 23 40 26 C40 23 42 18 48 17 C68 14 72 46 40 68 Z"></path>
+      </symbol>
+      <symbol id="d-cup" viewBox="0 0 80 80">
+        <path d="M16 30 L18 56 C18 64 26 68 34 68 L40 68 C48 68 52 64 52 56 L54 30 Z M54 36 C68 36 68 54 53 52"></path>
+        <path d="M24 22 C20 16 28 12 24 6 M36 22 C32 16 40 12 36 6 M46 22 C42 16 50 12 46 6"></path>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Notebook Page Container -->
+  <div class="pg">
+    <!-- Paper texture overlay (scrolls with page, hardware tiled) -->
+    <svg class="paper-overlay" aria-hidden="true" focusable="false">
+      <rect width="100%" height="100%" fill="url(#paper-tile)"></rect>
+    </svg>
+
+    <div class="wrap">
+
+      <!-- Pinned Sticky Navigation Note -->
+      <div class="stickwrap">
+        <nav class="nav stick" aria-label="Sections" style="width: 480px;">
+          <a href="articles.html">← Articles</a>
+          <a href="index.html">Notebook</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+      </div>
+
+      <!-- Header -->
+      <header style="padding-top:24px">
+        <div class="header-bar">
+          <a href="index.html" class="hw blue ink logo-text" style="text-decoration:none">Matthew N.</a>
+        </div>
+      </header>
+
+      <!-- Main Article Container -->
+      <main class="article-detail-wrap" style="padding-top: 36px;">
+        <div class="article-back-nav">
+          <a class="lk" href="articles.html">← Back to all articles</a>
+        </div>
+
+        <article class="rbox card" style="position:relative;padding:48px 44px 40px;background:rgba(250,246,234,0.85)">
+          <span class="tape"></span>
+
+          <!-- Article Header Meta -->
+          <div id="article-meta-header" class="article-meta">
+            <span id="article-date">Loading date...</span>
+            <span class="dot">•</span>
+            <span id="article-readtime">Reading time</span>
+            <span class="dot">•</span>
+            <span id="article-author" class="blue">Matthew Nguyen</span>
+          </div>
+
+          <!-- Dynamic Markdown Render Target -->
+          <div id="article-body-container" class="article-content">
+            <p class="note" style="font-size:32px;color:var(--blue)">Loading note from markdown...</p>
+          </div>
+
+          <!-- Tags Footer -->
+          <div id="article-tags-container" class="article-tags" style="margin-top:36px"></div>
+        </article>
+
+        <!-- Navigation Buttons Below Article -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:40px;gap:20px;flex-wrap:wrap">
+          <a class="btn rbox r" href="articles.html">← All articles</a>
+          <a class="btn rbox r alt" href="index.html">Go to home notebook →</a>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer style="margin-top:80px;padding-bottom:60px">
+        <div class="rule" aria-hidden="true"></div>
+        <div class="footer-bar">
+          <span class="note" style="display:inline-flex;align-items:center;gap:12px">
+            feel free to doodle or annotate with your pencil!
+            <svg class="dd r" width="40" height="40" aria-hidden="true"><use href="#d-heart"></use></svg>
+          </span>
+          <span class="hw red" style="font-size:34px">— 3 —</span>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const identifier = urlParams.get('id') || urlParams.get('slug') || 'ai-coding-agents-workflow';
+
+      if (window.articlesManager) {
+        const articleData = await window.articlesManager.loadArticle(identifier);
+        
+        if (articleData) {
+          const { meta, markdown } = articleData;
+          document.title = `${meta.title} — Matthew Nguyen`;
+          
+          document.getElementById('article-date').textContent = meta.date;
+          document.getElementById('article-readtime').textContent = meta.readTime;
+          document.getElementById('article-author').textContent = `By ${meta.author}`;
+          
+          const tagsContainer = document.getElementById('article-tags-container');
+          if (tagsContainer && meta.tags) {
+            tagsContainer.innerHTML = meta.tags.map(t => `<span class="article-tag">${t}</span>`).join('');
+          }
+
+          const renderedHtml = window.articlesManager.renderMarkdownToHtml(markdown);
+          document.getElementById('article-body-container').innerHTML = renderedHtml;
+        } else {
+          document.getElementById('article-body-container').innerHTML = `
+            <div style="text-align:center;padding:40px 0">
+              <h2 class="hw red" style="font-size:42px">Note Not Found</h2>
+              <p>Could not locate the requested article.</p>
+              <a class="btn rbox r" href="articles.html">← Back to articles</a>
+            </div>
+          `;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
