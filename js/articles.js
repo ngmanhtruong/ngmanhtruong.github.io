@@ -14,6 +14,9 @@ const GITHUB_CMS_CONFIG = {
   cacheDurationMs: 5 * 60 * 1000 // 5 minutes cache to preserve rate limits
 };
 
+// Bump the version when the cached article shape/summary format changes.
+const CACHE_KEY = 'portfolio_articles_cache_v2';
+
 const LOCAL_FALLBACK_ARTICLES = [
   {
     id: 4,
@@ -149,7 +152,14 @@ class ArticlesManager {
         return this.articles;
       }
     } catch (err) {
-      console.info('[ArticlesManager] GitHub Issues CMS not reached, using local files:', err.message);
+      console.info('[ArticlesManager] GitHub Issues CMS not reached:', err.message);
+      // Rate-limited (403) or offline: prefer the last good copy of the real issues
+      // over the built-in files, which may be missing newer posts.
+      const stale = this.getCachedCatalog(true);
+      if (stale) {
+        this.articles = stale.map(a => this.normalizeArticle(a));
+        return this.articles;
+      }
     }
 
     // Fallback to local files
@@ -166,6 +176,40 @@ class ArticlesManager {
 
     this.articles = LOCAL_FALLBACK_ARTICLES.map(a => this.normalizeArticle(a));
     return this.articles;
+  }
+
+  /**
+   * Converts markdown to plain text (no **, #, backticks, links, lists...) for card previews.
+   */
+  markdownToPlainText(md) {
+    return md
+      .replace(/^---[\s\S]*?---\s*/, '')               // front matter
+      .replace(/```[\s\S]*?```/g, ' ')                  // fenced code blocks
+      .replace(/<!--[\s\S]*?-->/g, ' ')                 // html comments
+      .replace(/<[^>]+>/g, ' ')                          // html tags
+      .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')            // images
+      .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')         // links -> text
+      .replace(/^\s{0,3}#{1,6}\s.*$/gm, ' ')            // headings (the card already shows the title)
+      .replace(/^\s*>\s?/gm, '')                         // blockquotes
+      .replace(/^\s*([-*+]|\d+\.)\s+/gm, '')           // list markers
+      .replace(/^\s*([-*_]\s*){3,}$/gm, ' ')            // horizontal rules
+      .replace(/^\s*\|?[\s:|-]+\|[\s:|-]*$/gm, ' ')    // table separator rows
+      .replace(/(\*\*|__)(.*?)\1/g, '$2')               // bold
+      .replace(/(\*|_)(.*?)\1/g, '$2')                   // italic
+      .replace(/~~(.*?)~~/g, '$1')                       // strikethrough
+      .replace(/`([^`]*)`/g, '$1')                       // inline code
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  /**
+   * Builds the card summary: first ~160 chars of the plain-text body, cut at a word boundary.
+   */
+  makeSummary(md, max = 160) {
+    const text = this.markdownToPlainText(md || '');
+    if (text.length <= max) return text;
+    const cut = text.slice(0, max);
+    return cut.slice(0, cut.lastIndexOf(' ') > 80 ? cut.lastIndexOf(' ') : max).trimEnd() + '…';
   }
 
   /**
@@ -205,9 +249,7 @@ class ArticlesManager {
           year: 'numeric'
         });
 
-        // Extract clean summary
-        const cleanBody = body.replace(/^[#>-].*$/gm, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').trim();
-        const summary = cleanBody.slice(0, 160).replace(/\s+/g, ' ') + (cleanBody.length > 160 ? '...' : '');
+        const summary = this.makeSummary(body);
 
         const rawLabels = (issue.labels || []).map(l => (typeof l === 'string' ? l : l.name));
 
@@ -483,7 +525,7 @@ class ArticlesManager {
             </a>
           </h3>
           <p style="margin:12px 0 16px;font-size:22px;line-height:30px">
-            ${a.summary}
+            ${String(a.summary).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}
           </p>
           <div class="article-tags">
             ${a.tags.map(t => `<span class="article-tag" data-tag-filter="${t}">#${t}</span>`).join('')}
@@ -524,12 +566,12 @@ class ArticlesManager {
   /**
    * Cache management to preserve GitHub API rate limits.
    */
-  getCachedCatalog() {
+  getCachedCatalog(allowStale = false) {
     try {
-      const item = localStorage.getItem('portfolio_articles_cache');
+      const item = localStorage.getItem(CACHE_KEY);
       if (!item) return null;
       const data = JSON.parse(item);
-      if (Date.now() - data.timestamp < GITHUB_CMS_CONFIG.cacheDurationMs) {
+      if (allowStale || Date.now() - data.timestamp < GITHUB_CMS_CONFIG.cacheDurationMs) {
         return data.articles;
       }
     } catch (e) {}
@@ -538,7 +580,7 @@ class ArticlesManager {
 
   setCachedCatalog(articles) {
     try {
-      localStorage.setItem('portfolio_articles_cache', JSON.stringify({
+      localStorage.setItem(CACHE_KEY, JSON.stringify({
         timestamp: Date.now(),
         articles
       }));

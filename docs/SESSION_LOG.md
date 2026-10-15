@@ -140,3 +140,10 @@ Done:
 - Article cards open as boxes and are written in reading order; the article detail card, meta line, tags and rendered markdown body are written the same way (code blocks `pre` are left instant).
 - `article.html` calls `pageReveal.refresh()` after filling meta/tags so the real text is written, not the placeholders.
 Unfinished / needs the user: Not pushed. Tested on desktop only; GitHub API 403s locally fall back to local markdown (expected).
+
+## 2026-10-15 — Card Summaries as Plain Text & Rate-Limit Fallback
+
+Done:
+- `js/articles.js`: card summaries are now built from markdown via `markdownToPlainText()`/`makeSummary()` (no `**`, `#`, backticks, links, list markers; headings and code blocks skipped; cut at a word boundary). Summary is HTML-escaped when rendered.
+- Root cause of "4 posts on desktop, 6 on phone": unauthenticated GitHub API limit (60 req/h per IP) returned 403, so the desktop fell back to the 4 built-in local articles. On API failure the last cached GitHub catalog (any age) is now used before the local files. Cache key bumped to `portfolio_articles_cache_v2`.
+Unfinished / needs the user: Not pushed. A desktop whose cache was never filled and whose IP is rate-limited still falls back to local files; a token-free fix would be a build/serverless proxy.
