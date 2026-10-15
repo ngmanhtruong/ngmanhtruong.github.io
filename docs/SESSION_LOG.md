@@ -118,3 +118,10 @@ Done:
 - Removed `overflow-x: auto` from the mobile sticky nav (it clipped the top half of the red pushpin).
 - On ≤640px, Skills/Projects/School links (`.nav-minor`) are hidden; About, Work, Contact, Articles remain, evenly spaced with no scrolling.
 Unfinished / needs the user: Not pushed yet; Worker deploy pending (see previous entry).
+
+## 2026-10-15 — Scroll "Handwriting" Reveal
+
+Done:
+- Added `js/reveal.js` and `.rv-*` styles in `css/style.css` (home page only): text blocks are split into words and wiped in left-to-right with a stagger when scrolled into view; cards sweep open; highlighter, `.u`/`.lk` underlines, circles, bullets and section-title underline draw after the words; floating doodles fade in.
+- Respects `prefers-reduced-motion`, no-JS, and print.
+Unfinished / needs the user: Not pushed. Articles pages are not animated (dynamic content); not tested on a real phone.

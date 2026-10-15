@@ -5,6 +5,8 @@ Provides client-side interactivity across three core modules:
 1. `main.js`: Smooth scrolling, sticky navigation active indicator (ScrollSpy), interactive checkboxes, and back-to-top button.
 2. `pencil-draw.js`: Custom SVG pencil cursor, lightweight vector SVG doodle overlay, floating drawing toolbar, and synthetic Web Audio pencil scratching sound.
 3. `articles.js`: Asynchronous article catalog loader and client-side markdown-to-HTML parser.
+4. `stats.js`: Footer visit counter and heart button (talks to the `worker/` API).
+5. `reveal.js`: Scroll-triggered "written on the page" reveal on `index.html` (words wiped in left-to-right, boxes sweep open, highlights/underlines drawn last). Uses IntersectionObserver + CSS only, skipped for `prefers-reduced-motion`; hidden states are scoped under `.rv-ready` so content stays visible without JS.
 
 ## Why it is designed this way
 Implemented with zero external dependencies in native ECMAScript 6+. Designed with progressive enhancement in mind: if JavaScript is disabled or fails to load, the core portfolio content, links, anchors, and layouts remain 100% accessible and readable. Doodling uses SVG vector paths with quadratic Bézier interpolation to maintain 0MB VRAM footprint and buttery-smooth 60-120 FPS scrolling without canvas bitmap limits. Audio uses the Web Audio API to synthesize friction noise dynamically without network requests.

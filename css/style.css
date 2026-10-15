@@ -1321,6 +1321,110 @@ header {
 }
 
 /* --------------------------------------------------------------------------
+   Scroll Reveal - "written on the page" (js/reveal.js; scoped to .rv-ready)
+   -------------------------------------------------------------------------- */
+.rv-ready .rv-w {
+  display: inline-block;
+  clip-path: inset(-25% 100% -25% -6%);
+  opacity: 0.2;
+  transition: clip-path 0.3s cubic-bezier(0.3, 0.6, 0.4, 1), opacity 0.3s ease;
+  transition-delay: calc(var(--base, 0ms) + var(--i, 0) * var(--step, 40ms));
+}
+
+.rv-ready .rv.rv-on .rv-w {
+  clip-path: inset(-25% -6% -25% -6%);
+  opacity: 1;
+}
+
+/* Highlighter marker is painted after the words are written */
+.rv-ready .rv .hl {
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+}
+
+.rv-ready .rv.rv-on .hl {
+  background-size: 100% 100%;
+  transition: background-size 0.6s ease-out 0.5s;
+}
+
+/* Hand-drawn underlines and circles are drawn after the words */
+.rv-ready .rv .u::after,
+.rv-ready .rv .lk::after {
+  transform-origin: left;
+  transform: rotate(-0.7deg) scaleX(0);
+}
+
+.rv-ready .rv.rv-on .u::after,
+.rv-ready .rv.rv-on .lk::after {
+  transform: rotate(-0.7deg) scaleX(1);
+  transition: transform 0.45s ease-out 0.5s;
+}
+
+.rv-ready .rv .circ::before {
+  opacity: 0;
+}
+
+.rv-ready .rv.rv-on .circ::before {
+  opacity: 1;
+  transition: opacity 0.5s ease 0.6s;
+}
+
+.rv-ready .dash li.rv::before {
+  opacity: 0;
+}
+
+.rv-ready .dash li.rv.rv-on::before {
+  opacity: 1;
+  transition: opacity 0.2s ease var(--base, 0ms);
+}
+
+/* Section title underline is drawn last */
+.rv-ready .sec-title.rv::after {
+  transform: rotate(-0.35deg) scaleX(0);
+  transform-origin: left;
+}
+
+.rv-ready .sec-title.rv-on::after {
+  transform: rotate(-0.35deg) scaleX(1);
+  transition: transform 0.5s ease-out 0.45s;
+}
+
+/* Boxes sweep open left to right, like the border being drawn */
+.rv-ready .rv-box {
+  clip-path: inset(-16px 100% -16px -16px);
+  transition: clip-path 0.7s ease-out, transform 0.25s ease, box-shadow 0.25s ease;
+  transition-delay: var(--base, 0ms), 0s, 0s;
+}
+
+.rv-ready .rv-box.rv-on {
+  clip-path: inset(-16px -16px -16px -16px);
+}
+
+.rv-ready .rv-box.rv-done {
+  clip-path: none;
+  transition-delay: 0s;
+}
+
+/* Floating doodles fade in */
+.rv-ready .rv-doodle {
+  opacity: 0;
+  transition: opacity 0.6s ease 0.2s, transform 0.3s ease;
+}
+
+.rv-ready .rv-doodle.rv-on {
+  opacity: 1;
+}
+
+@media print {
+  .rv-ready .rv-w, .rv-ready .rv-box, .rv-ready .rv-doodle {
+    clip-path: none !important;
+    opacity: 1 !important;
+  }
+  .rv-ready .rv .hl { background-size: 100% 100% !important; }
+  .rv-ready .sec-title.rv::after { transform: rotate(-0.35deg) !important; }
+}
+
+/* --------------------------------------------------------------------------
    Print Styles
    -------------------------------------------------------------------------- */
 @media print {
