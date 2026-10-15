@@ -1074,6 +1074,74 @@ header {
   flex-wrap: wrap;
 }
 
+/* Heart button + visit counter in footer */
+.heart-widget {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.heart-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 8px 4px 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: var(--blue);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.heart-btn .heart-label {
+  font-family: 'Reenie Beanie', cursive;
+  font-size: 28px;
+  line-height: 28px;
+}
+
+.heart-btn:hover .heart-label,
+.heart-btn:focus-visible .heart-label {
+  background: linear-gradient(100deg, rgba(211, 236, 69, 0), rgba(211, 236, 69, 0.8) 6%, rgba(224, 243, 98, 0.8) 94%, rgba(211, 236, 69, 0));
+}
+
+.heart-btn:focus-visible {
+  outline: 2px dashed var(--red);
+  outline-offset: 2px;
+}
+
+.heart-btn .dd {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.heart-btn:hover .dd {
+  transform: scale(1.15) rotate(-6deg);
+}
+
+.heart-btn.liked .dd {
+  color: var(--red);
+}
+
+.heart-btn.liked .dd use {
+  fill: rgba(155, 44, 58, 0.55);
+}
+
+.heart-btn.pop .dd {
+  animation: heart-pop 0.4s ease;
+}
+
+@keyframes heart-pop {
+  40% { transform: scale(1.45) rotate(8deg); }
+}
+
+.visit-label {
+  font-family: 'Reenie Beanie', cursive;
+  font-size: 26px;
+  line-height: 26px;
+  color: var(--pencil);
+}
+
 /* --------------------------------------------------------------------------
    Doodle Icons (.dd)
    -------------------------------------------------------------------------- */

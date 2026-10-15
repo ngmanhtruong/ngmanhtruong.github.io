@@ -22,6 +22,7 @@
   <!-- Scripts -->
   <script src="./js/articles.js" defer></script>
   <script src="./js/pencil-draw.js" defer></script>
+  <script src="./js/stats.js" defer></script>
 </head>
 <body>
 
@@ -133,7 +134,13 @@
         <div class="footer-bar">
           <span class="note" style="display:inline-flex;align-items:center;gap:12px">
             feel free to doodle or annotate with your pencil!
-            <svg class="dd r" width="40" height="40" aria-hidden="true"><use href="#d-heart"></use></svg>
+          </span>
+          <span class="heart-widget">
+            <button type="button" class="heart-btn" aria-pressed="false" title="Click to leave a heart">
+              <svg class="dd r" width="40" height="40" aria-hidden="true"><use href="#d-heart"></use></svg>
+              <span class="heart-label"><span class="hearts-line" hidden><span class="hearts-count">0</span> <span class="hearts-unit">hearts</span> · </span>tap to leave one</span>
+            </button>
+            <span class="visit-label" hidden><span class="visits-count">0</span> visits so far</span>
           </span>
           <span class="hw red" style="font-size:34px">— 3 —</span>
         </div>

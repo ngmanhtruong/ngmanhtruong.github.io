@@ -102,3 +102,12 @@ Done:
 - Verified at 375px: no horizontal overflow, nav and hero render cleanly.
 Decisions: Doodle disabled by device capability (not screen width) so narrow desktop windows keep drawing.
 Unfinished / needs the user: Lower sections and articles pages were not visually re-checked at mobile width; the changes are not committed or deployed yet.
+
+## 2026-10-15 — Footer Heart Button & Visit Counter
+
+Done:
+- Added `worker/` (Cloudflare Worker + KV: `/stats`, `/visit`, `/heart`, origin-restricted writes) and `js/stats.js`.
+- Footer heart on all 3 pages is now a labelled button ("N hearts · tap to leave one") with "N visits so far".
+- Tested worker logic and UI against a local mock.
+Decisions: See `docs/DECISIONS.md`.
+Unfinished / needs the user: Deploy the Worker (see `worker/README.md`) and set `COUNTER_API` in `js/stats.js`; until then counts stay hidden.

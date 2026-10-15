@@ -50,3 +50,9 @@ Related domain: `js/`, `css/`, Root
 
 
 
+
+## 2026-10-15 — Visit Counter & Heart Button (Cloudflare Worker + KV)
+
+Reason: The footer heart is now a clickable button with a site-wide hearts count and visit count. A visit is counted automatically once per browser session (no heart needed; refreshes/page changes in the same session do not inflate it); the heart is a per-browser toggle stored in localStorage. Backend is a Cloudflare Worker with KV (`worker/`) because it is free and never pauses or deletes data from inactivity, unlike Supabase/Render free tiers. The frontend (`js/stats.js`) hides counts and still works locally when `COUNTER_API` is empty or unreachable.
+Accepted trade-off: KV increments are not atomic (rare lost updates under concurrent traffic) and counts are not bot-proof; fine for a low-traffic portfolio.
+Related domain: `worker/`, `js/`, `css/`, Root
