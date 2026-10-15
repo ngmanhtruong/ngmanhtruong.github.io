@@ -125,3 +125,10 @@ Done:
 - Added `js/reveal.js` and `.rv-*` styles in `css/style.css` (home page only): text blocks are split into words and wiped in left-to-right with a stagger when scrolled into view; cards sweep open; highlighter, `.u`/`.lk` underlines, circles, bullets and section-title underline draw after the words; floating doodles fade in.
 - Respects `prefers-reduced-motion`, no-JS, and print.
 Unfinished / needs the user: Not pushed. Articles pages are not animated (dynamic content); not tested on a real phone.
+
+## 2026-10-15 — Reveal Order: Top to Bottom, Left to Right
+
+Done:
+- `js/reveal.js` now writes visible blocks one after another in reading order (queue with `queueEnd`) instead of all at once; words keep a constant ~32ms pace.
+- Card boxes now open top to bottom (was a left-to-right sweep) before their text is written.
+Unfinished / needs the user: Not pushed.

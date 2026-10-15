@@ -16,8 +16,9 @@
   ].join(',');
   const BOXES = '.rbox.card, .notebook-card, .contact-card';
   const SKIP_TAGS = new Set(['SCRIPT', 'STYLE', 'SVG', 'INPUT', 'BUTTON', 'TEXTAREA']);
-  const MAX_WORD_DELAY = 45;   // ms between words
-  const MAX_UNIT_TIME = 900;   // ms: long paragraphs speed up so they never drag
+  const WORD_DELAY = 32;       // ms between words
+  const MAX_UNIT_TIME = 1700;  // ms: very long paragraphs speed up so they never drag
+  const BOX_TIME = 450;        // ms a box takes to open before its content is written
 
   const wrapWords = (unit) => {
     const nodes = [];
@@ -48,8 +49,9 @@
     });
     pieces.forEach(([node, frag]) => node.parentNode.replaceChild(frag, node));
 
-    const step = Math.min(MAX_WORD_DELAY, MAX_UNIT_TIME / Math.max(count, 1));
+    const step = Math.min(WORD_DELAY, MAX_UNIT_TIME / Math.max(count, 1));
     unit.style.setProperty('--step', step + 'ms');
+    unit.dataset.rvTime = String(Math.round(count * step));
   };
 
   const allUnits = Array.from(document.querySelectorAll(TEXT_UNITS));
@@ -63,22 +65,35 @@
   boxes.forEach((b) => b.classList.add('rv-box'));
   doodles.forEach((d) => d.classList.add('rv-doodle'));
 
+  // Everything that becomes visible is written in reading order (top to bottom, left to right),
+  // one block after another, instead of all at once. `queueEnd` is the time the pen is free again.
+  let queueEnd = 0;
+  const MAX_WAIT = 1200;
+
   const io = new IntersectionObserver((entries) => {
-    let n = 0;
-    entries.filter((e) => e.isIntersecting).forEach((e) => {
-      const el = e.target;
-      io.unobserve(el);
-      // Stagger items that enter the viewport in the same batch.
-      el.style.setProperty('--base', (n++ * 120) + 'ms');
-      el.classList.add('rv-on');
-      if (el.classList.contains('rv-box')) {
-        el.addEventListener('transitionend', function done(ev) {
-          if (ev.target !== el || ev.propertyName !== 'clip-path') return;
-          el.classList.add('rv-done'); // drop clip-path so hover scale/rotate is never clipped
-          el.removeEventListener('transitionend', done);
-        });
-      }
-    });
+    const now = performance.now();
+    entries
+      .filter((e) => e.isIntersecting)
+      .sort((a, b) => (a.boundingClientRect.top - b.boundingClientRect.top) ||
+                      (a.boundingClientRect.left - b.boundingClientRect.left))
+      .forEach((e) => {
+        const el = e.target;
+        io.unobserve(el);
+        const isBox = el.classList.contains('rv-box');
+        const duration = isBox ? BOX_TIME : (parseInt(el.dataset.rvTime, 10) || 0) + 250;
+        const start = Math.min(Math.max(now, queueEnd), now + MAX_WAIT);
+        el.style.setProperty('--base', Math.round(start - now) + 'ms');
+        // Boxes only delay what follows slightly; text hands the pen over a bit early.
+        queueEnd = start + (isBox ? duration * 0.6 : duration * 0.85);
+        el.classList.add('rv-on');
+        if (isBox) {
+          el.addEventListener('transitionend', function done(ev) {
+            if (ev.target !== el || ev.propertyName !== 'clip-path') return;
+            el.classList.add('rv-done'); // drop clip-path so hover scale/rotate is never clipped
+            el.removeEventListener('transitionend', done);
+          });
+        }
+      });
   }, { rootMargin: '0px 0px -60px 0px', threshold: 0.01 });
 
   [...units, ...boxes, ...doodles].forEach((el) => io.observe(el));
