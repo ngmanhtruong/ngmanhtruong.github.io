@@ -42,3 +42,11 @@ Reason: Fast scrolling on Retina displays caused severe frame drops and white sc
 Accepted trade-off: Doodles are stored as SVG vector paths rather than bitmap pixels, which offers superior resolution, infinite zoom clarity, and negligible memory consumption.
 Related domain: `js/`, `css/`, Root
 
+## 2026-10-15 — Two-Tier Article Filtering (Categories & Dynamic Topic Tags)
+
+Reason: Visitors require an intuitive way to explore articles by format (`Random Thoughts`, `Technicals`, `Opinions`) as well as by granular topics (`#AI`, `#Architecture`, `#Performance`, `#CSS`, etc.). Articles are classified into three primary categories via GitHub Issue labels, while all remaining labels form an interactive topic tag cloud. Hand-drawn notebook tabs with dynamic badge counters and clickable tag pills allow multi-dimensional filtering, synced directly with browser URL parameters (`?type=...&tag=...`) for shareability.
+Accepted trade-off: Dynamic client-side filtering runs in real-time on the cached articles catalog, which is fast and responsive with zero server-side querying required.
+Related domain: `js/`, `css/`, Root
+
+
+

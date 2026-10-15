@@ -63,4 +63,22 @@ Done:
 Decisions: See `docs/DECISIONS.md`.
 Unfinished / needs the user: None. All tasks completed.
 
+## 2026-10-15 — Two-Tier Article Filtering (Categories & Dynamic Topic Tags)
+
+Done:
+- Created 3 primary format labels on GitHub repository `ngmanhtruong/portfolio-v2`: `Technicals`, `Opinions`, `Random Thoughts`.
+- Labeled existing GitHub issues accordingly and published Issue #4 (*Why Physical Notebooks & Doodles Still Beat Digital Note Apps in 2026*) under `Random Thoughts`.
+- Extended `js/articles.js` with `normalizeArticle()`, separating primary format categories (`Technicals`, `Opinions`, `Random Thoughts`) from secondary topic tags (`#AI`, `#Architecture`, `#Performance`, etc.).
+- Implemented `initArticlesPage()` controller in `js/articles.js` managing:
+  - 4 Category Tab buttons with dynamic live article counters.
+  - Interactive Topic Tag Cloud with tag counters and `Clear filter` button.
+  - Bidirectional card filtering (clicking card category badges or card tags updates filters instantly).
+  - Notebook-styled empty state for filter combinations with zero matches.
+  - URL query parameter synchronization (`?type=...&tag=...`) for deep linking and sharing.
+- Updated `articles.html` and `article.html` with category badges and interactive tag links.
+- Styled filter bar, tabs, pills, counters, and badges in `css/style.css` matching notebook paper aesthetic.
+Decisions: See `docs/DECISIONS.md`.
+Unfinished / needs the user: None. Ready for user feedback.
+
+
 

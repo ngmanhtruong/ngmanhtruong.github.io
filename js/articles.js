@@ -1,6 +1,9 @@
 /**
  * Portfolio - Articles & Headless GitHub Issues CMS
  * Fetches articles directly from GitHub Issues (no redeploy needed to post/edit!).
+ * Features 2-level filtering:
+ * 1. Primary categories: Random Thoughts, Technicals, Opinions (and All).
+ * 2. Secondary tags: Topics extracted from GitHub Issue labels (#AI, #Architecture, #Performance, etc.).
  * Falls back gracefully to local markdown files if offline or repo is not yet created.
  */
 
@@ -13,12 +16,25 @@ const GITHUB_CMS_CONFIG = {
 
 const LOCAL_FALLBACK_ARTICLES = [
   {
-    id: 1,
+    id: 4,
+    slug: 'why-notebooks-beat-digital-apps',
+    title: 'Why Physical Notebooks & Doodles Still Beat Digital Note Apps in 2026',
+    date: 'Oct 15, 2026',
+    readTime: '3 min read',
+    type: 'random thoughts',
+    tags: ['Productivity', 'Architecture'],
+    summary: "Every year there's a new AI-powered note app, yet an authentic grid notebook and a wooden pencil still spark the best ideas.",
+    author: 'Matthew Nguyen',
+    file: 'content/articles/why-notebooks-beat-digital-apps.md'
+  },
+  {
+    id: 3,
     slug: 'ai-coding-agents-workflow',
     title: 'How I Work With AI Coding Agents as a Senior Engineer',
     date: 'Oct 12, 2026',
     readTime: '5 min read',
-    tags: ['AI', 'Engineering', 'Architecture'],
+    type: 'technicals',
+    tags: ['AI', 'Engineering', 'Architecture', 'Productivity'],
     summary: 'Agents write code fast, but shipping production software requires taste, architectural boundaries, and relentless verification. Here is my daily workflow.',
     author: 'Matthew Nguyen',
     file: 'content/articles/ai-coding-agents-workflow.md'
@@ -29,17 +45,19 @@ const LOCAL_FALLBACK_ARTICLES = [
     title: 'Lean Front-End Architecture: Shipping Less JS, Getting More Speed',
     date: 'Sep 28, 2026',
     readTime: '4 min read',
-    tags: ['Front-end', 'Performance', 'CSS'],
+    type: 'opinions',
+    tags: ['Front-end', 'Performance', 'Web Standards', 'CSS'],
     summary: "Why modern web development doesn't always need 300kB of runtime JavaScript to look incredible and feel fluid.",
     author: 'Matthew Nguyen',
     file: 'content/articles/lean-frontend-architecture.md'
   },
   {
-    id: 3,
+    id: 1,
     slug: 'building-interactive-metaverse-web',
     title: 'Lessons from Building Metaverse and Real-time Web Experiences',
     date: 'Aug 15, 2026',
     readTime: '6 min read',
+    type: 'technicals',
     tags: ['Metaverse', 'WebGL', 'Unity', 'GraphQL'],
     summary: 'Reflections on bridging Unity 3D with React and Next.js for virtual sports arenas and real-time runner tracking.',
     author: 'Matthew Nguyen',
@@ -53,6 +71,63 @@ class ArticlesManager {
   }
 
   /**
+   * Normalizes article metadata, detects category type, and formats tag lists.
+   */
+  normalizeArticle(a) {
+    const rawLabels = a.rawLabels || a.tags || [];
+    const lowerLabels = rawLabels.map(l => (typeof l === 'string' ? l.toLowerCase() : (l.name || '').toLowerCase()));
+
+    // 1. Determine primary category (type)
+    let type = (a.type || '').toLowerCase();
+    if (lowerLabels.some(l => l.includes('random thought') || l.includes('random-thought') || l === 'random thoughts')) {
+      type = 'random thoughts';
+    } else if (lowerLabels.some(l => l === 'opinions' || l === 'opinion')) {
+      type = 'opinions';
+    } else if (lowerLabels.some(l => l === 'technicals' || l === 'technical')) {
+      type = 'technicals';
+    } else if (!type) {
+      if (lowerLabels.some(l => /essay|thoughts?|perspective|reflection/i.test(l))) {
+        type = 'opinions';
+      } else {
+        type = 'technicals';
+      }
+    }
+
+    const typeConfig = {
+      'technicals': { label: 'Technicals', icon: '💡', class: 'technicals' },
+      'opinions': { label: 'Opinions', icon: '💭', class: 'opinions' },
+      'random thoughts': { label: 'Random Thoughts', icon: '✏️', class: 'random-thoughts' }
+    };
+
+    const typeInfo = typeConfig[type] || typeConfig['technicals'];
+
+    // 2. Filter out category names from topic tags
+    const cleanTags = (a.tags || []).map(t => (typeof t === 'string' ? t : t.name)).filter(t => {
+      const low = t.toLowerCase();
+      return !['technicals', 'technical', 'opinions', 'opinion', 'random thoughts', 'random thought'].includes(low);
+    });
+
+    return {
+      id: a.id,
+      slug: a.slug || String(a.id),
+      title: a.title,
+      date: a.date,
+      readTime: a.readTime,
+      type: type,
+      typeLabel: typeInfo.label,
+      typeIcon: typeInfo.icon,
+      typeClass: typeInfo.class,
+      tags: cleanTags,
+      summary: a.summary || 'Click to read this note.',
+      author: a.author || 'Matthew Nguyen',
+      body: a.body || '',
+      file: a.file,
+      githubUrl: a.githubUrl,
+      isGitHubIssue: !!a.isGitHubIssue
+    };
+  }
+
+  /**
    * Loads the catalog of articles.
    * Priority:
    * 1. GitHub Issues API (with localStorage cache).
@@ -62,16 +137,16 @@ class ArticlesManager {
   async loadCatalog() {
     const cached = this.getCachedCatalog();
     if (cached) {
-      this.articles = cached;
-      return cached;
+      this.articles = cached.map(a => this.normalizeArticle(a));
+      return this.articles;
     }
 
     try {
       const githubArticles = await this.fetchFromGitHub();
       if (githubArticles && githubArticles.length > 0) {
-        this.articles = githubArticles;
-        this.setCachedCatalog(githubArticles);
-        return githubArticles;
+        this.articles = githubArticles.map(a => this.normalizeArticle(a));
+        this.setCachedCatalog(this.articles);
+        return this.articles;
       }
     } catch (err) {
       console.info('[ArticlesManager] GitHub Issues CMS not reached, using local files:', err.message);
@@ -81,14 +156,15 @@ class ArticlesManager {
     try {
       const res = await fetch('content/articles.json');
       if (res.ok) {
-        this.articles = await res.json();
+        const localData = await res.json();
+        this.articles = localData.map(a => this.normalizeArticle(a));
         return this.articles;
       }
     } catch (e) {
       // Local fetch failed (e.g. direct file:// protocol)
     }
 
-    this.articles = LOCAL_FALLBACK_ARTICLES;
+    this.articles = LOCAL_FALLBACK_ARTICLES.map(a => this.normalizeArticle(a));
     return this.articles;
   }
 
@@ -133,19 +209,22 @@ class ArticlesManager {
         const cleanBody = body.replace(/^[#>-].*$/gm, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').trim();
         const summary = cleanBody.slice(0, 160).replace(/\s+/g, ' ') + (cleanBody.length > 160 ? '...' : '');
 
-        return {
+        const rawLabels = (issue.labels || []).map(l => (typeof l === 'string' ? l : l.name));
+
+        return this.normalizeArticle({
           id: issue.number,
           slug: String(issue.number),
           title: issue.title,
           date: dateStr,
           readTime: `${readTimeMinutes} min read`,
-          tags: (issue.labels || []).map(l => (typeof l === 'string' ? l : l.name)),
+          tags: rawLabels,
+          rawLabels: rawLabels,
           summary: summary || 'Click to read this note.',
           author: issue.user ? issue.user.login : 'Matthew Nguyen',
           body: body,
           githubUrl: issue.html_url,
           isGitHubIssue: true
-        };
+        });
       });
   }
 
@@ -183,24 +262,26 @@ class ArticlesManager {
         if (res.ok) {
           const issue = await res.json();
           const d = new Date(issue.created_at);
-          const meta = {
+          const rawLabels = (issue.labels || []).map(l => (typeof l === 'string' ? l : l.name));
+          const meta = this.normalizeArticle({
             id: issue.number,
             slug: String(issue.number),
             title: issue.title,
             date: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
             readTime: `${Math.max(1, Math.ceil((issue.body || '').split(/\s+/).length / 200))} min read`,
-            tags: (issue.labels || []).map(l => l.name),
+            tags: rawLabels,
+            rawLabels: rawLabels,
             author: issue.user ? issue.user.login : 'Matthew Nguyen',
             githubUrl: issue.html_url,
             isGitHubIssue: true
-          };
+          });
           return { meta, markdown: issue.body || '' };
         }
       } catch (e) {}
     }
 
     // Default to first local article if available
-    const fallback = LOCAL_FALLBACK_ARTICLES[0];
+    const fallback = this.normalizeArticle(LOCAL_FALLBACK_ARTICLES[0]);
     try {
       const res = await fetch(fallback.file);
       if (res.ok) {
@@ -210,6 +291,234 @@ class ArticlesManager {
     } catch (e) {}
 
     return null;
+  }
+
+  /**
+   * Initializes the interactive notebook filter bar and article cards.
+   */
+  async initArticlesPage(options = {}) {
+    const container = document.getElementById(options.containerId || 'articles-container');
+    const filterWrap = document.getElementById(options.filterWrapId || 'articles-filter-wrap');
+    if (!container) return;
+
+    const articles = await this.loadCatalog();
+    if (!articles || !articles.length) return;
+
+    // Read initial state from URL query params (e.g. ?type=technicals or ?tag=AI)
+    const urlParams = new URLSearchParams(window.location.search);
+    let selectedType = urlParams.get('type') || 'all';
+    let selectedTag = urlParams.get('tag') || null;
+
+    // Validate selectedType
+    const validTypes = ['all', 'technicals', 'opinions', 'random thoughts'];
+    if (!validTypes.includes(selectedType.toLowerCase())) {
+      selectedType = 'all';
+    }
+
+    // Extract all unique topic tags and compute counts
+    const getTagCounts = () => {
+      const counts = {};
+      articles.forEach(a => {
+        a.tags.forEach(t => {
+          counts[t] = (counts[t] || 0) + 1;
+        });
+      });
+      return counts;
+    };
+
+    // Calculate counts for categories
+    const getTypeCounts = () => {
+      const counts = { all: articles.length, technicals: 0, opinions: 0, 'random thoughts': 0 };
+      articles.forEach(a => {
+        if (counts[a.type] !== undefined) {
+          counts[a.type]++;
+        }
+      });
+      return counts;
+    };
+
+    // Update URL query parameters
+    const updateURL = () => {
+      const params = new URLSearchParams();
+      if (selectedType && selectedType !== 'all') params.set('type', selectedType);
+      if (selectedTag) params.set('tag', selectedTag);
+      const query = params.toString() ? `?${params.toString()}` : window.location.pathname;
+      history.replaceState(null, '', query);
+    };
+
+    // Render Filter Bar
+    const renderFilterBar = () => {
+      if (!filterWrap) return;
+      const typeCounts = getTypeCounts();
+      const tagCounts = getTagCounts();
+      const allTags = Object.keys(tagCounts).sort();
+
+      filterWrap.innerHTML = `
+        <div class="type-filter-bar" role="tablist" aria-label="Article categories">
+          <button class="type-tab-btn ${selectedType === 'all' ? 'active' : ''}" data-type="all" role="tab" aria-selected="${selectedType === 'all'}">
+            <span class="tab-icon">📚</span>
+            <span class="tab-label">All Notes</span>
+            <span class="tab-count">${typeCounts.all}</span>
+          </button>
+          <button class="type-tab-btn ${selectedType === 'technicals' ? 'active' : ''}" data-type="technicals" role="tab" aria-selected="${selectedType === 'technicals'}">
+            <span class="tab-icon">💡</span>
+            <span class="tab-label">Technicals</span>
+            <span class="tab-count">${typeCounts.technicals}</span>
+          </button>
+          <button class="type-tab-btn ${selectedType === 'opinions' ? 'active' : ''}" data-type="opinions" role="tab" aria-selected="${selectedType === 'opinions'}">
+            <span class="tab-icon">💭</span>
+            <span class="tab-label">Opinions</span>
+            <span class="tab-count">${typeCounts.opinions}</span>
+          </button>
+          <button class="type-tab-btn ${selectedType === 'random thoughts' ? 'active' : ''}" data-type="random thoughts" role="tab" aria-selected="${selectedType === 'random thoughts'}">
+            <span class="tab-icon">✏️</span>
+            <span class="tab-label">Random Thoughts</span>
+            <span class="tab-count">${typeCounts['random thoughts']}</span>
+          </button>
+        </div>
+
+        <div class="tag-filter-bar">
+          <div class="tag-filter-header">
+            <span class="tag-filter-title note">
+              <svg class="dd r" width="22" height="22" style="display:inline-block;vertical-align:middle"><use href="#d-star"></use></svg>
+              Filter by topic:
+            </span>
+            <button class="clear-filter-btn" id="clear-filter-btn" style="display:${selectedTag || selectedType !== 'all' ? 'inline-block' : 'none'}">
+              ✕ Clear filters
+            </button>
+          </div>
+          <div class="tag-cloud">
+            ${allTags.map(tag => `
+              <button class="tag-pill ${selectedTag === tag ? 'active' : ''}" data-tag="${tag}">
+                #${tag} <span class="tag-pill-count">(${tagCounts[tag]})</span>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
+      // Event: Click on Type Tab
+      filterWrap.querySelectorAll('.type-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const type = btn.dataset.type;
+          selectedType = type;
+          updateURL();
+          renderFilterBar();
+          renderArticles();
+        });
+      });
+
+      // Event: Click on Tag Pill
+      filterWrap.querySelectorAll('.tag-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tag = btn.dataset.tag;
+          selectedTag = (selectedTag === tag) ? null : tag;
+          updateURL();
+          renderFilterBar();
+          renderArticles();
+        });
+      });
+
+      // Event: Clear filters button
+      const clearBtn = filterWrap.querySelector('#clear-filter-btn');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          selectedType = 'all';
+          selectedTag = null;
+          updateURL();
+          renderFilterBar();
+          renderArticles();
+        });
+      }
+    };
+
+    // Filter and Render articles
+    const renderArticles = () => {
+      const filtered = articles.filter(a => {
+        const matchType = (selectedType === 'all' || a.type === selectedType);
+        const matchTag = (!selectedTag || a.tags.includes(selectedTag));
+        return matchType && matchTag;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-notes rbox card">
+            <span class="hw" style="font-size:52px;color:var(--red);display:block;margin-bottom:12px">✏️</span>
+            <h3 class="hw ink" style="font-size:36px;margin:0 0 8px">No notes found here yet!</h3>
+            <p style="font-size:22px;color:var(--pencil);max-width:480px;margin:0 auto 20px">
+              No articles match the selected filter (${selectedType !== 'all' ? selectedType : ''} ${selectedTag ? '#' + selectedTag : ''}). Try selecting another category or clear the filter.
+            </p>
+            <button class="btn rbox r" id="empty-reset-btn" style="font-size:22px;padding:6px 20px">Reset all filters</button>
+          </div>
+        `;
+        const resetBtn = container.querySelector('#empty-reset-btn');
+        if (resetBtn) {
+          resetBtn.addEventListener('click', () => {
+            selectedType = 'all';
+            selectedTag = null;
+            updateURL();
+            renderFilterBar();
+            renderArticles();
+          });
+        }
+        return;
+      }
+
+      container.innerHTML = filtered.map((a, idx) => `
+        <article class="rbox card ${idx % 2 === 1 ? 'alt' : ''} article-card">
+          <span class="tape"></span>
+          <div class="article-meta">
+            <span>${a.date}</span>
+            <span class="dot">•</span>
+            <span>${a.readTime}</span>
+            <span class="dot">•</span>
+            <span class="blue">By ${a.author}</span>
+            <span class="article-type-badge ${a.typeClass}" data-type-filter="${a.type}" title="Filter by category: ${a.typeLabel}">
+              ${a.typeIcon} ${a.typeLabel}
+            </span>
+          </div>
+          <h3>
+            <a class="lk" href="article.html?slug=${a.slug}" style="color:var(--ink)">
+              ${a.title}
+            </a>
+          </h3>
+          <p style="margin:12px 0 16px;font-size:22px;line-height:30px">
+            ${a.summary}
+          </p>
+          <div class="article-tags">
+            ${a.tags.map(t => `<span class="article-tag" data-tag-filter="${t}">#${t}</span>`).join('')}
+          </div>
+          <div style="margin-top:20px">
+            <a class="btn rbox r" href="article.html?slug=${a.slug}" style="font-size:26px;padding:6px 20px">Read note →</a>
+          </div>
+        </article>
+      `).join('');
+
+      // Click on type badge on card to filter
+      container.querySelectorAll('.article-type-badge').forEach(badge => {
+        badge.addEventListener('click', (e) => {
+          e.stopPropagation();
+          selectedType = badge.dataset.typeFilter;
+          updateURL();
+          renderFilterBar();
+          renderArticles();
+        });
+      });
+
+      // Click on tag on card to filter
+      container.querySelectorAll('.article-tag').forEach(tagEl => {
+        tagEl.addEventListener('click', (e) => {
+          e.stopPropagation();
+          selectedTag = tagEl.dataset.tagFilter;
+          updateURL();
+          renderFilterBar();
+          renderArticles();
+        });
+      });
+    };
+
+    renderFilterBar();
+    renderArticles();
   }
 
   /**

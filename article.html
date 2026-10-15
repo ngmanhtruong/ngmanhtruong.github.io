@@ -157,10 +157,25 @@
           document.getElementById('article-date').textContent = meta.date;
           document.getElementById('article-readtime').textContent = meta.readTime;
           document.getElementById('article-author').textContent = `By ${meta.author}`;
+
+          // Add Category Type Badge
+          const metaHeader = document.getElementById('article-meta-header');
+          if (metaHeader && meta.type) {
+            let typeBadge = document.getElementById('article-detail-type-badge');
+            if (!typeBadge) {
+              typeBadge = document.createElement('a');
+              typeBadge.id = 'article-detail-type-badge';
+              typeBadge.className = `article-type-badge ${meta.typeClass || ''}`;
+              typeBadge.href = `articles.html?type=${encodeURIComponent(meta.type)}`;
+              typeBadge.title = `View all ${meta.typeLabel} notes`;
+              typeBadge.innerHTML = `${meta.typeIcon || ''} ${meta.typeLabel || meta.type}`;
+              metaHeader.appendChild(typeBadge);
+            }
+          }
           
           const tagsContainer = document.getElementById('article-tags-container');
           if (tagsContainer && meta.tags) {
-            tagsContainer.innerHTML = meta.tags.map(t => `<span class="article-tag">${t}</span>`).join('');
+            tagsContainer.innerHTML = meta.tags.map(t => `<a href="articles.html?tag=${encodeURIComponent(t)}" class="article-tag" title="Browse notes tagged #${t}">#${t}</a>`).join('');
           }
 
           const renderedHtml = window.articlesManager.renderMarkdownToHtml(markdown);

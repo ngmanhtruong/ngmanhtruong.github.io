@@ -116,6 +116,9 @@
 
       <!-- Main Content -->
       <main>
+        <!-- Interactive Notebook Filter Bar (Categories & Tags) -->
+        <div id="articles-filter-wrap" class="articles-filter-wrap"></div>
+
         <div id="articles-container" class="articles-grid">
           <!-- Fallback prerendered cards (also enriched dynamically by articles.js) -->
 
@@ -221,38 +224,11 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
-      // Enhance list dynamically from remote/local JSON if available
       if (window.articlesManager) {
-        const articles = await window.articlesManager.loadCatalog();
-        const container = document.getElementById('articles-container');
-        if (container && articles && articles.length) {
-          container.innerHTML = articles.map((a, idx) => `
-            <article class="rbox card ${idx % 2 === 1 ? 'alt' : ''} article-card">
-              <span class="tape"></span>
-              <div class="article-meta">
-                <span>${a.date}</span>
-                <span class="dot">•</span>
-                <span>${a.readTime}</span>
-                <span class="dot">•</span>
-                <span class="blue">By ${a.author}</span>
-              </div>
-              <h3>
-                <a class="lk" href="article.html?slug=${a.slug}" style="color:var(--ink)">
-                  ${a.title}
-                </a>
-              </h3>
-              <p style="margin:12px 0 16px;font-size:22px;line-height:30px">
-                ${a.summary}
-              </p>
-              <div class="article-tags">
-                ${a.tags.map(t => `<span class="article-tag">${t}</span>`).join('')}
-              </div>
-              <div style="margin-top:20px">
-                <a class="btn rbox r" href="article.html?slug=${a.slug}" style="font-size:26px;padding:6px 20px">Read note →</a>
-              </div>
-            </article>
-          `).join('');
-        }
+        await window.articlesManager.initArticlesPage({
+          containerId: 'articles-container',
+          filterWrapId: 'articles-filter-wrap'
+        });
       }
     });
   </script>
