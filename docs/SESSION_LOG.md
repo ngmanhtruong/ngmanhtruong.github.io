@@ -177,3 +177,10 @@ Done:
 - `article.html`: issue bodies have no `# Title` line, so the detail page now prepends the issue title as the H1 when the markdown does not start with one (local files keep theirs).
 - `js/articles.js` renderer: headings, rules, blockquotes and lists are now surrounded by blank lines, so text right after `## Heading` becomes its own paragraph instead of flowing next to the inline-block heading; ordered lists now wrap in `<ol>`; inline code content is HTML-escaped (`<feTurbulence>` was being parsed as a tag); CRLF is normalized; the leading `**Labels:** ...` line is hidden (tags are already shown) in both body and card summary; owner-authored issues show "Matthew Nguyen" instead of the GitHub login.
 Unfinished / needs the user: Not pushed.
+
+## 2026-10-15 — Article Detail Lag (Mitigations)
+
+Done:
+- Measured: JS main-thread work is negligible (no long tasks, ~0ms layout for 473 words), so the lag is paint/compositing. The in-app browser throttles frames, so real FPS could not be measured here.
+- Mitigations: (1) the tall article card (~3000px) no longer applies the `#wob` SVG filter to its two border pseudo-elements (`.article-detail-wrap > .rbox::before/::after`), the most expensive raster in the page; (2) `js/reveal.js` unwraps the per-word spans once a block has finished writing (`rv-fin`), so long articles do not keep hundreds of clipped inline-blocks; (3) `?noreveal` URL flag disables the reveal for A/B testing.
+Unfinished / needs the user: Confirm on the real browser/phone; if still laggy, record DevTools Performance while scrolling `article.html?id=6` and compare with `&noreveal`.

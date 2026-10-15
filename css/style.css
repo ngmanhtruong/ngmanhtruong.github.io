@@ -1420,6 +1420,13 @@ header {
   translate: 0 0;
 }
 
+/* The article card is thousands of px tall: SVG-filtered borders over it are very costly to raster
+   and scroll, so it keeps the double offset hand-drawn lines without the wobble filter. */
+.article-detail-wrap > .rbox::before,
+.article-detail-wrap > .rbox::after {
+  filter: none;
+}
+
 /* Floating doodles fade in */
 .rv-ready .rv-doodle {
   opacity: 0;

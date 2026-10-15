@@ -10,7 +10,8 @@
  */
 (function () {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce || !('IntersectionObserver' in window)) return;
+  // `?noreveal` switches the effect off, handy for A/B comparing scroll performance.
+  if (reduce || !('IntersectionObserver' in window) || /[?&]noreveal\b/.test(location.search)) return;
 
   const TEXT_UNITS = [
     // Home page
@@ -66,7 +67,14 @@
   const unwrapWords = (unit) => {
     unit.querySelectorAll('.rv-w').forEach((w) => w.replaceWith(document.createTextNode(w.textContent)));
     unit.normalize();
-    unit.classList.remove('rv', 'rv-on', 'rv-whole');
+    unit.classList.remove('rv', 'rv-on', 'rv-whole', 'rv-fin');
+  };
+
+  const finish = (unit) => {
+    if (!unit.isConnected || !unit.classList.contains('rv-on') || unit.classList.contains('rv-fin')) return;
+    unit.querySelectorAll('.rv-w').forEach((w) => w.replaceWith(document.createTextNode(w.textContent)));
+    unit.normalize();
+    unit.classList.add('rv-fin');
   };
 
   // Everything that becomes visible is written in reading order (top to bottom, left to right),
@@ -89,11 +97,16 @@
         // Boxes only delay what follows slightly; text hands the pen over a bit early.
         queueEnd = start + (isBox ? duration * 0.5 : duration * 0.6);
         el.classList.add('rv-on');
+        // Once the block is fully written, drop the per-word spans again so long articles do not
+        // keep hundreds of clipped inline-blocks (extra paint work) while scrolling.
+        if (!isBox && !el.classList.contains('rv-whole')) {
+          setTimeout(() => finish(el), Math.round(start - now) + (parseInt(el.dataset.rvTime, 10) || 0) + 900);
+        }
       });
   }, { rootMargin: '0px 0px -60px 0px', threshold: 0.01 });
 
   const isWrapped = (unit) => unit.classList.contains('rv') &&
-    (unit.classList.contains('rv-whole') || unit.querySelector('.rv-w'));
+    (unit.classList.contains('rv-whole') || unit.classList.contains('rv-fin') || unit.querySelector('.rv-w'));
 
   /** Prepares every not-yet-prepared unit, box and doodle under `root` for reveal. */
   const scan = (root = document) => {
