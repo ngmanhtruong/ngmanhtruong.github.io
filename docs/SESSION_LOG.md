@@ -187,5 +187,5 @@ Unfinished / needs the user: Confirm on the real browser/phone; if still laggy, 
 
 ## 2026-10-15 — Added Koncierge Plus & Knowledge Base Management (KBTGVN)
 
-Done: Added two bullets under the KBTGVN job in `index.html` (names only, no descriptions were provided).
-Unfinished / needs the user: Replace the placeholder wording with what each project is and what was built (and a link/status if any). Not pushed.
+Done: Added two bullets under the KBTGVN job in `index.html`: Koncierge Plus (hotel management website) and Knowledge Base Management (Confluence replacement for docs, instructions and guidelines across KBTG).
+Unfinished / needs the user: Optional links/status/tech stack. Not pushed.
