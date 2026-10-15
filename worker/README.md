@@ -10,6 +10,6 @@ Cloudflare Workers + KV: free, and unlike Supabase/Render/Heroku-style free tier
 Called by `js/stats.js` via `window.COUNTER_API`.
 
 ## Read before changing
-- Deploy: `cd worker && npx wrangler login && npx wrangler kv namespace create COUNTERS`, paste the id into `wrangler.toml`, then `npx wrangler deploy`.
+- Deploy: `cd worker && npx wrangler login && npx wrangler kv namespace create VISIT_COUNTERS`, paste the id into `wrangler.toml`, then `npx wrangler deploy`.
 - Put the resulting `https://portfolio-counter.<account>.workers.dev` URL into `COUNTER_API` in `js/stats.js`.
 - Writes are restricted to `ALLOWED_ORIGINS` in `index.js`; update it if the domain changes.

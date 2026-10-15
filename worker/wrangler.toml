@@ -2,7 +2,7 @@ name = "portfolio-counter"
 main = "index.js"
 compatibility_date = "2025-01-01"
 
-# Create with: npx wrangler kv namespace create COUNTERS  (paste the id below)
+# Create with: npx wrangler kv namespace create VISIT_COUNTERS  (paste the id below)
 [[kv_namespaces]]
-binding = "COUNTERS"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"
+binding = "VISIT_COUNTERS"
+id = "35fa2e085cb048d993c1685f5005fb21"

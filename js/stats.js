@@ -3,7 +3,7 @@
  * Counts one visit per browser session; the heart is a persistent per-browser toggle.
  * Degrades gracefully (button still toggles locally) when the API is not configured/reachable.
  */
-const COUNTER_API = ''; // e.g. 'https://portfolio-counter.<account>.workers.dev'
+const COUNTER_API = 'https://portfolio-counter.ng-manhtruong1996.workers.dev';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('.heart-widget');

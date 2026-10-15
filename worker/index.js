@@ -37,8 +37,8 @@ export default {
 
     const { pathname } = new URL(request.url);
     const stats = async () => ({
-      visits: await readCount(env.COUNTERS, 'visits'),
-      hearts: await readCount(env.COUNTERS, 'hearts'),
+      visits: await readCount(env.VISIT_COUNTERS, 'visits'),
+      hearts: await readCount(env.VISIT_COUNTERS, 'hearts'),
     });
 
     if (request.method === 'GET' && pathname === '/stats') return json(await stats());
@@ -47,15 +47,15 @@ export default {
     if (request.method === 'POST' && !allowed) return json({ error: 'forbidden' }, 403);
 
     if (request.method === 'POST' && pathname === '/visit') {
-      await env.COUNTERS.put('visits', String((await readCount(env.COUNTERS, 'visits')) + 1));
+      await env.VISIT_COUNTERS.put('visits', String((await readCount(env.VISIT_COUNTERS, 'visits')) + 1));
       return json(await stats());
     }
 
     if (request.method === 'POST' && pathname === '/heart') {
       let on = true;
       try { on = (await request.json()).on !== false; } catch (_) {}
-      const next = Math.max(0, (await readCount(env.COUNTERS, 'hearts')) + (on ? 1 : -1));
-      await env.COUNTERS.put('hearts', String(next));
+      const next = Math.max(0, (await readCount(env.VISIT_COUNTERS, 'hearts')) + (on ? 1 : -1));
+      await env.VISIT_COUNTERS.put('hearts', String(next));
       return json(await stats());
     }
 
