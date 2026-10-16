@@ -8,10 +8,10 @@
  *   GET  /stats          -> { visits, hearts }
  *   POST /visit          -> increments visits, returns stats
  *   POST /heart          -> body { on: boolean } adds/removes one heart, returns stats
- *   GET  /reactions?post=ID        -> { love, insight, clap, learned } counts for one article
+ *   GET  /reactions?post=ID        -> { love, clap, learned, disagree, confusing } counts for one article
  *   POST /reaction  { post, type, on } -> adds/removes one reaction, returns the counts
  */
-const REACTION_TYPES = ['love', 'insight', 'clap', 'learned'];
+const REACTION_TYPES = ['love', 'clap', 'learned', 'disagree', 'confusing'];
 const POST_ID = /^[a-z0-9-]{1,64}$/i;
 
 const ALLOWED_ORIGINS = [

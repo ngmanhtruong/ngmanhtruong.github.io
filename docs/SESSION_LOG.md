@@ -199,3 +199,8 @@ Done:
 - Articles heading is now "My Notes & Thoughts." with intro about learning/thinking/improving for now and for later; page title/meta updated.
 - New `js/reactions.js` + worker endpoints `/reactions` and `/reaction` (4 reactions: love, insight, clap, learned); per-reader picks in localStorage, toggle off allowed.
 Unfinished / needs the user: Redeploy the Worker (`cd worker && npx wrangler deploy`) for reactions to count; until then buttons work locally without counts. Not pushed.
+
+## 2026-10-16 — Reaction Set Changed
+
+Done: Reactions are now Loved it, Well said, Learned something (positive) plus Not convinced and Lost me (constructive negatives); "Made me think" was removed. Worker `REACTION_TYPES` updated (old `insight` counts are simply ignored).
+Unfinished / needs the user: Redeploy the Worker (`cd worker && npx wrangler deploy`) or the two new reactions are rejected with 400. Not pushed.
