@@ -8,7 +8,12 @@
  *   GET  /stats          -> { visits, hearts }
  *   POST /visit          -> increments visits, returns stats
  *   POST /heart          -> body { on: boolean } adds/removes one heart, returns stats
+ *   GET  /reactions?post=ID        -> { love, insight, clap, learned } counts for one article
+ *   POST /reaction  { post, type, on } -> adds/removes one reaction, returns the counts
  */
+const REACTION_TYPES = ['love', 'insight', 'clap', 'learned'];
+const POST_ID = /^[a-z0-9-]{1,64}$/i;
+
 const ALLOWED_ORIGINS = [
   'https://matthewnguyen.vercel.app',
   'http://localhost:4173',
@@ -57,6 +62,29 @@ export default {
       const next = Math.max(0, (await readCount(env.VISIT_COUNTERS, 'hearts')) + (on ? 1 : -1));
       await env.VISIT_COUNTERS.put('hearts', String(next));
       return json(await stats());
+    }
+
+    const reactionCounts = async (post) => {
+      const counts = {};
+      for (const t of REACTION_TYPES) counts[t] = await readCount(env.VISIT_COUNTERS, `rx:${post}:${t}`);
+      return counts;
+    };
+
+    if (request.method === 'GET' && pathname === '/reactions') {
+      const post = new URL(request.url).searchParams.get('post') || '';
+      if (!POST_ID.test(post)) return json({ error: 'bad post' }, 400);
+      return json(await reactionCounts(post));
+    }
+
+    if (request.method === 'POST' && pathname === '/reaction') {
+      let body = {};
+      try { body = await request.json(); } catch (_) {}
+      const { post = '', type = '' } = body;
+      if (!POST_ID.test(String(post)) || !REACTION_TYPES.includes(type)) return json({ error: 'bad request' }, 400);
+      const key = `rx:${post}:${type}`;
+      const next = Math.max(0, (await readCount(env.VISIT_COUNTERS, key)) + (body.on === false ? -1 : 1));
+      await env.VISIT_COUNTERS.put(key, String(next));
+      return json(await reactionCounts(post));
     }
 
     return json({ error: 'not found' }, 404);

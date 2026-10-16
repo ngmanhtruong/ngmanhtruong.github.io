@@ -23,6 +23,7 @@
   <script src="./js/articles.js" defer></script>
   <script src="./js/pencil-draw.js" defer></script>
   <script src="./js/stats.js" defer></script>
+  <script src="./js/reactions.js" defer></script>
   <script src="./js/reveal.js" defer></script>
 </head>
 <body>
@@ -120,6 +121,17 @@
 
           <!-- Tags Footer -->
           <div id="article-tags-container" class="article-tags" style="margin-top:36px"></div>
+
+          <!-- Reactions (counts stored by the counter Worker; each reader's picks live in localStorage) -->
+          <section id="article-reactions" class="reactions" aria-label="Reactions" hidden>
+            <p class="note reactions-prompt">did this note help or make you think? leave a reaction</p>
+            <div class="reactions-row">
+              <button type="button" class="rx-btn" data-type="love" aria-pressed="false"><span class="rx-emoji" aria-hidden="true">❤️</span><span class="rx-label">Loved it</span><span class="rx-count"></span></button>
+              <button type="button" class="rx-btn" data-type="insight" aria-pressed="false"><span class="rx-emoji" aria-hidden="true">💡</span><span class="rx-label">Made me think</span><span class="rx-count"></span></button>
+              <button type="button" class="rx-btn" data-type="clap" aria-pressed="false"><span class="rx-emoji" aria-hidden="true">👏</span><span class="rx-label">Well said</span><span class="rx-count"></span></button>
+              <button type="button" class="rx-btn" data-type="learned" aria-pressed="false"><span class="rx-emoji" aria-hidden="true">🌱</span><span class="rx-label">Learned something</span><span class="rx-count"></span></button>
+            </div>
+          </section>
         </article>
 
         <!-- Navigation Buttons Below Article -->
@@ -191,6 +203,8 @@
           const safeTitle = meta.title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
           const renderedHtml = window.articlesManager.renderMarkdownToHtml(hasTitle ? markdown : `# ${safeTitle}\n\n${markdown}`);
           document.getElementById('article-body-container').innerHTML = renderedHtml;
+
+          if (window.articleReactions) window.articleReactions.init(meta.id || meta.slug);
 
           // Meta line and tags were filled in after the reveal wrapped their placeholders.
           if (window.pageReveal) {

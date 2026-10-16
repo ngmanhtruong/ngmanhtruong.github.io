@@ -189,3 +189,13 @@ Unfinished / needs the user: Confirm on the real browser/phone; if still laggy, 
 
 Done: Added two bullets under the KBTGVN job in `index.html`: Koncierge Plus (hotel management website) and Knowledge Base Management (Confluence replacement for docs, instructions and guidelines across KBTG).
 Unfinished / needs the user: Optional links/status/tech stack. Not pushed.
+
+## 2026-10-16 — Mobile Polish, Notes Heading, Article Reactions
+
+Done:
+- Mobile (<=640px): tighter header/hero/section spacing; `.page-intro` on articles.
+- `js/main.js`: `initHashAnchor()` re-aligns to `#hash` after fonts/load (iOS jumped to the wrong spot for `index.html#contact` coming from articles).
+- Section numbers vanishing on scroll (iOS): titles under SVG filter no longer keep clip-path/transition after the reveal (`rv-fin`), and touch devices fade instead of clip-wipe. Could not reproduce on a real iPhone; please confirm.
+- Articles heading is now "My Notes & Thoughts." with intro about learning/thinking/improving for now and for later; page title/meta updated.
+- New `js/reactions.js` + worker endpoints `/reactions` and `/reaction` (4 reactions: love, insight, clap, learned); per-reader picks in localStorage, toggle off allowed.
+Unfinished / needs the user: Redeploy the Worker (`cd worker && npx wrangler deploy`) for reactions to count; until then buttons work locally without counts. Not pushed.

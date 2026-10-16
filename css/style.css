@@ -1074,6 +1074,81 @@ header {
   flex-wrap: wrap;
 }
 
+/* Article reactions */
+.reactions {
+  margin-top: 44px;
+  padding-top: 22px;
+  border-top: 2px dashed rgba(74, 77, 99, 0.35);
+}
+
+.reactions-prompt {
+  margin: 0 0 12px;
+  font-size: 30px;
+  line-height: 30px;
+}
+
+.reactions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.rx-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 4px 16px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1.5px solid var(--pencil);
+  border-radius: 24px 18px 26px 16px / 18px 24px 16px 26px;
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.rx-btn:nth-child(odd) { transform: rotate(-0.8deg); }
+.rx-btn:nth-child(even) { transform: rotate(0.7deg); }
+
+.rx-btn:hover,
+.rx-btn:focus-visible {
+  background: rgba(211, 236, 69, 0.5);
+  transform: rotate(0deg) translateY(-2px);
+}
+
+.rx-btn:focus-visible {
+  outline: 2px dashed var(--red);
+  outline-offset: 2px;
+}
+
+.rx-btn.on {
+  background: rgba(211, 236, 69, 0.85);
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.rx-emoji {
+  font-size: 22px;
+}
+
+.rx-count {
+  min-width: 1ch;
+  color: var(--blue);
+}
+
+.rx-count:empty {
+  display: none;
+}
+
+.rx-btn.pop .rx-emoji {
+  animation: heart-pop 0.4s ease;
+}
+
 /* Heart button + visit counter in footer */
 .heart-widget {
   display: inline-flex;
@@ -1318,6 +1393,56 @@ header {
     width: 48px;
     height: 48px;
   }
+
+  /* Tighter vertical rhythm on phones */
+  header {
+    padding-top: 8px;
+  }
+
+  .logo-text {
+    font-size: 34px;
+    line-height: 44px;
+  }
+
+  .hero-content {
+    padding: 12px 0 16px;
+    gap: 24px;
+  }
+
+  .hero-subtitle {
+    margin-top: 14px;
+    line-height: 46px;
+  }
+
+  .hero-desc {
+    margin-top: 14px;
+  }
+
+  .hero-actions {
+    margin-top: 24px;
+    gap: 20px 28px;
+  }
+
+  .sec {
+    padding: 32px 0 12px;
+    scroll-margin-top: 84px;
+  }
+
+  .sec-title {
+    margin-bottom: 28px;
+  }
+
+  .ai-card {
+    margin-top: 36px;
+  }
+
+  .footer-bar {
+    margin-top: 36px;
+  }
+
+  .page-intro {
+    padding: 20px 0 12px !important;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -1352,6 +1477,28 @@ header {
 .rv-ready .rv-whole.rv-on {
   clip-path: inset(-40% -40% -40% -10%);
   opacity: 1;
+}
+
+/* Steady state after the stroke: no clip/transition left on the filtered title (Safari/iOS can
+   drop filtered, clipped layers while momentum-scrolling, which made section numbers vanish). */
+.rv-ready .rv-whole.rv-fin {
+  clip-path: none;
+  opacity: 1;
+  transition: none;
+}
+
+/* Touch devices: fade only, no clip-path on filtered titles */
+@media (hover: none) and (pointer: coarse) {
+  .rv-ready .rv-whole {
+    clip-path: none;
+    translate: 0 0.2em;
+    transition: opacity 0.5s ease-out, translate 0.5s ease-out;
+    transition-delay: var(--base, 0ms);
+  }
+
+  .rv-ready .rv-whole.rv-on {
+    translate: 0 0;
+  }
 }
 
 /* Highlighter marker is painted after the words are written */

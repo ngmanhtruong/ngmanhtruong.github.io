@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initInteractiveCheckboxes();
   initBackToTop();
   initDoodleInteractions();
+  initHashAnchor();
 });
 
 /**
@@ -163,4 +164,38 @@ function initDoodleInteractions() {
       doodle.style.transform = '';
     });
   });
+}
+
+/**
+ * Lands exactly on the section named in the URL hash (e.g. coming from articles via
+ * `index.html#contact`). Mobile Safari performs the native jump before web fonts finish loading
+ * and the page above the target changes height, so it ends up in the wrong place. We re-align
+ * once fonts/images are ready (instantly, without the smooth-scroll animation).
+ */
+function initHashAnchor() {
+  const id = decodeURIComponent(location.hash.slice(1));
+  if (!id) return;
+
+  let userScrolled = false;
+  const markScrolled = () => { userScrolled = true; };
+  window.addEventListener('touchstart', markScrolled, { once: true, passive: true });
+  window.addEventListener('wheel', markScrolled, { once: true, passive: true });
+
+  const align = () => {
+    const el = document.getElementById(id);
+    if (!el || userScrolled) return;
+    const html = document.documentElement;
+    const prev = html.style.scrollBehavior;
+    html.style.scrollBehavior = 'auto';
+    el.scrollIntoView({ block: 'start' });
+    html.style.scrollBehavior = prev;
+  };
+
+  const settle = () => { align(); setTimeout(align, 250); setTimeout(align, 800); };
+  const fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+  if (document.readyState === 'complete') {
+    fontsReady.then(settle);
+  } else {
+    window.addEventListener('load', () => fontsReady.then(settle), { once: true });
+  }
 }

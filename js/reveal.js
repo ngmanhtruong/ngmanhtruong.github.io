@@ -72,6 +72,7 @@
 
   const finish = (unit) => {
     if (!unit.isConnected || !unit.classList.contains('rv-on') || unit.classList.contains('rv-fin')) return;
+    if (unit.classList.contains('rv-whole')) { unit.classList.add('rv-fin'); return; }
     unit.querySelectorAll('.rv-w').forEach((w) => w.replaceWith(document.createTextNode(w.textContent)));
     unit.normalize();
     unit.classList.add('rv-fin');
@@ -99,7 +100,7 @@
         el.classList.add('rv-on');
         // Once the block is fully written, drop the per-word spans again so long articles do not
         // keep hundreds of clipped inline-blocks (extra paint work) while scrolling.
-        if (!isBox && !el.classList.contains('rv-whole')) {
+        if (!isBox) {
           setTimeout(() => finish(el), Math.round(start - now) + (parseInt(el.dataset.rvTime, 10) || 0) + 900);
         }
       });
