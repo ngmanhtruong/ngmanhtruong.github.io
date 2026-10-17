@@ -299,3 +299,10 @@ Unfinished / needs the user: Further trimming candidates if wanted: "Lean on res
 ## 2026-10-17 — Doodles in Skill Cards
 
 Done: Each of the 4 skill cards got a `.skill-doodles` pair in its empty bottom-right corner (existing `d-*` symbols, 76px + 54px, slight rotations): Front-end laptop + cursor, Back-end & data diamond + spiral, Blockchain rocket + star, Tools & cloud cloud + cup. Pure decoration (`aria-hidden`, `pointer-events: none`). Not pushed.
+
+## 2026-10-17 — AI Skills Card
+
+Done:
+- Added a fifth skill card "AI skills" (circled "AI coding agents", drafting & refactoring, writing/testing, AI-assisted code review; agent + bulb doodles). The items are taken from the existing AI card text on the page as placeholders: edit them to what you really use.
+- Committed the author's manual edits in `index.html`: Work now sits above School (order About, Projects, Work, School, Skills, Contact), "Working with AI agents" became "Building with AI agents", the nutshell wording ("what I do (or did)"), and job dates shortened to years. Nav order and scroll-spy `ids` were updated to match (Projects, Work, School).
+Not pushed.
