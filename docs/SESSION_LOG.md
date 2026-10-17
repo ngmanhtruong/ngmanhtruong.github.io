@@ -295,3 +295,7 @@ Done:
 - "Things I enjoy" moved into the hero: a new `.hero-bottom` row splits in half, buttons (See my projects / Say hi / My thoughts) on the left and the card on the right. At <=768px the hero copy is hidden and a second copy (`.enjoy-mobile`) appears between Work and Skills, so the phone order ends: enjoy -> skills -> contact.
 - Sections are now About (01), Projects (02), School & achievements (03), Work (04), Skills (05), Say hi (06); nav note order (Me?, Projects, Cert, Work, Skills, Contact) and the scroll-spy `ids` follow.
 Unfinished / needs the user: Further trimming candidates if wanted: "Lean on resources" and "Faster page loads" overlap; the commented-out hero description. Not pushed.
+
+## 2026-10-17 — Doodles in Skill Cards
+
+Done: Each of the 4 skill cards got a `.skill-doodles` pair in its empty bottom-right corner (existing `d-*` symbols, 76px + 54px, slight rotations): Front-end laptop + cursor, Back-end & data diamond + spiral, Blockchain rocket + star, Tools & cloud cloud + cup. Pure decoration (`aria-hidden`, `pointer-events: none`). Not pushed.
