@@ -17,18 +17,21 @@ const POST_ID = /^[a-z0-9-]{1,64}$/i;
 const ALLOWED_ORIGINS = [
   'https://matthewnguyen.vercel.app',
   'https://ngmanhtruong.github.io',
-  'http://localhost:4173',
-  'http://localhost:3000',
 ];
+
+// Local development (any port) may READ the counters so you can see them while building,
+// but never write: the front-end skips POSTs on localhost and the Worker rejects them anyway.
+const isLocalDev = (origin) => /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
 
 const readCount = async (kv, key) => parseInt((await kv.get(key)) || '0', 10) || 0;
 
 export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin') || '';
-    const allowed = ALLOWED_ORIGINS.includes(origin);
+    const allowed = ALLOWED_ORIGINS.includes(origin);          // may write (POST)
+    const mayRead = allowed || isLocalDev(origin);
     const cors = {
-      'Access-Control-Allow-Origin': allowed ? origin : ALLOWED_ORIGINS[0],
+      'Access-Control-Allow-Origin': mayRead ? origin : ALLOWED_ORIGINS[0],
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
       'Vary': 'Origin',

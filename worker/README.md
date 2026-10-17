@@ -13,3 +13,5 @@ Called by `js/stats.js` (visits, hearts) and `js/reactions.js` (per-article reac
 - Deploy: `cd worker && npx wrangler login && npx wrangler kv namespace create VISIT_COUNTERS`, paste the id into `wrangler.toml`, then `npx wrangler deploy`.
 - Put the resulting `https://portfolio-counter.<account>.workers.dev` URL into `COUNTER_API` in `js/stats.js`.
 - Writes are restricted to `ALLOWED_ORIGINS` in `index.js`; update it if the domain changes.
+
+- CORS: writes (POST) only from the production origins in `ALLOWED_ORIGINS`. Any `http://localhost:<port>` / `127.0.0.1` origin may READ the counters (so you see them in local development), and `js/stats.js` / `js/reactions.js` never POST on localhost, so local testing does not change the real numbers. Redeploy (`npx wrangler deploy`) after changing this.

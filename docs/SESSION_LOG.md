@@ -330,3 +330,8 @@ Done:
 - `.github/scripts/build-notes.mjs` + `sync-articles.mjs`: pre-render `notes/*.html` (8 pages generated from the current snapshot), add `slug` and `updated_at` to `content/issues.json`, point `sitemap.xml` at the static URLs; the workflow commits `notes/` too. `SYNC_OFFLINE=1` rebuilds from the snapshot without the network.
 - `js/articles.js`: list links use `notes/<slug>.html`; 10 notes per page with a "Load more notes (N left)" button that appends cards (tested with 25 fake notes: 10 -> 20 -> 25, button disappears); `article.html?slug=N` redirects to the static page; `js/page-flip.js` treats `/notes/*` as an article page.
 Unfinished / needs the user: Push, then check the Action regenerates `notes/` when an issue is created. Not pushed.
+
+## 2026-10-17 — Counters Missing on localhost:8000
+
+Done: Counters were hidden when running `python3 -m http.server 8000` because the Worker's CORS allow-list only had localhost:4173/3000 (production origins verified fine: 74 visits, 23 hearts). The Worker now lets any localhost/127.0.0.1 port READ; writes stay restricted to production. `js/stats.js` and `js/reactions.js` skip POSTs on localhost (read-only counters), so local testing no longer inflates the real numbers.
+Unfinished / needs the user: Redeploy the Worker (`cd worker && npx wrangler deploy`); until then local pages still show no counts. Not pushed.

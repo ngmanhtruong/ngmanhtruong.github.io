@@ -4,6 +4,8 @@
  * Degrades gracefully (button still toggles locally) when the API is not configured/reachable.
  */
 const COUNTER_API = 'https://portfolio-counter.ng-manhtruong1996.workers.dev';
+// On localhost the counters are read-only, so testing never inflates the real numbers.
+const COUNTER_READ_ONLY = ['localhost', '127.0.0.1'].includes(location.hostname);
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('.heart-widget');
@@ -32,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const call = async (path, body) => {
     if (!COUNTER_API) return null;
+    if (body !== undefined && COUNTER_READ_ONLY) return null;
     try {
       const res = await fetch(COUNTER_API + path, body === undefined ? undefined : {
         method: 'POST',
@@ -46,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!COUNTER_API) return;
 
   const counted = store.get(sessionStorage, 'portfolio-visited') === '1';
-  (counted ? call('/stats') : call('/visit', {})).then((stats) => {
+  (counted || COUNTER_READ_ONLY ? call('/stats') : call('/visit', {})).then((stats) => {
     if (!counted && stats) store.set(sessionStorage, 'portfolio-visited', '1');
     render(stats);
   });

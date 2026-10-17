@@ -31,6 +31,7 @@ window.articleReactions = {
 
     const call = async (path, body) => {
       if (!api) return null;
+      if (body !== undefined && typeof COUNTER_READ_ONLY !== 'undefined' && COUNTER_READ_ONLY) return null;
       try {
         const res = await fetch(api + path, body === undefined ? undefined : {
           method: 'POST',
