@@ -216,3 +216,8 @@ Unfinished / needs the user: Screenshots for Wattsup (site unreachable), Nan LMS
 ## 2026-10-17 — Temporarily Hide Bahi and Dili D.I.S.C
 
 Done: Wrapped the two project cards in HTML comments (`<!-- Temporarily hidden: ... -->`) in `index.html`; remove the comment markers to restore them. `assets/projects/bahi.webp` is kept. Not pushed.
+
+## 2026-10-17 — Nan LMS and KBM Screenshots
+
+Done: Added the author-supplied screenshots (`assets/projects/nanlms.webp`, `kbm.webp`, 640px wide) to the Nan LMS and Internal Confluence (KBM) cards as torn-paper photos. Not pushed.
+Unfinished / needs the user: Screenshots still missing for Wattsup EVBike and Koncierge Plus.
