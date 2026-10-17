@@ -282,3 +282,8 @@ Done:
 - `index.html`: sections are now About (01), Skills (02), Projects (03), School & achievements (04), Work experience (05), Say hi (06). Banner comments and `.n` numbers renumbered, nav note links reordered (Me?, Skills, Projects, Cert, Work, Contact) and the scroll-spy `ids` in `js/main.js` follow the new document order.
 - `css/style.css` (<=640px): `.notebook-card-wrapper` is hidden, which hides the "My Notebook" card (name, subject, class, city) and the small doodle row under it.
 Unfinished / needs the user: The section title still reads "School & achievements" (nav label "Cert"); rename if you prefer "Education & Certificates". Not pushed.
+
+## 2026-10-17 — Fix: Hero/Section Titles Never Appearing on Desktop Chrome
+
+Done: Reproduced the report (hero title `hw ink hero-title rv rv-whole` stayed at opacity 0 on desktop). Root cause: `.rv-whole` titles started with `clip-path: inset(... 100% ...)` (fully clipped) and are IntersectionObserver targets; Chromium treats a fully clipped target as not intersecting, so `rv-on` was never added. Touch devices were unaffected because they used a clip-free variant. `.rv-whole` now uses opacity + a small `translate` rise on every device (no clip-path), with a comment in `css/style.css` warning not to clip IO targets. Verified the hero title and the Projects title turn on when in view.
+Unfinished / needs the user: Titles that are skipped over by a jump (e.g. `#contact` anchor) appear when you scroll back up to them; this is by design of the scroll reveal. Not pushed.

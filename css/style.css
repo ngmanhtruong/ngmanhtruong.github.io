@@ -2054,25 +2054,27 @@ header {
   translate: 0 0;
 }
 
-/* Blocks under an SVG filter (titles) are written as ONE stroke: animating many children
-   inside a filtered element would re-run the filter on every frame and stutter. */
+/* Blocks under an SVG filter (titles) appear as ONE piece (fade + small rise): animating many
+   children inside a filtered element would re-run the filter on every frame and stutter.
+   Do NOT use clip-path on these: they are IntersectionObserver targets, and Chrome treats a
+   fully clipped target as not intersecting, so the title would never show up. */
 .rv-ready .rv-whole {
-  clip-path: inset(-40% 100% -40% -10%);
   opacity: 0;
-  transition: clip-path 0.8s cubic-bezier(0.25, 0.7, 0.3, 1), opacity 0.4s ease-out;
+  translate: 0 0.2em;
+  transition: opacity 0.6s ease-out, translate 0.6s cubic-bezier(0.25, 0.7, 0.3, 1);
   transition-delay: var(--base, 0ms);
 }
 
 .rv-ready .rv-whole.rv-on {
-  clip-path: inset(-40% -40% -40% -10%);
   opacity: 1;
+  translate: 0 0;
 }
 
-/* Steady state after the stroke: no clip/transition left on the filtered title (Safari/iOS can
-   drop filtered, clipped layers while momentum-scrolling, which made section numbers vanish). */
+/* Steady state after the reveal: nothing left on the filtered title (Safari/iOS can drop
+   filtered layers while momentum-scrolling, which made section numbers vanish). */
 .rv-ready .rv-whole.rv-fin {
-  clip-path: none;
   opacity: 1;
+  translate: none;
   transition: none;
 }
 
@@ -2085,7 +2087,6 @@ header {
   }
 
   .rv-ready .rv-whole {
-    clip-path: none;
     translate: 0 0.15em;
     transition: opacity 0.3s ease-out, translate 0.3s ease-out;
     transition-delay: var(--base, 0ms);
