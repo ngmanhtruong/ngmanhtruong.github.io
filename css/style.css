@@ -1201,10 +1201,21 @@ header {
 }
 
 .article-detail-wrap {
+  position: relative;
   max-width: 860px;
   margin: 0 auto;
   padding-top: 36px;
 }
+
+/* Decorative doodles in the side margins, spread down the article (percent of the page height) */
+.article-detail-wrap > .dd.abs { z-index: 3; }
+.art-dd-1 { top: 3%;  right: -52px; transform: rotate(10deg); }
+.art-dd-2 { top: 16%; left: -50px;  transform: rotate(-12deg); }
+.art-dd-3 { top: 31%; right: -54px; transform: rotate(-6deg); }
+.art-dd-4 { top: 46%; left: -56px;  transform: rotate(14deg); }
+.art-dd-5 { top: 61%; right: -48px; transform: rotate(8deg); }
+.art-dd-6 { top: 76%; left: -50px;  transform: rotate(-10deg); }
+.art-dd-7 { top: 90%; right: -52px; transform: rotate(6deg); }
 
 .article-content {
   font-size: 23px;
