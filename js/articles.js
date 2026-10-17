@@ -440,7 +440,7 @@ class ArticlesManager {
 
         <div class="tag-filter-bar">
           <div class="tag-filter-header">
-            <span class="tag-filter-title note">
+            <span class="tag-filter-title note tab-label">
               <svg class="dd r dd-inline" width="22" height="22"><use href="#d-star"></use></svg>
               Filter by topic:
             </span>
