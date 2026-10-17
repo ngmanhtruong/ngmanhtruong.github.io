@@ -20,7 +20,10 @@ Since this site is built purely with standard web technologies, there are zero b
 
 To run locally:
 ```bash
-# Using Python 3's built-in web server:
+# Recommended: Python 3 server that disables browser caching, so edits show up immediately
+python3 scripts/serve.py 8000
+
+# Plain Python 3 server (browsers may keep serving stale CSS/JS; use a hard reload, Cmd+Shift+R)
 python3 -m http.server 8000
 
 # Or with Node.js (npx serve):

@@ -314,3 +314,7 @@ Done: Replaced the placeholder items with: Context engineering & AI-first repos 
 ## 2026-10-17 — Doodles Next to "Read note"
 
 Done: Each article card now shows two hand-drawn doodles on the right of the Read note button (10 new svgdoodles.com icons, `dc-*` symbols). They are random but seeded by the article id (`cardDoodles` in `js/articles.js`), so a card keeps its doodles when filters re-render; tilt uses `.rot-*` classes (new `.rot-12`, `.rot-n12`), no inline styles. Not pushed.
+
+## 2026-10-17 — No-Cache Dev Server
+
+Done: The author ran `python3 -m http.server 8000`, which sends no Cache-Control header, so the browser kept a stale `articles.js`/`articles.html` and the new card doodles did not show. Added `scripts/serve.py` (same server plus `Cache-Control: no-store`) and documented it in `README.md`. Not pushed.
