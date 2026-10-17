@@ -97,9 +97,9 @@ class ArticlesManager {
     }
 
     const typeConfig = {
-      'technicals': { label: 'Technicals', icon: '💡', class: 'technicals' },
-      'opinions': { label: 'Opinions', icon: '💭', class: 'opinions' },
-      'random thoughts': { label: 'Random Thoughts', icon: '✏️', class: 'random-thoughts' }
+      'technicals': { label: 'Technicals', icon: '<svg class="doodle-ic" aria-hidden="true"><use href="#ic-bolt"></use></svg>', class: 'technicals' },
+      'opinions': { label: 'Opinions', icon: '<svg class="doodle-ic" aria-hidden="true"><use href="#ic-speech"></use></svg>', class: 'opinions' },
+      'random thoughts': { label: 'Random Thoughts', icon: '<svg class="doodle-ic" aria-hidden="true"><use href="#ic-bubbles"></use></svg>', class: 'random-thoughts' }
     };
 
     const typeInfo = typeConfig[type] || typeConfig['technicals'];
@@ -417,22 +417,22 @@ class ArticlesManager {
       filterWrap.innerHTML = `
         <div class="type-filter-bar" role="tablist" aria-label="Article categories">
           <button class="type-tab-btn ${selectedType === 'all' ? 'active' : ''}" data-type="all" role="tab" aria-selected="${selectedType === 'all'}">
-            <span class="tab-icon">📚</span>
+            <span class="tab-icon"><svg class="doodle-ic" aria-hidden="true"><use href="#ic-grid"></use></svg></span>
             <span class="tab-label">All Notes</span>
             <span class="tab-count">${typeCounts.all}</span>
           </button>
           <button class="type-tab-btn ${selectedType === 'technicals' ? 'active' : ''}" data-type="technicals" role="tab" aria-selected="${selectedType === 'technicals'}">
-            <span class="tab-icon">💡</span>
+            <span class="tab-icon"><svg class="doodle-ic" aria-hidden="true"><use href="#ic-bolt"></use></svg></span>
             <span class="tab-label">Technicals</span>
             <span class="tab-count">${typeCounts.technicals}</span>
           </button>
           <button class="type-tab-btn ${selectedType === 'opinions' ? 'active' : ''}" data-type="opinions" role="tab" aria-selected="${selectedType === 'opinions'}">
-            <span class="tab-icon">💭</span>
+            <span class="tab-icon"><svg class="doodle-ic" aria-hidden="true"><use href="#ic-speech"></use></svg></span>
             <span class="tab-label">Opinions</span>
             <span class="tab-count">${typeCounts.opinions}</span>
           </button>
           <button class="type-tab-btn ${selectedType === 'random thoughts' ? 'active' : ''}" data-type="random thoughts" role="tab" aria-selected="${selectedType === 'random thoughts'}">
-            <span class="tab-icon">✏️</span>
+            <span class="tab-icon"><svg class="doodle-ic" aria-hidden="true"><use href="#ic-bubbles"></use></svg></span>
             <span class="tab-label">Random Thoughts</span>
             <span class="tab-count">${typeCounts['random thoughts']}</span>
           </button>
@@ -504,7 +504,7 @@ class ArticlesManager {
       if (filtered.length === 0) {
         container.innerHTML = `
           <div class="empty-notes rbox card">
-            <span class="hw" style="font-size:52px;color:var(--red);display:block;margin-bottom:12px">✏️</span>
+            <span class="hw" style="font-size:52px;color:var(--red);display:block;margin-bottom:12px"><svg class="doodle-ic" aria-hidden="true" style="width:1em;height:1em"><use href="#ic-bubbles"></use></svg></span>
             <h3 class="hw ink" style="font-size:36px;margin:0 0 8px">No notes found here yet!</h3>
             <p style="font-size:22px;color:var(--pencil);max-width:480px;margin:0 auto 20px">
               No articles match the selected filter (${selectedType !== 'all' ? selectedType : ''} ${selectedTag ? '#' + selectedTag : ''}). Try selecting another category or clear the filter.

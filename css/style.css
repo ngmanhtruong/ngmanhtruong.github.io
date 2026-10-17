@@ -784,6 +784,31 @@ header {
 .tab-icon {
   font-size: 20px;
   line-height: 1;
+  display: inline-flex;
+}
+
+/* Hand-drawn doodle icons (svgdoodles.com): inherit the text colour */
+.doodle-ic {
+  width: 1.15em;
+  height: 1.15em;
+  fill: none;
+  overflow: visible;
+  flex: 0 0 auto;
+}
+
+.type-tab-btn .doodle-ic {
+  width: 24px;
+  height: 24px;
+  color: var(--blue);
+}
+
+.type-tab-btn.active .doodle-ic {
+  color: var(--red);
+}
+
+.article-type-badge .doodle-ic {
+  width: 20px;
+  height: 20px;
 }
 
 .tab-count {
@@ -1416,7 +1441,19 @@ header {
 }
 
 .rx-emoji {
+  display: inline-flex;
   font-size: 22px;
+  color: var(--blue);
+}
+
+.rx-emoji .doodle-ic {
+  width: 26px;
+  height: 26px;
+}
+
+.rx-btn[data-type="love"] .rx-emoji,
+.rx-btn.on .rx-emoji {
+  color: var(--red);
 }
 
 .rx-count {

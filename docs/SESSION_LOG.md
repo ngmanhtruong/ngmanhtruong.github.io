@@ -247,3 +247,8 @@ Done:
 - Reactions: the dashed divider above them is a wobbly pseudo-element line.
 - Article detail card: the full-size filtered pseudo borders (laggy on a ~3000px card) are replaced by four thin `.rbox-edge` elements with `#wob-h` / `#wob-v` filters (margins on one axis so 2-3px lines are not clipped), so the border is hand-drawn again at a tiny filter area. Blockquotes lost their ruler-straight left border.
 Unfinished / needs the user: Judge scroll smoothness of article detail on a real device (use `?noreveal` to compare). Not pushed.
+
+## 2026-10-17 — svgdoodles.com Icons for Filters, Badges and Reactions
+
+Done: Replaced the emoji icons in the 4 category tabs, the category badges (cards + detail) and the 5 reaction buttons with hand-drawn SVGs from svgdoodles.com, embedded as `<symbol>`s in `articles.html` / `article.html` (`.doodle-ic` in `css/style.css`; icons inherit the text colour: blue, red when active/selected). Mapping is listed in `assets/README.md`. The site states the doodles are free to use in websites/apps; it has no formal license page, so credit is kept in `assets/README.md`.
+Unfinished / needs the user: Optionally add a visible credit line in the page footer. Not pushed.
