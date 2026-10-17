@@ -31,6 +31,16 @@
   <!-- SVG Filter & Doodle Symbol Definitions -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <defs>
+      <!-- Same wobble as #wob, but with generous margins on one axis so very thin (2-3px) edge lines are not clipped -->
+      <filter id="wob-h" x="-3%" y="-1000%" width="106%" height="2100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="2" seed="4" result="n"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+      </filter>
+      <filter id="wob-v" x="-1000%" y="-3%" width="2100%" height="106%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="2" seed="4" result="n"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+      </filter>
+
       <filter id="wob" x="-3%" y="-3%" width="106%" height="106%">
         <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="2" seed="4" result="n"></feTurbulence>
         <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
@@ -104,6 +114,7 @@
 
         <article class="rbox card" style="position:relative;padding:48px 44px 40px;background:rgba(250,246,234,0.85)">
           <span class="tape"></span>
+          <i class="rbox-edge t" aria-hidden="true"></i><i class="rbox-edge b" aria-hidden="true"></i><i class="rbox-edge l" aria-hidden="true"></i><i class="rbox-edge r" aria-hidden="true"></i>
 
           <!-- Article Header Meta -->
           <div id="article-meta-header" class="article-meta">

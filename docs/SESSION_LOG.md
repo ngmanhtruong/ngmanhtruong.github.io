@@ -239,3 +239,11 @@ Done: Added the author-supplied Trending Movies screenshot (`assets/projects/fil
 
 Done: After the repo was renamed to `ngmanhtruong.github.io`, GitHub Pages serves the site at https://ngmanhtruong.github.io too. The counter Worker only allowed `https://matthewnguyen.vercel.app` (CORS), so browsers on the github.io origin were blocked and `js/stats.js` hid the counts (API itself fine: 40 visits, 22 hearts). Added `https://ngmanhtruong.github.io` to `ALLOWED_ORIGINS` in `worker/index.js`.
 Unfinished / needs the user: Redeploy the Worker (`cd worker && npx wrangler deploy`). Not pushed.
+
+## 2026-10-17 — Hand-Drawn Borders for Article Filters, Cards, Detail and Reactions
+
+Done:
+- Article filters: the 4 category tabs use two crossing, rotated, wobbly stroke pairs (red when active/hover); the topic box and empty state use wobbly dashed outlines; tag pills, card tags and reaction buttons use a loose irregular pencil loop (`::before`, fill moved onto the loop so no rectangular background shows); the category badge uses crossing strokes.
+- Reactions: the dashed divider above them is a wobbly pseudo-element line.
+- Article detail card: the full-size filtered pseudo borders (laggy on a ~3000px card) are replaced by four thin `.rbox-edge` elements with `#wob-h` / `#wob-v` filters (margins on one axis so 2-3px lines are not clipped), so the border is hand-drawn again at a tiny filter area. Blockquotes lost their ruler-straight left border.
+Unfinished / needs the user: Judge scroll smoothness of article detail on a real device (use `?noreveal` to compare). Not pushed.

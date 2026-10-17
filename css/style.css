@@ -715,18 +715,21 @@ header {
   font-size: 26px;
   line-height: 24px;
   color: var(--blue);
-  background: rgba(31, 64, 168, 0.08);
   padding: 2px 12px;
-  border-radius: 4px;
-  border-bottom: 1.5px dashed rgba(31, 64, 168, 0.3);
+  position: relative;
+  isolation: isolate;
+  --stroke: rgba(31, 64, 168, 0.55);
   cursor: pointer;
   transition: all 0.15s ease;
   user-select: none;
 }
 
 .article-tag:hover {
-  background: rgba(31, 64, 168, 0.18);
   transform: translateY(-1px);
+}
+
+.article-tag:hover::before {
+  background: rgba(31, 64, 168, 0.18);
 }
 
 /* --------------------------------------------------------------------------
@@ -923,14 +926,219 @@ header {
   background: rgba(245, 158, 11, 0.12);
 }
 
+/* --------------------------------------------------------------------------
+   Hand-drawn borders for the article filters (tabs, topic box, tag pills, category badge).
+   Straight CSS borders are replaced by pseudo-element strokes: two offset, slightly rotated
+   line pairs (like .rbox) run through the wobble filter so no edge is ever perfectly straight.
+   -------------------------------------------------------------------------- */
+.type-tab-btn,
+.tag-filter-bar,
+.tag-pill,
+.article-type-badge {
+  --stroke: var(--pencil);
+  position: relative;
+  isolation: isolate;
+  border: 0;
+}
+
+.type-tab-btn.active,
+.tag-pill.active {
+  border: 0;
+}
+
+.type-tab-btn::before,
+.type-tab-btn::after,
+.tag-filter-bar::before,
+.tag-filter-bar::after,
+.article-type-badge::before,
+.article-type-badge::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border: 0 solid var(--stroke, currentColor);
+  filter: url(#wob2);
+  opacity: 0.9;
+}
+
+/* horizontal strokes, running a little past the corners */
+.type-tab-btn::before,
+.article-type-badge::before {
+  left: -5px;
+  right: -3px;
+  top: 0;
+  bottom: 0;
+  border-top-width: 2px;
+  border-bottom-width: 1.5px;
+  transform: rotate(-0.6deg);
+}
+
+/* vertical strokes, crossing the horizontal ones */
+.type-tab-btn::after,
+.article-type-badge::after {
+  top: -4px;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  border-left-width: 1.5px;
+  border-right-width: 2px;
+  transform: rotate(0.7deg);
+}
+
+.type-tab-btn:nth-child(even)::before,
+.article-type-badge::before {
+  left: -3px;
+  right: -6px;
+  transform: rotate(0.5deg);
+}
+
+.type-tab-btn:nth-child(even)::after,
+.article-type-badge::after {
+  top: -6px;
+  bottom: -3px;
+  transform: rotate(-0.6deg);
+}
+
+.type-tab-btn:hover,
+.type-tab-btn.active {
+  --stroke: var(--red);
+}
+
+.type-tab-btn.active::before {
+  border-top-width: 2.5px;
+  border-bottom-width: 2.5px;
+}
+
+.type-tab-btn.active::after {
+  border-left-width: 2.5px;
+  border-right-width: 2.5px;
+}
+
+/* The topic box: dashed pencil outline, drawn the same way */
+.tag-filter-bar {
+  --stroke: rgba(74, 77, 99, 0.6);
+}
+
+.tag-filter-bar::before {
+  left: -4px;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  border-top: 1.5px dashed var(--stroke);
+  border-bottom: 1.5px dashed var(--stroke);
+  transform: rotate(-0.25deg);
+  filter: url(#wob);
+}
+
+.tag-filter-bar::after {
+  top: -3px;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  border-left: 1.5px dashed var(--stroke);
+  border-right: 1.5px dashed var(--stroke);
+  transform: rotate(0.3deg);
+  filter: url(#wob);
+}
+
+/* Tag pills: one loose, irregular loop each, like a quick pencil circle */
+.tag-pill::before,
+.article-tag::before,
+.rx-btn::before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  inset: -1px -2px;
+  border: 1.3px solid var(--stroke);
+  border-radius: 55% 45% 50% 50% / 60% 55% 45% 40%;
+  transform: rotate(-0.8deg);
+  filter: url(#wob2);
+  pointer-events: none;
+}
+
+.tag-pill:nth-child(even)::before,
+.article-tag:nth-child(even)::before,
+.rx-btn:nth-child(even)::before {
+  border-radius: 45% 55% 52% 48% / 50% 60% 40% 55%;
+  transform: rotate(0.9deg);
+}
+
+.tag-pill:hover {
+  --stroke: var(--blue);
+}
+
+.rx-btn::before {
+  inset: -2px -4px;
+  border-width: 1.6px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.rx-btn:hover::before,
+.rx-btn:focus-visible::before {
+  background: rgba(211, 236, 69, 0.5);
+}
+
+.rx-btn.on::before {
+  background: rgba(211, 236, 69, 0.85);
+}
+
+.article-tag::before {
+  background: rgba(31, 64, 168, 0.08);
+}
+
+.rx-btn.on::before {
+  border-width: 2.2px;
+}
+
+.rx-btn:hover,
+.rx-btn:focus-visible {
+  --stroke: var(--red);
+}
+
+.tag-pill.active {
+  --stroke: var(--ink);
+}
+
+/* Category badge keeps its own colour for the strokes */
+.article-type-badge {
+  --stroke: currentColor;
+}
+
 /* Empty notes state */
 .empty-notes {
   text-align: center;
   padding: 56px 24px;
   background-color: rgba(250, 246, 234, 0.6);
-  border: 2px dashed var(--pencil);
-  border-radius: 6px;
+  position: relative;
+  --stroke: rgba(74, 77, 99, 0.6);
   margin: 32px 0;
+}
+
+.empty-notes::before,
+.empty-notes::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  filter: url(#wob);
+}
+
+.empty-notes::before {
+  left: -4px;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  border-top: 2px dashed var(--stroke);
+  border-bottom: 2px dashed var(--stroke);
+  transform: rotate(-0.3deg);
+}
+
+.empty-notes::after {
+  top: -3px;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  border-left: 2px dashed var(--stroke);
+  border-right: 2px dashed var(--stroke);
+  transform: rotate(0.4deg);
 }
 
 .article-detail-wrap {
@@ -1138,9 +1346,22 @@ header {
 
 /* Article reactions */
 .reactions {
+  position: relative;
   margin-top: 44px;
   padding-top: 22px;
-  border-top: 2px dashed rgba(74, 77, 99, 0.35);
+}
+
+/* wobbly dashed pencil divider instead of a ruler-straight border */
+.reactions::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -4px;
+  right: -2px;
+  border-top: 2px dashed rgba(74, 77, 99, 0.45);
+  transform: rotate(-0.25deg);
+  filter: url(#wob2);
+  pointer-events: none;
 }
 
 .reactions-prompt {
@@ -1161,9 +1382,11 @@ header {
   gap: 8px;
   min-height: 44px;
   padding: 4px 16px;
-  background: rgba(255, 255, 255, 0.6);
-  border: 1.5px solid var(--pencil);
-  border-radius: 24px 18px 26px 16px / 18px 24px 16px 26px;
+  background: none;
+  border: 0;
+  position: relative;
+  isolation: isolate;
+  --stroke: var(--pencil);
   font-family: 'Caveat', cursive;
   font-weight: 700;
   font-size: 24px;
@@ -1179,7 +1402,6 @@ header {
 
 .rx-btn:hover,
 .rx-btn:focus-visible {
-  background: rgba(211, 236, 69, 0.5);
   transform: rotate(0deg) translateY(-2px);
 }
 
@@ -1189,8 +1411,7 @@ header {
 }
 
 .rx-btn.on {
-  background: rgba(211, 236, 69, 0.85);
-  border-color: var(--red);
+  --stroke: var(--red);
   color: var(--red);
 }
 
@@ -1637,12 +1858,35 @@ header {
   translate: 0 0;
 }
 
-/* The article card is thousands of px tall: SVG-filtered borders over it are very costly to raster
-   and scroll, so it keeps the double offset hand-drawn lines without the wobble filter. */
+/* The article card is thousands of px tall. Filtering its full-size pseudo borders is very
+   costly, so it draws four THIN edge elements instead (the wobble filter only has to process
+   a few pixels of width) and the full-size pseudo borders are switched off. */
 .article-detail-wrap > .rbox::before,
 .article-detail-wrap > .rbox::after {
-  filter: none;
+  display: none;
 }
+
+.rbox-edge {
+  position: absolute;
+  pointer-events: none;
+  border: 0 solid var(--pencil);
+  opacity: 0.88;
+}
+
+.rbox-edge.t, .rbox-edge.b {
+  filter: url(#wob-h);
+  height: 0;
+}
+
+.rbox-edge.l, .rbox-edge.r {
+  filter: url(#wob-v);
+  width: 0;
+}
+
+.rbox-edge.t { top: 0; left: -9px; right: -5px; border-top-width: 2.5px; transform: rotate(-0.25deg); }
+.rbox-edge.b { bottom: 0; left: -5px; right: -9px; border-top-width: 2px; transform: rotate(0.3deg); }
+.rbox-edge.l { left: 0; top: -7px; bottom: -10px; border-left-width: 2px; transform: rotate(0.25deg); }
+.rbox-edge.r { right: 0; top: -10px; bottom: -6px; border-left-width: 2.5px; transform: rotate(-0.3deg); }
 
 /* Floating doodles fade in */
 .rv-ready .rv-doodle {

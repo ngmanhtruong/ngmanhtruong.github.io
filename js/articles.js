@@ -634,7 +634,7 @@ class ArticlesManager {
     body = body.replace(/^---$/gm, '\n\n<div class="rule" aria-hidden="true"></div>\n\n');
 
     // Blockquotes
-    body = body.replace(/^> (.*$)/gm, '<blockquote class="rbox alt card" style="margin:24px 0;padding:18px 24px;border-left:4px solid var(--blue);font-family:\'Patrick Hand\',cursive;font-size:24px;line-height:32px;color:var(--blue)">$1</blockquote>\n\n');
+    body = body.replace(/^> (.*$)/gm, '<blockquote class="rbox alt card" style="margin:24px 0;padding:18px 24px;font-family:\'Patrick Hand\',cursive;font-size:24px;line-height:32px;color:var(--blue)">$1</blockquote>\n\n');
 
     // Bold / Strong / Italics
     body = body.replace(/\*\*([^*]+)\*\*/g, '<strong class="hl">$1</strong>');
