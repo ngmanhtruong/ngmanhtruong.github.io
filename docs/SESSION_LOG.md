@@ -225,3 +225,8 @@ Unfinished / needs the user: Screenshots still missing for Wattsup EVBike and Ko
 ## 2026-10-17 — Nan LMS Name
 
 Done: Added "(Hooyoung)" after Nan LMS in the KBTGVN work bullet and the project card title. Not pushed.
+
+## 2026-10-17 — Repository Renamed to ngmanhtruong.github.io
+
+Done: The GitHub repo was renamed by the author to `ngmanhtruong/ngmanhtruong.github.io`. Updated `origin`, `GITHUB_CMS_CONFIG.repo` in `js/articles.js` and the issue URLs in `content/issues.json`. The sync workflow uses `GITHUB_REPOSITORY`, so it needs no change. Earlier log entries keep the old name (history).
+Unfinished / needs the user: Check that Vercel is still linked to the renamed repo, and that GitHub Pages is not unintentionally enabled for this `*.github.io` repo. Not pushed.

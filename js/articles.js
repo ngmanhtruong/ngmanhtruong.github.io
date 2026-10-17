@@ -10,7 +10,7 @@
 const GITHUB_CMS_CONFIG = {
   // Your GitHub username and repository for storing articles
   owner: 'ngmanhtruong',
-  repo: 'portfolio-v2', // GitHub Issues CMS repository
+  repo: 'ngmanhtruong.github.io', // GitHub Issues CMS repository
   cacheDurationMs: 5 * 60 * 1000 // 5 minutes cache to preserve rate limits
 };
 
