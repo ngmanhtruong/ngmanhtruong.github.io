@@ -230,3 +230,7 @@ Done: Added "(Hooyoung)" after Nan LMS in the KBTGVN work bullet and the project
 
 Done: The GitHub repo was renamed by the author to `ngmanhtruong/ngmanhtruong.github.io`. Updated `origin`, `GITHUB_CMS_CONFIG.repo` in `js/articles.js` and the issue URLs in `content/issues.json`. The sync workflow uses `GITHUB_REPOSITORY`, so it needs no change. Earlier log entries keep the old name (history).
 Unfinished / needs the user: Check that Vercel is still linked to the renamed repo, and that GitHub Pages is not unintentionally enabled for this `*.github.io` repo. Not pushed.
+
+## 2026-10-17 — Films Info Screenshot
+
+Done: Added the author-supplied Trending Movies screenshot (`assets/projects/filmsinfo.webp`, 640px wide, 32 KB) to the Films Info card. Not pushed.

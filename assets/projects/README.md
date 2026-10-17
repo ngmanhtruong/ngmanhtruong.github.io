@@ -6,4 +6,6 @@ To add one: save a 16:10 screenshot as `assets/projects/<name>.webp` (about 640x
 
 Supplied by the author (sites not reachable for automated capture): `nanlms.webp` (admin portal), `kbm.webp` (internal KBM).
 
-Still missing: Wattsup EVBike, Koncierge Plus, Films Info; Dili D.I.S.C and Bahi are temporarily hidden.
+Also supplied by the author: `filmsinfo.webp`.
+
+Still missing: Wattsup EVBike, Koncierge Plus; Dili D.I.S.C and Bahi are temporarily hidden.
