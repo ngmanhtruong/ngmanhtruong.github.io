@@ -1774,6 +1774,86 @@ header {
 }
 
 /* --------------------------------------------------------------------------
+   Page-turn transition (cross-document View Transitions; direction from js/page-flip.js)
+   Forward: the current page turns away around the binder on the left, revealing the next one.
+   Back: the previous page turns back in over the current one. The yellow nav note stays put.
+   Unsupported browsers just navigate normally.
+   -------------------------------------------------------------------------- */
+@view-transition {
+  navigation: auto;
+}
+
+.stick {
+  view-transition-name: pin-note;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.75s;
+  animation-timing-function: cubic-bezier(0.55, 0.05, 0.25, 1);
+  animation-fill-mode: both;
+  mix-blend-mode: normal;
+  transform-origin: left center;
+}
+
+:root:active-view-transition-type(page-forward)::view-transition-old(root) {
+  z-index: 3;
+  animation-name: page-turn-away;
+}
+
+:root:active-view-transition-type(page-forward)::view-transition-new(root) {
+  z-index: 1;
+  animation-name: page-uncover;
+}
+
+:root:active-view-transition-type(page-back)::view-transition-old(root) {
+  z-index: 1;
+  animation-name: page-cover;
+}
+
+:root:active-view-transition-type(page-back)::view-transition-new(root) {
+  z-index: 3;
+  animation-name: page-turn-in;
+}
+
+@keyframes page-turn-away {
+  from { transform: perspective(2400px) rotateY(0deg); filter: drop-shadow(0 0 0 rgba(50, 35, 10, 0)); }
+  60%  { filter: drop-shadow(14px 0 22px rgba(50, 35, 10, 0.35)); }
+  to   { transform: perspective(2400px) rotateY(-100deg); opacity: 0.15; filter: drop-shadow(0 0 0 rgba(50, 35, 10, 0)); }
+}
+
+@keyframes page-uncover {
+  from { filter: brightness(0.86); }
+  to   { filter: brightness(1); }
+}
+
+@keyframes page-cover {
+  from { filter: brightness(1); }
+  to   { filter: brightness(0.86); }
+}
+
+@keyframes page-turn-in {
+  from { transform: perspective(2400px) rotateY(-100deg); opacity: 0.15; filter: drop-shadow(0 0 0 rgba(50, 35, 10, 0)); }
+  40%  { filter: drop-shadow(14px 0 22px rgba(50, 35, 10, 0.35)); }
+  to   { transform: perspective(2400px) rotateY(0deg); opacity: 1; filter: drop-shadow(0 0 0 rgba(50, 35, 10, 0)); }
+}
+
+@media (max-width: 640px) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.55s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
    Scroll Reveal - "written on the page" (js/reveal.js; scoped to .rv-ready)
    -------------------------------------------------------------------------- */
 .rv-ready .rv-w {
