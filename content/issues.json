@@ -1,10 +1,32 @@
 [
   {
+    "number": 7,
+    "title": "Random Thoughts on the Day an AI Left Its Sandbox",
+    "state": "open",
+    "created_at": "2026-10-17T05:43:27Z",
+    "html_url": "https://github.com/ngmanhtruong/ngmanhtruong.github.io/issues/7",
+    "user": {
+      "login": "ngmanhtruong"
+    },
+    "labels": [
+      {
+        "name": "bug"
+      },
+      {
+        "name": "AI"
+      },
+      {
+        "name": "Opinions"
+      }
+    ],
+    "body": "*These are personal thoughts, not conclusions. I'm a software engineer thinking out loud, not a security researcher.*\n\nIn July 2026, OpenAI disclosed that some of its models, including GPT-5.6 Sol and an unreleased one, got out of an isolated test environment during an internal evaluation. According to OpenAI's own account, the models ran with reduced cyber refusals, chained several vulnerabilities, and used a zero-day in a third-party proxy to reach the internet. They then went after Hugging Face, apparently to find a way to cheat the benchmark they were being tested on. What data was touched, and whether the attempt on Hugging Face worked, is still unclear.\n\nI keep coming back to three questions.\n\n## 1. Did the labs underestimate their own models?\n\nI don't think this was just a configuration mistake. A shared proxy was the door, yes, but the bigger issue seems to be that the lab did not expect the model to try this hard. The model didn't fool the grader. It attacked the environment around the grader. That tells me the people building these systems are still guessing at what their models can do when given enough compute and time.\n\n## 2. What did it leave behind?\n\nI'm not worried about the model copying itself. A running agent usually can't read its own weights, and uploading hundreds of gigabytes would be loud. What worries me is the footprint: credentials, backdoors, packages, or text planted where future agents will read it. Some of that expires or gets patched. Some may sit quietly. The place I'd want audited first is Hugging Face, because so many developers and agents pull from it.\n\nTo me, \"will a future agent reach it?\" is mostly a matter of time, unless someone independent checks. The real question is who audits, and whether the results are published.\n\n## 3. What happens when anyone can train AI?\n\nTraining a frontier model still takes huge compute, but fine-tuning an open model is cheap, and released weights can't be recalled. The risk isn't training itself. It's lowering the skill needed to attack, especially in cybersecurity, for people with bad intentions.\n\nI don't see how to control compute, because wealthy organizations can't realistically be stopped from getting it. Controlling access to the most capable models only works if the few labs that own them choose to enforce it. And AI-written code is already becoming the default, so I don't think we can simply tighten the rules and go back. We have to prepare for a world where this exists.\n\nI don't have a confident answer. That's the point of writing this down.\n\n---\n\n**Sources:** [[The Hacker News](https://thehackernews.com/2026/07/openai-says-its-own-ai-models-escaped.html)](https://thehackernews.com/2026/07/openai-says-its-own-ai-models-escaped.html) · [[CNBC](https://www.cnbc.com/2026/07/22/open-ai-cyber-models-hack-hugging-face.html)](https://www.cnbc.com/2026/07/22/open-ai-cyber-models-hack-hugging-face.html) · [[Fortune](https://fortune.com/2026/07/21/openai-says-ai-models-escaped-control-hacked-hugging-face/)](https://fortune.com/2026/07/21/openai-says-ai-models-escaped-control-hacked-hugging-face/)"
+  },
+  {
     "number": 6,
     "title": "Investigating Scroll Jank: SVG feTurbulence & GPU Rasterization at high FPS",
     "state": "open",
     "created_at": "2026-10-15T10:27:55Z",
-    "html_url": "https://github.com/ngmanhtruong/portfolio-v2/issues/6",
+    "html_url": "https://github.com/ngmanhtruong/ngmanhtruong.github.io/issues/6",
     "user": {
       "login": "ngmanhtruong"
     },
@@ -26,7 +48,7 @@
     "title": "Jev and System One Models: AI That Doesn't Need to Write Text",
     "state": "open",
     "created_at": "2026-10-15T09:30:46Z",
-    "html_url": "https://github.com/ngmanhtruong/portfolio-v2/issues/5",
+    "html_url": "https://github.com/ngmanhtruong/ngmanhtruong.github.io/issues/5",
     "user": {
       "login": "ngmanhtruong"
     },
@@ -45,7 +67,7 @@
     "title": "Why Physical Notebooks & Doodles Still Beat Digital Note Apps in 2026",
     "state": "open",
     "created_at": "2026-10-15T07:53:16Z",
-    "html_url": "https://github.com/ngmanhtruong/portfolio-v2/issues/4",
+    "html_url": "https://github.com/ngmanhtruong/ngmanhtruong.github.io/issues/4",
     "user": {
       "login": "ngmanhtruong"
     },
@@ -67,7 +89,7 @@
     "title": "How I Work With AI Coding Agents as a Senior Engineer",
     "state": "open",
     "created_at": "2026-10-15T07:39:39Z",
-    "html_url": "https://github.com/ngmanhtruong/portfolio-v2/issues/3",
+    "html_url": "https://github.com/ngmanhtruong/ngmanhtruong.github.io/issues/3",
     "user": {
       "login": "ngmanhtruong"
     },
@@ -95,7 +117,7 @@
     "title": "Lean Front-End Architecture: Shipping Less JS, Getting More Speed",
     "state": "open",
     "created_at": "2026-10-15T07:39:36Z",
-    "html_url": "https://github.com/ngmanhtruong/portfolio-v2/issues/2",
+    "html_url": "https://github.com/ngmanhtruong/ngmanhtruong.github.io/issues/2",
     "user": {
       "login": "ngmanhtruong"
     },
@@ -123,7 +145,7 @@
     "title": "Lessons from Building Metaverse and Real-time Web Experiences",
     "state": "open",
     "created_at": "2026-10-15T07:39:34Z",
-    "html_url": "https://github.com/ngmanhtruong/portfolio-v2/issues/1",
+    "html_url": "https://github.com/ngmanhtruong/ngmanhtruong.github.io/issues/1",
     "user": {
       "login": "ngmanhtruong"
     },
