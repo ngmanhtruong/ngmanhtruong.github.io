@@ -275,3 +275,10 @@ Done:
 - Optimized scroll handwriting reveal speed specifically for mobile/touch devices (`js/reveal.js`, `css/style.css`): faster word intervals (10ms vs 22ms), capped paragraph duration (650ms vs 1700ms), shorter queue handoff (180ms vs 700ms), snappier CSS transitions (0.25s vs 0.45s), and earlier IntersectionObserver rootMargin (40px pre-trigger); desktop timing remains 100% unchanged.
 Unfinished / needs the user: None. Not pushed.
 
+
+## 2026-10-17 — Section Order & Notebook Card on Mobile
+
+Done:
+- `index.html`: sections are now About (01), Skills (02), Projects (03), School & achievements (04), Work experience (05), Say hi (06). Banner comments and `.n` numbers renumbered, nav note links reordered (Me?, Skills, Projects, Cert, Work, Contact) and the scroll-spy `ids` in `js/main.js` follow the new document order.
+- `css/style.css` (<=640px): `.notebook-card-wrapper` is hidden, which hides the "My Notebook" card (name, subject, class, city) and the small doodle row under it.
+Unfinished / needs the user: The section title still reads "School & achievements" (nav label "Cert"); rename if you prefer "Education & Certificates". Not pushed.

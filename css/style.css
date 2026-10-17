@@ -1940,6 +1940,11 @@ header {
     padding: 20px 0 12px;
   }
 
+  /* The "My Notebook" card (name, subject, class, city) is hidden on phones */
+  .notebook-card-wrapper {
+    display: none;
+  }
+
   .project-card.has-shot {
     padding-bottom: 112px;
   }
