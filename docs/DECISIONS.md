@@ -62,3 +62,9 @@ Related domain: `worker/`, `js/`, `css/`, Root
 Reason: Fetching issues straight from the public GitHub API in each visitor's browser is limited to 60 requests/hour per IP, and many visitors (including the author) share IPs (e.g. Cloudflare ranges). Those browsers got HTTP 403 and fell back to the 4 built-in local articles even though 6 issues existed. `.github/workflows/sync-articles.yml` now rewrites `content/issues.json` on every issue event (using the workflow's own token), commits it, and Vercel redeploys; `js/articles.js` reads that file first. The live API is only a fallback.
 Accepted trade-off: A new or edited issue appears after the Action commit and Vercel deploy (typically under a minute or two) instead of instantly. Run the workflow manually (Actions tab, "Run workflow") to resync.
 Related domain: `js/`, `content/`, `.github/`
+
+## 2026-10-17 — Page-Turn Transitions via Cross-Document View Transitions
+
+Reason: Moving between notebook, articles list and an article should feel like turning a page. Cross-document View Transitions (`@view-transition { navigation: auto; }`) animate screenshots of the old/new pages, so the heavy SVG filters are not touched and there is no new dependency or build step. `js/page-flip.js` adds the `page-forward` / `page-back` transition type; CSS rotates the old page around the left binder (forward) or turns the previous one back in (back). The nav note keeps its own `view-transition-name` so it does not flip.
+Accepted trade-off: Only Chromium and Safari 18.2+ animate; other browsers (Firefox) navigate normally. Anchor links (`#contact`), same-page navigation and `prefers-reduced-motion` are not animated.
+Related domain: `css/`, `js/`, root HTML pages

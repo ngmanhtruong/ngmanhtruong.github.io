@@ -252,3 +252,8 @@ Unfinished / needs the user: Judge scroll smoothness of article detail on a real
 
 Done: Replaced the emoji icons in the 4 category tabs, the category badges (cards + detail) and the 5 reaction buttons with hand-drawn SVGs from svgdoodles.com, embedded as `<symbol>`s in `articles.html` / `article.html` (`.doodle-ic` in `css/style.css`; icons inherit the text colour: blue, red when active/selected). Mapping is listed in `assets/README.md`. The site states the doodles are free to use in websites/apps; it has no formal license page, so credit is kept in `assets/README.md`.
 Unfinished / needs the user: Optionally add a visible credit line in the page footer. Not pushed.
+
+## 2026-10-17 — Page-Turn Transition
+
+Done: Added `js/page-flip.js` (loaded in the head of all 3 pages) and the `@view-transition` / `page-turn-*` CSS. Verified in the in-app browser that index -> articles gets `page-forward` and articles -> index gets `page-back`. The visual animation itself could not be watched (the in-app browser renders slowly), so timing/feel needs a look on a real browser.
+Tuning knobs in `css/style.css`: duration 0.75s (0.55s at <=640px), easing, `perspective(2400px)`, end angle -100deg, shadow in the `page-turn-away` / `page-turn-in` keyframes. Not pushed.
