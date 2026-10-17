@@ -310,3 +310,7 @@ Not pushed.
 ## 2026-10-17 — AI Skills Card Content
 
 Done: Replaced the placeholder items with: Context engineering & AI-first repos (circled), Agent verification loops, MCP & tool integration, Safe agent use (prompt injection, sandboxing). Not pushed.
+
+## 2026-10-17 — Doodles Next to "Read note"
+
+Done: Each article card now shows two hand-drawn doodles on the right of the Read note button (10 new svgdoodles.com icons, `dc-*` symbols). They are random but seeded by the article id (`cardDoodles` in `js/articles.js`), so a card keeps its doodles when filters re-render; tilt uses `.rot-*` classes (new `.rot-12`, `.rot-n12`), no inline styles. Not pushed.

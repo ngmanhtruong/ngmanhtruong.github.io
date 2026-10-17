@@ -355,6 +355,32 @@ class ArticlesManager {
   }
 
   /**
+   * Two small hand-drawn doodles for the right side of an article card's "Read note" row.
+   * "Random" but seeded by the article id, so a card keeps its doodles when filters re-render.
+   */
+  cardDoodles(id) {
+    const pool = ['dc-plane', 'dc-smile', 'dc-rainbow', 'dc-cloud', 'dc-eye', 'dc-crown', 'dc-music', 'dc-infinity', 'dc-sparkles', 'dc-twinkle'];
+    let seed = (parseInt(id, 10) || String(id).length) * 2654435761 >>> 0;
+    const rand = () => {            // mulberry32
+      seed = (seed + 0x6D2B79F5) >>> 0;
+      let t = seed;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+    const first = Math.floor(rand() * pool.length);
+    const second = (first + 1 + Math.floor(rand() * (pool.length - 1))) % pool.length;
+    const colors = rand() < 0.5 ? ['b', 'r'] : ['r', 'b'];
+    const tilts = ['rot-n12', 'rot-n8', 'rot-n6', 'rot-n4', 'rot-5', 'rot-6', 'rot-8', 'rot-12'];
+    const svgs = [[first, 62], [second, 46]].map(([i, size], n) => {
+      const tilt = tilts[Math.floor(rand() * tilts.length)];
+      const w = Math.round(size * (0.9 + rand() * 0.25));
+      return `<svg class="dd ${colors[n]} ${tilt}" width="${w}" height="${w}" aria-hidden="true"><use href="#${pool[i]}"></use></svg>`;
+    }).join('');
+    return `<span class="card-doodles" aria-hidden="true">${svgs}</span>`;
+  }
+
+  /**
    * Initializes the interactive notebook filter bar and article cards.
    */
   async initArticlesPage(options = {}) {
@@ -549,8 +575,9 @@ class ArticlesManager {
           <div class="article-tags">
             ${a.tags.map(t => `<span class="article-tag" data-tag-filter="${t}">#${t}</span>`).join('')}
           </div>
-          <div class="mt-20">
+          <div class="mt-20 card-actions">
             <a class="btn btn-sm rbox r" href="article.html?slug=${a.slug}">Read note →</a>
+            ${this.cardDoodles(a.id)}
           </div>
         </article>
       `).join('');

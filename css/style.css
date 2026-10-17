@@ -732,6 +732,21 @@ header {
   color: var(--red);
 }
 
+.card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* the two doodles are grouped on the right of the Read note button */
+.card-doodles {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-right: 6px;
+}
+
 .article-tags {
   display: flex;
   flex-wrap: wrap;
@@ -1735,6 +1750,8 @@ header {
 .rot-6 { transform: rotate(6deg); }
 .rot-n4 { transform: rotate(-4deg); }
 .rot-8 { transform: rotate(8deg); }
+.rot-12 { transform: rotate(12deg); }
+.rot-n12 { transform: rotate(-12deg); }
 .rot-n6 { transform: rotate(-6deg); }
 .rot-n8 { transform: rotate(-8deg); }
 
