@@ -126,6 +126,7 @@ class ArticlesManager {
       body: a.body || '',
       file: a.file,
       githubUrl: a.githubUrl,
+      path: a.path,
       isGitHubIssue: !!a.isGitHubIssue
     };
   }
@@ -284,6 +285,7 @@ class ArticlesManager {
           author: (issue.user && issue.user.login !== GITHUB_CMS_CONFIG.owner) ? issue.user.login : 'Matthew Nguyen',
           body: body,
           githubUrl: issue.html_url,
+          path: issue.slug ? `notes/${issue.slug}.html` : undefined,
           isGitHubIssue: true
         });
       });
@@ -520,7 +522,8 @@ class ArticlesManager {
     };
 
     // Filter and Render articles
-    const renderArticles = () => {
+    let shown = 10;
+    const renderArticles = (resetCount = true) => {
       const filtered = articles.filter(a => {
         const matchType = (selectedType === 'all' || a.type === selectedType);
         const matchTag = (!selectedTag || a.tags.includes(selectedTag));
@@ -551,7 +554,10 @@ class ArticlesManager {
         return;
       }
 
-      container.innerHTML = filtered.map((a, idx) => `
+      const PAGE_SIZE = 10;
+      if (resetCount) shown = PAGE_SIZE;
+
+      const cardHtml = (a, idx) => `
         <article class="rbox card ${idx % 2 === 1 ? 'alt' : ''} article-card">
           <span class="tape"></span>
           <div class="article-meta">
@@ -565,7 +571,7 @@ class ArticlesManager {
             </span>
           </div>
           <h3>
-            <a class="lk c-ink" href="article.html?slug=${a.slug}">
+            <a class="lk c-ink" href="${a.path || 'article.html?slug=' + a.slug}">
               ${a.title}
             </a>
           </h3>
@@ -576,33 +582,61 @@ class ArticlesManager {
             ${a.tags.map(t => `<span class="article-tag" data-tag-filter="${t}">#${t}</span>`).join('')}
           </div>
           <div class="mt-20 card-actions">
-            <a class="btn btn-sm rbox r" href="article.html?slug=${a.slug}">Read note →</a>
+            <a class="btn btn-sm rbox r" href="${a.path || 'article.html?slug=' + a.slug}">Read note →</a>
             ${this.cardDoodles(a.id)}
           </div>
         </article>
-      `).join('');
+      `;
+      const moreHtml = () => filtered.length > shown
+        ? `<div class="load-more"><button type="button" class="btn btn-sm rbox r alt" id="load-more-btn">Load more notes <span class="blue">(${filtered.length - shown} left)</span></button></div>`
+        : '';
 
-      // Click on type badge on card to filter
-      container.querySelectorAll('.article-type-badge').forEach(badge => {
-        badge.addEventListener('click', (e) => {
-          e.stopPropagation();
-          selectedType = badge.dataset.typeFilter;
-          updateURL();
-          renderFilterBar();
-          renderArticles();
-        });
-      });
+      container.innerHTML = filtered.slice(0, shown).map(cardHtml).join('') + moreHtml();
 
-      // Click on tag on card to filter
-      container.querySelectorAll('.article-tag').forEach(tagEl => {
-        tagEl.addEventListener('click', (e) => {
-          e.stopPropagation();
-          selectedTag = tagEl.dataset.tagFilter;
-          updateURL();
-          renderFilterBar();
-          renderArticles();
+      // "Load more": append the next page without re-rendering (and re-animating) the cards already shown
+      const bindLoadMore = () => {
+        const btn = container.querySelector('#load-more-btn');
+        if (!btn) return;
+        btn.addEventListener('click', () => {
+          const from = shown;
+          shown += PAGE_SIZE;
+          const wrap = btn.closest('.load-more');
+          wrap.insertAdjacentHTML('beforebegin', filtered.slice(from, shown).map((a, i) => cardHtml(a, from + i)).join(''));
+          wrap.remove();
+          container.insertAdjacentHTML('beforeend', moreHtml());
+          bindCardEvents();
+          bindLoadMore();
+          const first = container.querySelectorAll('.article-card')[from];
+          if (first) first.querySelector('a').focus({ preventScroll: true });
         });
-      });
+      };
+
+      // Click on the type badge / a tag on a card to filter (bound once per element, also for appended cards)
+      const bindCardEvents = () => {
+        container.querySelectorAll('.article-type-badge:not([data-bound])').forEach(badge => {
+          badge.dataset.bound = '1';
+          badge.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectedType = badge.dataset.typeFilter;
+            updateURL();
+            renderFilterBar();
+            renderArticles();
+          });
+        });
+
+        container.querySelectorAll('.article-tag:not([data-bound])').forEach(tagEl => {
+          tagEl.dataset.bound = '1';
+          tagEl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectedTag = tagEl.dataset.tagFilter;
+            updateURL();
+            renderFilterBar();
+            renderArticles();
+          });
+        });
+      };
+      bindCardEvents();
+      bindLoadMore();
     };
 
     renderFilterBar();

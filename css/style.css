@@ -779,6 +779,12 @@ header {
 /* --------------------------------------------------------------------------
    Articles Filter Bar (Categories & Tag Filtering)
    -------------------------------------------------------------------------- */
+.load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 4px;
+}
+
 .articles-filter-wrap {
   margin: 28px 0 32px;
   display: flex;

@@ -68,3 +68,9 @@ Related domain: `js/`, `content/`, `.github/`
 Reason: Moving between notebook, articles list and an article should feel like turning a page. Cross-document View Transitions (`@view-transition { navigation: auto; }`) animate screenshots of the old/new pages, so the heavy SVG filters are not touched and there is no new dependency or build step. `js/page-flip.js` adds the `page-forward` / `page-back` transition type; CSS rotates the old page around the left binder (forward) or turns the previous one back in (back). The nav note keeps its own `view-transition-name` so it does not flip.
 Accepted trade-off: Only Chromium and Safari 18.2+ animate; other browsers (Firefox) navigate normally. Anchor links (`#contact`), same-page navigation and `prefers-reduced-motion` are not animated.
 Related domain: `css/`, `js/`, root HTML pages
+
+## 2026-10-17 — Static Article Pages & Load-More Pagination
+
+Reason: Article text only existed after JavaScript fetched and rendered it, which search engines index slowly. The sync Action now also pre-renders each issue to `notes/<number>-<slug>.html` (shell from `article.html`, renderer from `js/articles.js` run in a Node `vm`), so the pages are plain HTML with their own title/description/canonical/JSON-LD, and they ship less JavaScript than before. The articles list shows 10 notes and a hand-drawn "Load more notes" button instead of one endless list: a button (not infinite scroll) keeps the footer reachable, keyboard/screen-reader friendly and avoids re-animating cards already shown. Crawlers do not need the button because every note is in `sitemap.xml` and linked statically.
+Accepted trade-off: Editing the title of an issue changes its URL slug (the old static file is deleted by the next sync); `article.html?slug=N` keeps working through a client-side redirect. Static pages assume the site is served at the domain root.
+Related domain: `.github/`, `notes/`, `js/articles.js`, `article.html`

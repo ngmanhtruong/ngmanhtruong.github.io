@@ -13,51 +13,51 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/article.html?slug=8</loc>
+    <loc>https://matthewnguyen.vercel.app/notes/8-stop-letting-ai-agents-wreck-your-codebase-architecture.html</loc>
     <lastmod>2026-10-17</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/article.html?slug=7</loc>
+    <loc>https://matthewnguyen.vercel.app/notes/7-random-thoughts-on-the-day-ai-agents-left-its-sandbox.html</loc>
     <lastmod>2026-10-17</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/article.html?slug=6</loc>
+    <loc>https://matthewnguyen.vercel.app/notes/6-investigating-scroll-jank-svg-feturbulence-and-gpu.html</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/article.html?slug=5</loc>
+    <loc>https://matthewnguyen.vercel.app/notes/5-jev-and-system-one-models-ai-that-doesn-t-need-to-write-text.html</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/article.html?slug=4</loc>
+    <loc>https://matthewnguyen.vercel.app/notes/4-why-physical-notebooks-and-doodles-still-beat-digital-note.html</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/article.html?slug=3</loc>
+    <loc>https://matthewnguyen.vercel.app/notes/3-how-i-work-with-ai-coding-agents-as-a-senior-engineer.html</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/article.html?slug=2</loc>
+    <loc>https://matthewnguyen.vercel.app/notes/2-lean-front-end-architecture-shipping-less-js-getting-more.html</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/article.html?slug=1</loc>
+    <loc>https://matthewnguyen.vercel.app/notes/1-lessons-from-building-metaverse-and-real-time-web.html</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
 </urlset>

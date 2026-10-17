@@ -245,12 +245,19 @@
         
         if (articleData) {
           const { meta, markdown } = articleData;
+
+          // Articles that have a pre-rendered static page (notes/...) are served from there
+          // (add &dynamic to the URL to force this client-side page for debugging).
+          if (meta.path && !/[?&]dynamic\b/.test(location.search)) {
+            location.replace('/' + meta.path);
+            return;
+          }
           document.title = `${meta.title} — Matthew Nguyen`;
 
           // SEO: per-article description, canonical/OG URL and BlogPosting structured data
           (function updateSeo() {
             const BASE = 'https://matthewnguyen.vercel.app';
-            const url = `${BASE}/article.html?slug=${encodeURIComponent(meta.id || meta.slug)}`;
+            const url = meta.path ? `${BASE}/${meta.path}` : `${BASE}/article.html?slug=${encodeURIComponent(meta.id || meta.slug)}`;
             const desc = (meta.summary || '').slice(0, 300);
             const set = (sel, attr, val) => { const el = document.querySelector(sel); if (el && val) el.setAttribute(attr, val); };
             set('meta[name="description"]', 'content', desc);

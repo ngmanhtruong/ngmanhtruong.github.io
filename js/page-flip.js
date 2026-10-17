@@ -6,7 +6,7 @@
  * (e.g. Firefox) simply navigate normally.
  */
 (function () {
-  const rank = (pathname) => (/\/article(\.html)?$/.test(pathname) ? 2 : /\/articles(\.html)?$/.test(pathname) ? 1 : 0);
+  const rank = (pathname) => (/\/(article(\.html)?|notes\/[^/]+)$/.test(pathname) ? 2 : /\/articles(\.html)?$/.test(pathname) ? 1 : 0);
 
   const typeFor = (fromUrl, toUrl) => {
     const from = new URL(fromUrl);
