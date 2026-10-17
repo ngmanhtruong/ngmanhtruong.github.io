@@ -271,7 +271,6 @@ Unfinished / needs the user: `js/pencil-draw.js` still injects a small `<style>`
 Done:
 - Conducted interactive dialogue exploring the project's AI-first methodology, three-tier memory architecture (`instructions.md`, `CLAUDE.md`, `docs/`), human-in-the-loop architectural control, and the Dual-Agent Rule for security (independent adversarial auditing).
 - Authored a concise 3-minute article (~650 words) titled *"Stop Letting AI Agents Wreck Your Codebase: Architecture, Memory, and the Dual-Agent Rule"* and exported it to `/Users/apple/Downloads/stop-letting-ai-agents-wreck-your-codebase.md`.
-- Updated website favicon across `index.html`, `articles.html`, and `article.html` from the pencil SVG (`✏️`) to the 3D stickle notebook & pen icon (`https://img.icons8.com/3d-stickle/100/note.png`).
-- Downloaded local asset copy to `assets/note.png`.
+- Updated website favicon across `index.html`, `articles.html`, and `article.html` to `assets/note-svg.svg`.
 Unfinished / needs the user: None. Not pushed.
 
