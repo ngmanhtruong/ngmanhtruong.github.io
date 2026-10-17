@@ -204,3 +204,11 @@ Unfinished / needs the user: Redeploy the Worker (`cd worker && npx wrangler dep
 
 Done: Reactions are now Loved it, Well said, Learned something (positive) plus Not convinced and Lost me (constructive negatives); "Made me think" was removed. Worker `REACTION_TYPES` updated (old `insight` counts are simply ignored).
 Unfinished / needs the user: Redeploy the Worker (`cd worker && npx wrangler deploy`) or the two new reactions are rejected with 400. Not pushed.
+
+## 2026-10-17 — Project Screenshots (Torn-Paper Photos) & TR Store
+
+Done:
+- Added the TR Store card (trstore.vn) at the top of Projects.
+- Captured hero screenshots with headless Chrome for 9 sites (TR Store, Acecook, The Untold Story, Tet Wishes, Memecoin page, Bahi, Snake game, Portfolio v1, Wedding page) into `assets/projects/*.webp` (640px wide, 7-37 KB each).
+- Cards with a screenshot (`.has-shot`) show it bottom-right as a taped, torn-edge photo (`.proj-shot`: clip-path torn edge, tape strip, drop shadow, slight rotation; links to the site).
+Unfinished / needs the user: Screenshots for Wattsup (site unreachable), Nan LMS (access denied for bots), Koncierge Plus, KBM (internal), Dili D.I.S.C (SSL error), Films Info (API error at capture time). Send them as 16:10 images and they will be added. The wedding and portfolio-v1 shots show personal photos; remove them if unwanted. Not pushed.

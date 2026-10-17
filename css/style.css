@@ -1034,6 +1034,68 @@ header {
 
 .project-card {
   flex: 1 1 300px;
+  position: relative;
+}
+
+/* Screenshot pinned to the bottom-right corner like a torn-out photo taped on the note */
+.project-card.has-shot {
+  padding-bottom: 132px;
+}
+
+.proj-shot {
+  position: absolute;
+  right: -8px;
+  bottom: -14px;
+  z-index: 6;
+  width: 190px;
+  display: block;
+  transform: rotate(3deg);
+  filter: drop-shadow(2px 4px 4px rgba(50, 35, 10, 0.32));
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.proj-shot::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 14px;
+  z-index: 2;
+  width: 46px;
+  height: 16px;
+  background: var(--tape-color);
+  transform: rotate(-12deg);
+  clip-path: polygon(0 10%, 5% 0, 10% 12%, 90% 0, 95% 10%, 100% 0, 100% 90%, 95% 100%, 90% 88%, 10% 100%, 5% 90%, 0 100%);
+}
+
+.proj-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 6px 6px 7px;
+  background: #fffdf4;
+  /* irregular, hand-torn paper edge */
+  clip-path: polygon(
+    0 3%, 5% 0.5%, 11% 3.5%, 18% 1%, 26% 3%, 34% 0%, 43% 2.5%, 52% 0.5%, 61% 3%, 70% 0.5%, 79% 2.5%, 88% 0%, 95% 2%, 100% 0.5%,
+    99% 12%, 100% 24%, 98.5% 37%, 100% 50%, 99% 63%, 100% 76%, 98.5% 88%, 100% 99%,
+    93% 100%, 86% 97.5%, 77% 100%, 68% 97%, 59% 99.5%, 50% 97.5%, 41% 100%, 32% 97%, 23% 99.5%, 14% 97.5%, 6% 100%, 0 98%,
+    1.2% 86%, 0 74%, 1% 62%, 0 50%, 1.2% 38%, 0 26%, 1% 14%
+  );
+}
+
+.project-card.alt .proj-shot {
+  transform: rotate(-3.5deg);
+  right: -6px;
+}
+
+.project-card.alt .proj-shot::before {
+  left: auto;
+  right: 12px;
+  transform: rotate(10deg);
+}
+
+.proj-shot:hover {
+  transform: rotate(0deg) scale(1.05);
+  filter: drop-shadow(3px 6px 6px rgba(50, 35, 10, 0.38));
 }
 
 /* --------------------------------------------------------------------------
@@ -1442,6 +1504,14 @@ header {
 
   .page-intro {
     padding: 20px 0 12px !important;
+  }
+
+  .project-card.has-shot {
+    padding-bottom: 112px;
+  }
+
+  .proj-shot {
+    width: 156px;
   }
 }
 
