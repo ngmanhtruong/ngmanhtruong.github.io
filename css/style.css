@@ -1716,9 +1716,7 @@ header {
 
 /* flex columns */
 .col-280 { flex: 1 1 280px; }
-.col-340 { flex: 1 1 340px; min-width: 0; }
 .col-400 { flex: 1 1 400px; min-width: 0; }
-.col-420 { flex: 1 1 420px; min-width: 0; }
 
 /* rotations */
 .card.rot-0_6 { transform: rotate(0.6deg); }
@@ -1732,10 +1730,17 @@ header {
 .notebook-card-title { font-size: 36px; line-height: 42px; text-align: center; margin-bottom: 12px; }
 .doodle-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin: 24px 0 0 18px; }
 .icon-row { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 18px; }
-.about-grid { display: flex; flex-wrap: wrap; gap: 36px 56px; }
 .skills-grid { display: flex; flex-wrap: wrap; gap: 48px 44px; }
 .school-grid { display: flex; flex-wrap: wrap; gap: 48px 56px; }
-.ai-intro { margin: 8px 0 30px; max-width: 760px; }
+.ai-intro { margin: 8px 0 22px; max-width: 760px; }
+.ai-nutshell-title { margin: 0 0 6px; }
+.ai-nutshell { margin: 0 0 34px; }
+.ai-nutshell li { break-inside: avoid; }
+
+/* Hero second row: buttons on the left half, "Things I enjoy" on the right half */
+.hero-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 36px 56px; align-items: start; padding-bottom: 20px; }
+.hero-bottom .hero-actions { margin-top: 0; }
+.enjoy-mobile { display: none; }
 .sec-note { display: flex; align-items: center; gap: 10px; margin: -12px 0 30px; }
 .sec-note.sec-note-lg { margin-bottom: 36px; }
 .school-heading { margin: 0 0 18px; font-size: 42px; line-height: 48px; }
@@ -1787,7 +1792,27 @@ header {
   }
 }
 
+@media (min-width: 900px) {
+  .ai-nutshell {
+    columns: 2;
+    column-gap: 44px;
+  }
+}
+
 @media (max-width: 768px) {
+  /* "Things I enjoy" leaves the hero and shows above Skills instead (enjoy -> skills -> contact) */
+  .hero-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .enjoy-hero {
+    display: none;
+  }
+
+  .enjoy-mobile {
+    display: block;
+  }
+
   .header-bar {
     flex-direction: column;
     align-items: flex-start;

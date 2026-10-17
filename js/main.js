@@ -43,7 +43,7 @@ function initSmoothScroll() {
  * Uses exact coordinate spy matching the design component specifications.
  */
 function initScrollSpy() {
-  const ids = ['about', 'skills', 'projects', 'school', 'work', 'contact'];
+  const ids = ['about', 'projects', 'school', 'work', 'skills', 'contact'];
   const navLinks = document.querySelectorAll('.nav a');
   
   if (!navLinks.length) return;

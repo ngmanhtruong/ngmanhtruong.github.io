@@ -186,10 +186,10 @@
       <div class="stickwrap">
         <nav class="nav stick" aria-label="Sections">
           <a href="#about">Me?</a>
-          <a href="#skills" class="nav-minor">Skills</a>
           <a href="#projects" class="nav-minor">Projects</a>
           <a href="#school" class="nav-minor">Cert</a>
           <a href="#work">Work</a>
+          <a href="#skills" class="nav-minor">Skills</a>
           <a href="#contact">Contact</a>
           <a href="articles.html">Articles</a>
         </nav>
@@ -226,11 +226,6 @@
               I'm a <span class="hl">front-end developer</span> who loves building interfaces that look good and feel intuitive. I work with <span class="blue">React, Angular and Vue</span>, and I'm comfortable on the backend, with blockchain and with AWS. I keep an eye on new tech and best practices to bring fresh solutions to every project.
             </p> -->
             
-            <div class="hero-actions">
-              <a class="btn rbox r" href="#projects">See my projects</a>
-              <a class="btn rbox r alt" href="#contact">Say hi</a>
-              <a class="btn rbox r" href="articles.html"><span class="blue">My thoughts</span></a>
-            </div>
           </div>
 
           <!-- My Notebook Card -->
@@ -257,31 +252,15 @@
             </div>
           </div>
         </div>
-      </header>
-
-      <main>
-        <!-- ====================================================================
-             01. ABOUT ME
-             ==================================================================== -->
-        <section id="about" class="sec">
-          <svg class="dd b abs" width="96" height="96" aria-hidden="true"><use href="#d-bulb"></use></svg>
-          <svg class="dd r abs" width="110" height="60" aria-hidden="true"><use href="#d-squig"></use></svg>
-          
-          <h2 class="sec-title"><span class="n">01</span>About me</h2>
-          
-          <div class="about-grid">
-            <div class="col-420">
-              <p class="mb-30">What I do, in a nutshell:</p>
-              <ul class="dash">
-                <li>Build web apps and landing pages with <span class="blue">React, Next.js, Vue and Angular</span> or any frameworks/libraries that fit the project needs.</li>
-                <li>Write smart contracts and ship <span class="hl">NFT marketplaces</span> and <span class="hl">metaverse</span> projects.</li>
-                <li>Build <span class="hl">SaaS learning portals</span> for organizations around the world.</li>
-                <li>Used to teach kids to code and make games with <span class="blue">Scratch</span>.</li>
-              </ul>
+        <!-- Buttons (left) and "Things I enjoy" (right); on phones the card moves above Skills -->
+        <div class="hero-bottom">
+            <div class="hero-actions">
+              <a class="btn rbox r" href="#projects">See my projects</a>
+              <a class="btn rbox r alt" href="#contact">Say hi</a>
+              <a class="btn rbox r" href="articles.html"><span class="blue">My thoughts</span></a>
             </div>
-            
-            <div class="col-340">
-              <div class="rbox card rot-0_6">
+          <div class="enjoy-hero">
+            <div class="rbox card rot-0_6 enjoy-card">
                 <h3 class="h3-red">Things I enjoy</h3>
                 
                 <div class="enjoy-list">
@@ -350,9 +329,21 @@
                   <svg class="dd b rot-n4" width="52" height="52"><use href="#d-laptop"></use></svg>
                 </div>
               </div>
-            </div>
           </div>
+        </div>
 
+      </header>
+
+      <main>
+        <!-- ====================================================================
+             01. ABOUT ME
+             ==================================================================== -->
+        <section id="about" class="sec">
+          <svg class="dd b abs" width="96" height="96" aria-hidden="true"><use href="#d-bulb"></use></svg>
+          <svg class="dd r abs" width="110" height="60" aria-hidden="true"><use href="#d-squig"></use></svg>
+          
+          <h2 class="sec-title"><span class="n">01</span>About me</h2>
+          
           <!-- AI Engineering Card -->
           <div class="rbox r card alt ai-card">
             <span class="tape"></span>
@@ -360,6 +351,13 @@
             <p class="ai-intro">
               Agents write code fast. My job is to <span class="hl">decide what is worth building</span> and keep it <span class="blue">fast, lean and reliable</span> on every screen.
             </p>
+            <p class="ai-nutshell-title note">what I do, in a nutshell:</p>
+            <ul class="dash ai-nutshell">
+                <li>Build web apps and landing pages with <span class="blue">React, Next.js, Vue and Angular</span> or any frameworks/libraries that fit the project needs.</li>
+                <li>Write smart contracts and ship <span class="hl">NFT marketplaces</span> and <span class="hl">metaverse</span> projects.</li>
+                <li>Build <span class="hl">SaaS learning portals</span> for organizations around the world.</li>
+                <li>Used to teach kids to code and make games with <span class="blue">Scratch</span>.</li>
+              </ul>
             <div class="ai-features-grid">
               <div class="ai-feature-col">
                 <svg class="dd b" width="64" height="64" aria-hidden="true"><use href="#d-agent"></use></svg>
@@ -386,75 +384,13 @@
         </section>
 
         <!-- ====================================================================
-             02. SKILLS
-             ==================================================================== -->
-        <section id="skills" class="sec">
-          <svg class="dd b abs" width="100" height="100" aria-hidden="true"><use href="#d-cloud"></use></svg>
-          <svg class="dd r abs" width="70" height="70" aria-hidden="true"><use href="#d-star"></use></svg>
-          
-          <h2 class="sec-title"><span class="n">02</span>Skills</h2>
-          
-          <div class="sec-note">
-            <span class="note">front-end = home base</span>
-            <svg class="wob2" width="60" height="30" viewBox="0 0 60 30" fill="none" stroke="#1f40a8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M4 22 C 16 4, 36 4, 54 14"></path>
-              <path d="M44 6 L55 14 L44 22"></path>
-            </svg>
-          </div>
-          
-          <div class="skills-grid">
-            <div class="rbox card col-280">
-              <h3 class="red">Front-end</h3>
-              <ul class="dash mt-12">
-                <li>HTML &amp; CSS</li>
-                <li><span class="circ">JavaScript</span></li>
-                <li><span class="circ">React</span></li>
-                <li><span class="circ">Next.js</span></li>
-                <li>Angular</li>
-                <li>Vue.js</li>
-              </ul>
-            </div>
-            
-            <div class="rbox card alt col-280">
-              <h3 class="red">Back-end &amp; data</h3>
-              <ul class="dash mt-12">
-                <li>Node.js</li>
-                <li>Java</li>
-                <li>MongoDB</li>
-                <li>GraphQL</li>
-                <li>RedwoodJS</li>
-              </ul>
-            </div>
-            
-            <div class="rbox card col-280">
-              <h3 class="red">Blockchain</h3>
-              <ul class="dash mt-12">
-                <li>Solidity</li>
-                <li>Smart contracts</li>
-                <li>NFT marketplaces</li>
-              </ul>
-            </div>
-            
-            <div class="rbox card alt col-280">
-              <h3 class="red">Tools &amp; cloud</h3>
-              <ul class="dash mt-12">
-                <li>Kibana</li>
-                <li>Jenkins</li>
-                <li>AWS Cloud</li>
-                <li>Huawei Cloud</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- ====================================================================
-             03. PROJECTS
+             02. PROJECTS
              ==================================================================== -->
         <section id="projects" class="sec">
           <svg class="dd b abs" width="100" height="100" aria-hidden="true"><use href="#d-plane"></use></svg>
           <svg class="dd r abs" width="56" height="56" aria-hidden="true"><use href="#d-cursor"></use></svg>
           
-          <h2 class="sec-title"><span class="n">03</span>Projects</h2>
+          <h2 class="sec-title"><span class="n">02</span>Projects</h2>
           <div class="sec-note sec-note-lg">
             <span class="note">work, freelance &amp; hobby projects, links below</span>
           </div>
@@ -630,13 +566,13 @@
         </section>
 
         <!-- ====================================================================
-             04. SCHOOL & ACHIEVEMENTS
+             03. SCHOOL & ACHIEVEMENTS
              ==================================================================== -->
         <section id="school" class="sec">
           <svg class="dd b abs" width="100" height="100" aria-hidden="true"><use href="#d-cap"></use></svg>
           <svg class="dd r abs" width="80" height="80" aria-hidden="true"><use href="#d-trophy"></use></svg>
           
-          <h2 class="sec-title"><span class="n">04</span>School &amp; achievements</h2>
+          <h2 class="sec-title"><span class="n">03</span>School &amp; achievements</h2>
           
           <div class="school-grid">
             <!-- Education Column -->
@@ -726,13 +662,13 @@
         </section>
 
         <!-- ====================================================================
-             05. WORK EXPERIENCE
+             04. WORK EXPERIENCE
              ==================================================================== -->
         <section id="work" class="sec">
           <svg class="dd r abs" width="110" height="110" aria-hidden="true"><use href="#d-rocket"></use></svg>
           <svg class="dd b abs" width="64" height="64" aria-hidden="true"><use href="#d-spiral"></use></svg>
           
-          <h2 class="sec-title"><span class="n">05</span>Work experience</h2>
+          <h2 class="sec-title"><span class="n">04</span>Work experience</h2>
 
           <!-- Job 1 -->
           <article class="job">
@@ -816,6 +752,141 @@
               <p class="stack"><span class="red">stack →</span> <span class="blue">HTML, CSS, SASS, JavaScript, WordPress</span></p>
             </div>
           </article>
+        </section>
+
+        <!-- "Things I enjoy" for phones (the hero copy is hidden there): enjoy -> skills -> contact -->
+        <div class="sec enjoy-mobile">
+          <div class="rbox card rot-0_6 enjoy-card">
+                <h3 class="h3-red">Things I enjoy</h3>
+                
+                <div class="enjoy-list">
+                  <label class="enjoy-item">
+                    <input type="checkbox" checked>
+                    <span class="check-box">
+                      <svg class="wob2" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M4 5 L23 4 L24 23 L5 24 Z" stroke="#4a4d63" stroke-width="2"></path>
+                        <path d="M7 14 L12 20 L26 3" stroke="#1f40a8" stroke-width="3"></path>
+                      </svg>
+                    </span>
+                    <span>Basketball</span>
+                  </label>
+                  
+                  <label class="enjoy-item">
+                    <input type="checkbox" checked>
+                    <span class="check-box">
+                      <svg class="wob2" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M4 5 L23 4 L24 23 L5 24 Z" stroke="#4a4d63" stroke-width="2"></path>
+                        <path d="M7 14 L12 20 L26 3" stroke="#1f40a8" stroke-width="3"></path>
+                      </svg>
+                    </span>
+                    <span>Football</span>
+                  </label>
+                  
+                  <label class="enjoy-item">
+                    <input type="checkbox" checked>
+                    <span class="check-box">
+                      <svg class="wob2" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M4 5 L23 4 L24 23 L5 24 Z" stroke="#4a4d63" stroke-width="2"></path>
+                        <path d="M7 14 L12 20 L26 3" stroke="#1f40a8" stroke-width="3"></path>
+                      </svg>
+                    </span>
+                    <span>Music</span>
+                  </label>
+                  
+                  <label class="enjoy-item">
+                    <input type="checkbox" checked>
+                    <span class="check-box">
+                      <svg class="wob2" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M4 5 L23 4 L24 23 L5 24 Z" stroke="#4a4d63" stroke-width="2"></path>
+                        <path d="M7 14 L12 20 L26 3" stroke="#1f40a8" stroke-width="3"></path>
+                      </svg>
+                    </span>
+                    <span>Games</span>
+                  </label>
+                  
+                  <label class="enjoy-item">
+                    <input type="checkbox" checked>
+                    <span class="check-box">
+                      <svg class="wob2" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M4 5 L23 4 L24 23 L5 24 Z" stroke="#4a4d63" stroke-width="2"></path>
+                        <path d="M7 14 L12 20 L26 3" stroke="#1f40a8" stroke-width="3"></path>
+                      </svg>
+                    </span>
+                    <span>Coding</span>
+                  </label>
+                </div>
+                
+                <p class="mt-18"><span class="red">Language:</span> English</p>
+                
+                <div class="icon-row" aria-hidden="true">
+                  <svg class="dd r rot-n8" width="52" height="52"><use href="#d-ball"></use></svg>
+                  <svg class="dd b rot-6" width="52" height="52"><use href="#d-note"></use></svg>
+                  <svg class="dd r" width="56" height="56"><use href="#d-pad"></use></svg>
+                  <svg class="dd b rot-n4" width="52" height="52"><use href="#d-laptop"></use></svg>
+                </div>
+              </div>
+        </div>
+
+        <!-- ====================================================================
+             05. SKILLS
+             ==================================================================== -->
+        <section id="skills" class="sec">
+          <svg class="dd b abs" width="100" height="100" aria-hidden="true"><use href="#d-cloud"></use></svg>
+          <svg class="dd r abs" width="70" height="70" aria-hidden="true"><use href="#d-star"></use></svg>
+          
+          <h2 class="sec-title"><span class="n">05</span>Skills</h2>
+          
+          <div class="sec-note">
+            <span class="note">front-end = home base</span>
+            <svg class="wob2" width="60" height="30" viewBox="0 0 60 30" fill="none" stroke="#1f40a8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 22 C 16 4, 36 4, 54 14"></path>
+              <path d="M44 6 L55 14 L44 22"></path>
+            </svg>
+          </div>
+          
+          <div class="skills-grid">
+            <div class="rbox card col-280">
+              <h3 class="red">Front-end</h3>
+              <ul class="dash mt-12">
+                <li>HTML &amp; CSS</li>
+                <li><span class="circ">JavaScript</span></li>
+                <li><span class="circ">React</span></li>
+                <li><span class="circ">Next.js</span></li>
+                <li>Angular</li>
+                <li>Vue.js</li>
+              </ul>
+            </div>
+            
+            <div class="rbox card alt col-280">
+              <h3 class="red">Back-end &amp; data</h3>
+              <ul class="dash mt-12">
+                <li>Node.js</li>
+                <li>Java</li>
+                <li>MongoDB</li>
+                <li>GraphQL</li>
+                <li>RedwoodJS</li>
+              </ul>
+            </div>
+            
+            <div class="rbox card col-280">
+              <h3 class="red">Blockchain</h3>
+              <ul class="dash mt-12">
+                <li>Solidity</li>
+                <li>Smart contracts</li>
+                <li>NFT marketplaces</li>
+              </ul>
+            </div>
+            
+            <div class="rbox card alt col-280">
+              <h3 class="red">Tools &amp; cloud</h3>
+              <ul class="dash mt-12">
+                <li>Kibana</li>
+                <li>Jenkins</li>
+                <li>AWS Cloud</li>
+                <li>Huawei Cloud</li>
+              </ul>
+            </div>
+          </div>
         </section>
 
         <!-- ====================================================================
