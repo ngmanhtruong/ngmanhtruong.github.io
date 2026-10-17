@@ -16,6 +16,7 @@ const POST_ID = /^[a-z0-9-]{1,64}$/i;
 
 const ALLOWED_ORIGINS = [
   'https://matthewnguyen.vercel.app',
+  'https://ngmanhtruong.github.io',
   'http://localhost:4173',
   'http://localhost:3000',
 ];

@@ -234,3 +234,8 @@ Unfinished / needs the user: Check that Vercel is still linked to the renamed re
 ## 2026-10-17 — Films Info Screenshot
 
 Done: Added the author-supplied Trending Movies screenshot (`assets/projects/filmsinfo.webp`, 640px wide, 32 KB) to the Films Info card. Not pushed.
+
+## 2026-10-17 — Counters Hidden on the github.io Site
+
+Done: After the repo was renamed to `ngmanhtruong.github.io`, GitHub Pages serves the site at https://ngmanhtruong.github.io too. The counter Worker only allowed `https://matthewnguyen.vercel.app` (CORS), so browsers on the github.io origin were blocked and `js/stats.js` hid the counts (API itself fine: 40 visits, 22 hearts). Added `https://ngmanhtruong.github.io` to `ALLOWED_ORIGINS` in `worker/index.js`.
+Unfinished / needs the user: Redeploy the Worker (`cd worker && npx wrangler deploy`). Not pushed.
