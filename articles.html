@@ -34,7 +34,7 @@
 <body>
 
   <!-- SVG Filter & Doodle Symbol Definitions -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <svg class="svg-defs" width="0" height="0" aria-hidden="true" focusable="false">
     <defs>
       <filter id="wob" x="-3%" y="-3%" width="106%" height="106%">
         <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="2" seed="4" result="n"></feTurbulence>
@@ -99,7 +99,7 @@
 
       <!-- Pinned Sticky Navigation Note -->
       <div class="stickwrap">
-        <nav class="nav stick" aria-label="Sections" style="width: 480px;">
+        <nav class="nav stick stick-sm" aria-label="Sections">
           <a href="index.html">← Notebook</a>
           <a href="articles.html" class="on active">Articles</a>
           <a href="index.html#contact">Contact</a>
@@ -107,22 +107,22 @@
       </div>
 
       <!-- Header -->
-      <header style="padding-top:24px">
+      <header>
         <div class="header-bar">
-          <a href="index.html" class="hw blue ink logo-text" style="text-decoration:none">Matthew N.</a>
+          <a href="index.html" class="hw blue ink logo-text">Matthew N.</a>
         </div>
 
-        <div class="page-intro" style="padding: 48px 0 20px;">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
-            <span class="note" style="font-size:34px">notes to self, for now &amp; for later</span>
+        <div class="page-intro">
+          <div class="page-kicker">
+            <span class="note fs-34">notes to self, for now &amp; for later</span>
             <svg class="dd b" width="46" height="46"><use href="#d-bulb"></use></svg>
           </div>
 
-          <h1 class="hw ink" style="font-size:clamp(54px, 8vw, 84px);line-height:1.05;margin:0 0 16px;color:var(--ink)">
+          <h1 class="hw ink page-title">
             My Notes <span class="red">&amp;</span> Thoughts<span class="blue">.</span>
           </h1>
 
-          <p style="font-size:24px;line-height:34px;max-width:680px;margin:0">
+          <p class="page-lede">
             A notebook of what I'm <span class="hl">learning, thinking about and improving</span>: my notes for today and for the future me. Expect AI coding workflows, web performance, front-end architecture, and building interactive software, still a work in progress.
           </p>
         </div>
@@ -146,11 +146,11 @@
               <span class="blue">By Matthew Nguyen</span>
             </div>
             <h3>
-              <a class="lk" href="article.html?slug=ai-coding-agents-workflow" style="color:var(--ink)">
+              <a class="lk c-ink" href="article.html?slug=ai-coding-agents-workflow">
                 How I Work With AI Coding Agents as a Senior Engineer
               </a>
             </h3>
-            <p style="margin:12px 0 16px;font-size:22px;line-height:30px">
+            <p class="card-excerpt">
               Agents write code fast, but shipping production software requires taste, architectural boundaries, and relentless verification. Here is my daily workflow.
             </p>
             <div class="article-tags">
@@ -158,8 +158,8 @@
               <span class="article-tag">Engineering</span>
               <span class="article-tag">Architecture</span>
             </div>
-            <div style="margin-top:20px">
-              <a class="btn rbox r" href="article.html?slug=ai-coding-agents-workflow" style="font-size:26px;padding:6px 20px">Read note →</a>
+            <div class="mt-20">
+              <a class="btn rbox r btn-sm" href="article.html?slug=ai-coding-agents-workflow">Read note →</a>
             </div>
           </article>
 
@@ -173,11 +173,11 @@
               <span class="blue">By Matthew Nguyen</span>
             </div>
             <h3>
-              <a class="lk" href="article.html?slug=lean-frontend-architecture" style="color:var(--ink)">
+              <a class="lk c-ink" href="article.html?slug=lean-frontend-architecture">
                 Lean Front-End Architecture: Shipping Less JS, Getting More Speed
               </a>
             </h3>
-            <p style="margin:12px 0 16px;font-size:22px;line-height:30px">
+            <p class="card-excerpt">
               Why modern web development doesn't always need 300kB of runtime JavaScript to look incredible and feel fluid.
             </p>
             <div class="article-tags">
@@ -185,8 +185,8 @@
               <span class="article-tag">Performance</span>
               <span class="article-tag">CSS</span>
             </div>
-            <div style="margin-top:20px">
-              <a class="btn rbox r" href="article.html?slug=lean-frontend-architecture" style="font-size:26px;padding:6px 20px">Read note →</a>
+            <div class="mt-20">
+              <a class="btn rbox r btn-sm" href="article.html?slug=lean-frontend-architecture">Read note →</a>
             </div>
           </article>
 
@@ -200,11 +200,11 @@
               <span class="blue">By Matthew Nguyen</span>
             </div>
             <h3>
-              <a class="lk" href="article.html?slug=building-interactive-metaverse-web" style="color:var(--ink)">
+              <a class="lk c-ink" href="article.html?slug=building-interactive-metaverse-web">
                 Lessons from Building Metaverse and Real-time Web Experiences
               </a>
             </h3>
-            <p style="margin:12px 0 16px;font-size:22px;line-height:30px">
+            <p class="card-excerpt">
               Reflections on bridging Unity 3D with React and Next.js for virtual sports arenas and real-time runner tracking.
             </p>
             <div class="article-tags">
@@ -213,8 +213,8 @@
               <span class="article-tag">Unity</span>
               <span class="article-tag">GraphQL</span>
             </div>
-            <div style="margin-top:20px">
-              <a class="btn rbox r" href="article.html?slug=building-interactive-metaverse-web" style="font-size:26px;padding:6px 20px">Read note →</a>
+            <div class="mt-20">
+              <a class="btn rbox r btn-sm" href="article.html?slug=building-interactive-metaverse-web">Read note →</a>
             </div>
           </article>
 
@@ -222,10 +222,10 @@
       </main>
 
       <!-- Footer -->
-      <footer style="margin-top:80px;padding-bottom:60px">
+      <footer class="site-footer">
         <div class="rule" aria-hidden="true"></div>
         <div class="footer-bar">
-          <span class="note" style="display:inline-flex;align-items:center;gap:12px">
+          <span class="note note-row">
             thanks for reading my thoughts!
           </span>
           <span class="heart-widget">
@@ -235,7 +235,7 @@
             </button>
             <span class="visit-label" hidden><span class="visits-count">0</span> visits so far</span>
           </span>
-          <span class="hw red" style="font-size:34px">— 2 —</span>
+          <span class="hw red fs-34">— 2 —</span>
         </div>
       </footer>
 

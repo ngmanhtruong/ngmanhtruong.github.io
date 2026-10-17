@@ -34,7 +34,7 @@
 <body>
 
   <!-- SVG Filter & Doodle Symbol Definitions -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <svg class="svg-defs" width="0" height="0" aria-hidden="true" focusable="false">
     <defs>
       <!-- Wobbly distortion filters to give elements an organic, hand-drawn feel -->
       <filter id="wob" x="-3%" y="-3%" width="106%" height="106%">
@@ -208,7 +208,7 @@
           <div class="hero-main">
             <div class="hero-greeting">
               <span class="note">hello, world!</span>
-              <svg width="70" height="40" viewBox="0 0 70 40" fill="none" stroke="#1f40a8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="filter:url(#wob2)" aria-hidden="true">
+              <svg class="wob2" width="70" height="40" viewBox="0 0 70 40" fill="none" stroke="#1f40a8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M4 8 C 24 4, 44 14, 58 32"></path>
                 <path d="M46 32 L59 34 L58 20"></path>
               </svg>
@@ -237,21 +237,21 @@
           <div class="notebook-card-wrapper">
             <div class="rbox r notebook-card">
               <span class="tape"></span>
-              <div class="hw red" style="font-size:36px;line-height:42px;text-align:center;margin-bottom:12px">~ My Notebook ~</div>
+              <div class="hw red notebook-card-title">~ My Notebook ~</div>
               <div class="fill"><b>Name:</b><span>Matthew Nguyen</span></div>
-              <div class="fill" style="margin-top:18px"><b>Subject:</b><span>Software Engineering</span></div>
-              <div class="fill" style="margin-top:18px"><b>Class:</b><span>Sr. Software Engineer</span></div>
-              <div class="fill" style="margin-top:18px"><b>City:</b><span>Ho Chi Minh</span></div>
+              <div class="fill mt-18"><b>Subject:</b><span>Software Engineering</span></div>
+              <div class="fill mt-18"><b>Class:</b><span>Sr. Software Engineer</span></div>
+              <div class="fill mt-18"><b>City:</b><span>Ho Chi Minh</span></div>
             </div>
             
-            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:24px 0 0 18px" aria-hidden="true">
-              <svg class="dd b" width="70" height="70" style="transform:rotate(-6deg)"><use href="#d-laptop"></use></svg>
-              <svg class="dd r" width="58" height="58" style="transform:rotate(5deg)"><use href="#d-cup"></use></svg>
+            <div class="doodle-row" aria-hidden="true">
+              <svg class="dd b rot-n6" width="70" height="70"><use href="#d-laptop"></use></svg>
+              <svg class="dd r rot-5" width="58" height="58"><use href="#d-cup"></use></svg>
               <svg class="dd b" width="56" height="56"><use href="#d-star"></use></svg>
-              <svg width="34" height="34" viewBox="0 0 24 24" fill="rgba(211,236,69,.8)" stroke="#9b2c3a" stroke-width="1.6" stroke-linejoin="round" style="filter:url(#wob2)">
+              <svg class="wob2" width="34" height="34" viewBox="0 0 24 24" fill="rgba(211,236,69,.8)" stroke="#9b2c3a" stroke-width="1.6" stroke-linejoin="round">
                 <path d="M12 2 L14.8 9 L22 9.5 L16.5 14.3 L18.3 21.5 L12 17.6 L5.7 21.5 L7.5 14.3 L2 9.5 L9.2 9 Z"></path>
               </svg>
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1f40a8" stroke-width="1.6" stroke-linejoin="round" style="filter:url(#wob2);margin-top:10px">
+              <svg class="wob2 mt-10" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1f40a8" stroke-width="1.6" stroke-linejoin="round">
                 <path d="M12 2 L14.8 9 L22 9.5 L16.5 14.3 L18.3 21.5 L12 17.6 L5.7 21.5 L7.5 14.3 L2 9.5 L9.2 9 Z"></path>
               </svg>
             </div>
@@ -264,14 +264,14 @@
              01. ABOUT ME
              ==================================================================== -->
         <section id="about" class="sec">
-          <svg class="dd b abs" width="96" height="96" style="right:20px;top:30px;transform:rotate(8deg)" aria-hidden="true"><use href="#d-bulb"></use></svg>
-          <svg class="dd r abs" width="110" height="60" style="right:140px;top:58px" aria-hidden="true"><use href="#d-squig"></use></svg>
+          <svg class="dd b abs" width="96" height="96" aria-hidden="true"><use href="#d-bulb"></use></svg>
+          <svg class="dd r abs" width="110" height="60" aria-hidden="true"><use href="#d-squig"></use></svg>
           
           <h2 class="sec-title"><span class="n">01</span>About me</h2>
           
-          <div style="display:flex;flex-wrap:wrap;gap:36px 56px">
-            <div style="flex:1 1 420px;min-width:0">
-              <p style="margin:0 0 30px">What I do, in a nutshell:</p>
+          <div class="about-grid">
+            <div class="col-420">
+              <p class="mb-30">What I do, in a nutshell:</p>
               <ul class="dash">
                 <li>Build web apps and landing pages with <span class="blue">React, Next.js, Vue and Angular</span> or any frameworks/libraries that fit the project needs.</li>
                 <li>Write smart contracts and ship <span class="hl">NFT marketplaces</span> and <span class="hl">metaverse</span> projects.</li>
@@ -280,15 +280,15 @@
               </ul>
             </div>
             
-            <div style="flex:1 1 340px;min-width:0">
-              <div class="rbox card" style="transform:rotate(.6deg)">
-                <h3 style="color:var(--red)">Things I enjoy</h3>
+            <div class="col-340">
+              <div class="rbox card rot-0_6">
+                <h3 class="h3-red">Things I enjoy</h3>
                 
                 <div class="enjoy-list">
                   <label class="enjoy-item">
                     <input type="checkbox" checked>
                     <span class="check-box">
-                      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="filter:url(#wob2)">
+                      <svg class="wob2" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M4 5 L23 4 L24 23 L5 24 Z" stroke="#4a4d63" stroke-width="2"></path>
                         <path d="M7 14 L12 20 L26 3" stroke="#1f40a8" stroke-width="3"></path>
                       </svg>
@@ -299,7 +299,7 @@
                   <label class="enjoy-item">
                     <input type="checkbox" checked>
                     <span class="check-box">
-                      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="filter:url(#wob2)">
+                      <svg class="wob2" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M4 5 L23 4 L24 23 L5 24 Z" stroke="#4a4d63" stroke-width="2"></path>
                         <path d="M7 14 L12 20 L26 3" stroke="#1f40a8" stroke-width="3"></path>
                       </svg>
@@ -310,7 +310,7 @@
                   <label class="enjoy-item">
                     <input type="checkbox" checked>
                     <span class="check-box">
-                      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="filter:url(#wob2)">
+                      <svg class="wob2" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M4 5 L23 4 L24 23 L5 24 Z" stroke="#4a4d63" stroke-width="2"></path>
                         <path d="M7 14 L12 20 L26 3" stroke="#1f40a8" stroke-width="3"></path>
                       </svg>
@@ -321,7 +321,7 @@
                   <label class="enjoy-item">
                     <input type="checkbox" checked>
                     <span class="check-box">
-                      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="filter:url(#wob2)">
+                      <svg class="wob2" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M4 5 L23 4 L24 23 L5 24 Z" stroke="#4a4d63" stroke-width="2"></path>
                         <path d="M7 14 L12 20 L26 3" stroke="#1f40a8" stroke-width="3"></path>
                       </svg>
@@ -332,7 +332,7 @@
                   <label class="enjoy-item">
                     <input type="checkbox" checked>
                     <span class="check-box">
-                      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="filter:url(#wob2)">
+                      <svg class="wob2" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M4 5 L23 4 L24 23 L5 24 Z" stroke="#4a4d63" stroke-width="2"></path>
                         <path d="M7 14 L12 20 L26 3" stroke="#1f40a8" stroke-width="3"></path>
                       </svg>
@@ -341,13 +341,13 @@
                   </label>
                 </div>
                 
-                <p style="margin:18px 0 0"><span class="red">Language:</span> English</p>
+                <p class="mt-18"><span class="red">Language:</span> English</p>
                 
-                <div style="display:flex;flex-wrap:wrap;gap:18px;margin-top:18px" aria-hidden="true">
-                  <svg class="dd r" width="52" height="52" style="transform:rotate(-8deg)"><use href="#d-ball"></use></svg>
-                  <svg class="dd b" width="52" height="52" style="transform:rotate(6deg)"><use href="#d-note"></use></svg>
+                <div class="icon-row" aria-hidden="true">
+                  <svg class="dd r rot-n8" width="52" height="52"><use href="#d-ball"></use></svg>
+                  <svg class="dd b rot-6" width="52" height="52"><use href="#d-note"></use></svg>
                   <svg class="dd r" width="56" height="56"><use href="#d-pad"></use></svg>
-                  <svg class="dd b" width="52" height="52" style="transform:rotate(-4deg)"><use href="#d-laptop"></use></svg>
+                  <svg class="dd b rot-n4" width="52" height="52"><use href="#d-laptop"></use></svg>
                 </div>
               </div>
             </div>
@@ -357,29 +357,29 @@
           <div class="rbox r card alt ai-card">
             <span class="tape"></span>
             <h3 class="red">A Sr. engineer in the age of AI agents</h3>
-            <p style="margin:8px 0 30px;max-width:760px">
+            <p class="ai-intro">
               Agents write code fast. My job is to <span class="hl">decide what is worth building</span> and keep it <span class="blue">fast, lean and reliable</span> on every screen.
             </p>
             <div class="ai-features-grid">
               <div class="ai-feature-col">
                 <svg class="dd b" width="64" height="64" aria-hidden="true"><use href="#d-agent"></use></svg>
-                <div class="hw blue" style="font-size:34px;line-height:36px;margin-top:6px">Working with AI agents</div>
-                <p style="margin:6px 0 0">I use <span class="hl">AI coding agents</span> every day to draft, refactor, test and review faster, while I stay in charge of architecture, quality and the final call.</p>
+                <div class="hw blue hand-34 mt-6">Working with AI agents</div>
+                <p class="mt-6">I use <span class="hl">AI coding agents</span> every day to draft, refactor, test and review faster, while I stay in charge of architecture, quality and the final call.</p>
               </div>
               <div class="ai-feature-col">
                 <svg class="dd r" width="64" height="64" aria-hidden="true"><use href="#d-diamond"></use></svg>
-                <div class="hw blue" style="font-size:34px;line-height:36px;margin-top:6px">Lean on resources</div>
-                <p style="margin:6px 0 0">I keep <span class="hl">CPU, memory, bandwidth and cloud costs</span> low: ship less code, load only what is needed, and right-size what runs.</p>
+                <div class="hw blue hand-34 mt-6">Lean on resources</div>
+                <p class="mt-6">I keep <span class="hl">CPU, memory, bandwidth and cloud costs</span> low: ship less code, load only what is needed, and right-size what runs.</p>
               </div>
               <div class="ai-feature-col">
                 <svg class="dd b" width="54" height="54" aria-hidden="true"><use href="#d-rocket"></use></svg>
-                <div class="hw blue" style="font-size:34px;line-height:36px;margin-top:6px">Faster page loads</div>
-                <p style="margin:6px 0 0">Smaller bundles, code splitting, lazy loading, optimized images and fonts, and smart caching, so pages <span class="hl">show up quickly</span>.</p>
+                <div class="hw blue hand-34 mt-6">Faster page loads</div>
+                <p class="mt-6">Smaller bundles, code splitting, lazy loading, optimized images and fonts, and smart caching, so pages <span class="hl">show up quickly</span>.</p>
               </div>
               <div class="ai-feature-col">
                 <svg class="dd r" width="54" height="54" aria-hidden="true"><use href="#d-laptop"></use></svg>
-                <div class="hw blue" style="font-size:34px;line-height:36px;margin-top:6px">Every device</div>
-                <p style="margin:6px 0 0">Responsive, touch-friendly layouts that hold up from <span class="hl">small phones to wide desktops</span> and across modern browsers.</p>
+                <div class="hw blue hand-34 mt-6">Every device</div>
+                <p class="mt-6">Responsive, touch-friendly layouts that hold up from <span class="hl">small phones to wide desktops</span> and across modern browsers.</p>
               </div>
             </div>
           </div>
@@ -389,23 +389,23 @@
              02. SKILLS
              ==================================================================== -->
         <section id="skills" class="sec">
-          <svg class="dd b abs" width="100" height="100" style="right:30px;top:20px;transform:rotate(-6deg)" aria-hidden="true"><use href="#d-cloud"></use></svg>
-          <svg class="dd r abs" width="70" height="70" style="right:150px;top:70px;transform:rotate(10deg)" aria-hidden="true"><use href="#d-star"></use></svg>
+          <svg class="dd b abs" width="100" height="100" aria-hidden="true"><use href="#d-cloud"></use></svg>
+          <svg class="dd r abs" width="70" height="70" aria-hidden="true"><use href="#d-star"></use></svg>
           
           <h2 class="sec-title"><span class="n">02</span>Skills</h2>
           
-          <div style="display:flex;align-items:center;gap:10px;margin:-12px 0 30px">
+          <div class="sec-note">
             <span class="note">front-end = home base</span>
-            <svg width="60" height="30" viewBox="0 0 60 30" fill="none" stroke="#1f40a8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="filter:url(#wob2)" aria-hidden="true">
+            <svg class="wob2" width="60" height="30" viewBox="0 0 60 30" fill="none" stroke="#1f40a8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M4 22 C 16 4, 36 4, 54 14"></path>
               <path d="M44 6 L55 14 L44 22"></path>
             </svg>
           </div>
           
-          <div style="display:flex;flex-wrap:wrap;gap:48px 44px">
-            <div class="rbox card" style="flex:1 1 280px">
+          <div class="skills-grid">
+            <div class="rbox card col-280">
               <h3 class="red">Front-end</h3>
-              <ul class="dash" style="margin-top:12px">
+              <ul class="dash mt-12">
                 <li>HTML &amp; CSS</li>
                 <li><span class="circ">JavaScript</span></li>
                 <li><span class="circ">React</span></li>
@@ -415,9 +415,9 @@
               </ul>
             </div>
             
-            <div class="rbox card alt" style="flex:1 1 280px">
+            <div class="rbox card alt col-280">
               <h3 class="red">Back-end &amp; data</h3>
-              <ul class="dash" style="margin-top:12px">
+              <ul class="dash mt-12">
                 <li>Node.js</li>
                 <li>Java</li>
                 <li>MongoDB</li>
@@ -426,18 +426,18 @@
               </ul>
             </div>
             
-            <div class="rbox card" style="flex:1 1 280px">
+            <div class="rbox card col-280">
               <h3 class="red">Blockchain</h3>
-              <ul class="dash" style="margin-top:12px">
+              <ul class="dash mt-12">
                 <li>Solidity</li>
                 <li>Smart contracts</li>
                 <li>NFT marketplaces</li>
               </ul>
             </div>
             
-            <div class="rbox card alt" style="flex:1 1 280px">
+            <div class="rbox card alt col-280">
               <h3 class="red">Tools &amp; cloud</h3>
-              <ul class="dash" style="margin-top:12px">
+              <ul class="dash mt-12">
                 <li>Kibana</li>
                 <li>Jenkins</li>
                 <li>AWS Cloud</li>
@@ -451,8 +451,8 @@
              03. WORK EXPERIENCE
              ==================================================================== -->
         <section id="work" class="sec">
-          <svg class="dd r abs" width="110" height="110" style="right:20px;top:10px;transform:rotate(14deg)" aria-hidden="true"><use href="#d-rocket"></use></svg>
-          <svg class="dd b abs" width="64" height="64" style="right:150px;top:90px" aria-hidden="true"><use href="#d-spiral"></use></svg>
+          <svg class="dd r abs" width="110" height="110" aria-hidden="true"><use href="#d-rocket"></use></svg>
+          <svg class="dd b abs" width="64" height="64" aria-hidden="true"><use href="#d-spiral"></use></svg>
           
           <h2 class="sec-title"><span class="n">03</span>Work experience</h2>
 
@@ -539,11 +539,11 @@
              04. PROJECTS
              ==================================================================== -->
         <section id="projects" class="sec">
-          <svg class="dd b abs" width="100" height="100" style="right:24px;top:20px;transform:rotate(-8deg)" aria-hidden="true"><use href="#d-plane"></use></svg>
-          <svg class="dd r abs" width="56" height="56" style="right:150px;top:90px;transform:rotate(-10deg)" aria-hidden="true"><use href="#d-cursor"></use></svg>
+          <svg class="dd b abs" width="100" height="100" aria-hidden="true"><use href="#d-plane"></use></svg>
+          <svg class="dd r abs" width="56" height="56" aria-hidden="true"><use href="#d-cursor"></use></svg>
           
           <h2 class="sec-title"><span class="n">04</span>Projects</h2>
-          <div style="display:flex;align-items:center;gap:10px;margin:-12px 0 36px">
+          <div class="sec-note sec-note-lg">
             <span class="note">work, freelance &amp; hobby projects, links below</span>
           </div>
           
@@ -553,7 +553,7 @@
               <span class="tape"></span>
               <div class="tag">project · e-commerce</div>
               <h3>TR Store</h3>
-              <p style="margin:6px 0 12px">An online store for <span class="hl">beauty accessories and makeup tools</span>, with 450+ products priced around 25% below marketplace listings.</p>
+              <p class="card-desc">An online store for <span class="hl">beauty accessories and makeup tools</span>, with 450+ products priced around 25% below marketplace listings.</p>
               <a class="lk" href="https://trstore.vn" target="_blank" rel="noopener noreferrer">trstore.vn</a>
               <a class="proj-shot" href="https://trstore.vn" target="_blank" rel="noopener noreferrer" aria-label="Open TR Store">
                 <img src="assets/projects/trstore.webp" alt="Screenshot of TR Store" width="640" height="400" loading="lazy" decoding="async">
@@ -565,7 +565,7 @@
               <span class="tape"></span>
               <div class="tag">KBTGVN · discontinued</div>
               <h3>Wattsup EVBike</h3>
-              <p style="margin:6px 0 12px">Electric bikes and <span class="hl">battery swapping</span>: a mobile app, a portal and a landing page.</p>
+              <p class="card-desc">Electric bikes and <span class="hl">battery swapping</span>: a mobile app, a portal and a landing page.</p>
               <a class="lk" href="https://www.wattsup-ev.com" target="_blank" rel="noopener noreferrer">wattsup-ev.com</a><br>
               <a class="lk" href="https://portal.evbike-wattsup.com" target="_blank" rel="noopener noreferrer">portal.evbike-wattsup.com</a>
             </div>
@@ -575,7 +575,7 @@
               <span class="tape"></span>
               <div class="tag">KBTGVN · live</div>
               <h3>Nan LMS (Hooyoung)</h3>
-              <p style="margin:6px 0 12px">An <span class="hl">education platform</span> for students in Thailand, starting with Nan province: a mobile app and a portal.</p>
+              <p class="card-desc">An <span class="hl">education platform</span> for students in Thailand, starting with Nan province: a mobile app and a portal.</p>
               <a class="lk" href="https://portal.nanwisdomforlife.org" target="_blank" rel="noopener noreferrer">portal.nanwisdomforlife.org</a>
               <a class="proj-shot" href="https://portal.nanwisdomforlife.org" target="_blank" rel="noopener noreferrer" aria-label="Open the Nan LMS admin portal">
                 <img src="assets/projects/nanlms.webp" alt="Screenshot of the Nan LMS admin portal" width="640" height="343" loading="lazy" decoding="async">
@@ -586,14 +586,14 @@
             <div class="rbox card project-card">
               <div class="tag">KBTGVN</div>
               <h3>Koncierge Plus</h3>
-              <p style="margin:6px 0 12px"><span class="hl">Hotel Provider Management</span>.</p>
+              <p class="card-desc"><span class="hl">Hotel Provider Management</span>.</p>
             </div>
 
             <!-- Project 4 -->
             <div class="rbox card alt project-card has-shot">
               <div class="tag">KBTGVN · internal</div>
               <h3>Internal Confluence</h3>
-              <p style="margin:6px 0 12px">A <span class="hl">knowledge base management</span> tool for KBTG.</p>
+              <p class="card-desc">A <span class="hl">knowledge base management</span> tool for KBTG.</p>
               <a class="lk" href="https://kbm.kbtg.tech" target="_blank" rel="noopener noreferrer">kbm.kbtg.tech</a>           
               <a class="proj-shot" href="https://kbm.kbtg.tech" target="_blank" rel="noopener noreferrer" aria-label="Open KBM">
                 <img src="assets/projects/kbm.webp" alt="Screenshot of KBM" width="640" height="343" loading="lazy" decoding="async">
@@ -605,7 +605,7 @@
               <span class="tape"></span>
               <div class="tag">freelance · clone</div>
               <h3>Acecook</h3>
-              <p style="margin:6px 0 12px">A cloned website, built as a front-end practice piece.</p>
+              <p class="card-desc">A cloned website, built as a front-end practice piece.</p>
               <a class="lk" href="https://acecook.netlify.app" target="_blank" rel="noopener noreferrer">acecook.netlify.app</a>
               <a class="proj-shot" href="https://acecook.netlify.app" target="_blank" rel="noopener noreferrer" aria-label="Open Acecook">
                 <img src="assets/projects/acecook.webp" alt="Screenshot of Acecook" width="640" height="400" loading="lazy" decoding="async">
@@ -616,7 +616,7 @@
             <div class="rbox card alt project-card has-shot">
               <div class="tag">freelance · clone</div>
               <h3>The Untold Story</h3>
-              <p style="margin:6px 0 12px">A cloned website, built as a front-end practice piece.</p>
+              <p class="card-desc">A cloned website, built as a front-end practice piece.</p>
               <a class="lk" href="https://theuntoldstory.netlify.app" target="_blank" rel="noopener noreferrer">theuntoldstory.netlify.app</a>
               <a class="proj-shot" href="https://theuntoldstory.netlify.app" target="_blank" rel="noopener noreferrer" aria-label="Open The Untold Story">
                 <img src="assets/projects/untold.webp" alt="Screenshot of The Untold Story" width="640" height="400" loading="lazy" decoding="async">
@@ -628,7 +628,7 @@
               <span class="tape"></span>
               <div class="tag">freelance · clone</div>
               <h3>Tet Wishes</h3>
-              <p style="margin:6px 0 12px">A cloned website, built as a front-end practice piece.</p>
+              <p class="card-desc">A cloned website, built as a front-end practice piece.</p>
               <a class="lk" href="https://tetwishes.netlify.app" target="_blank" rel="noopener noreferrer">tetwishes.netlify.app</a>
               <a class="proj-shot" href="https://tetwishes.netlify.app" target="_blank" rel="noopener noreferrer" aria-label="Open Tet Wishes">
                 <img src="assets/projects/tetwishes.webp" alt="Screenshot of Tet Wishes" width="640" height="400" loading="lazy" decoding="async">
@@ -639,7 +639,7 @@
             <div class="rbox card alt project-card has-shot">
               <div class="tag">freelance</div>
               <h3>Memecoin launch page</h3>
-              <p style="margin:6px 0 12px">A launch page for a <span class="hl">memecoin</span> project.</p>
+              <p class="card-desc">A launch page for a <span class="hl">memecoin</span> project.</p>
               <a class="lk" href="https://pinetworkv2.netlify.app" target="_blank" rel="noopener noreferrer">pinetworkv2.netlify.app</a>
               <a class="proj-shot" href="https://pinetworkv2.netlify.app" target="_blank" rel="noopener noreferrer" aria-label="Open the memecoin launch page">
                 <img src="assets/projects/memecoin.webp" alt="Screenshot of the memecoin launch page" width="640" height="400" loading="lazy" decoding="async">
@@ -652,7 +652,7 @@
               <span class="tape"></span>
               <div class="tag">project</div>
               <h3>Dili D.I.S.C</h3>
-              <p style="margin:6px 0 12px">A <span class="hl">characteristic checking</span> form.</p>
+              <p class="card-desc">A <span class="hl">characteristic checking</span> form.</p>
               <a class="lk" href="https://disc.dili.group/#/form" target="_blank" rel="noopener noreferrer">disc.dili.group</a>
             </div>
             -->
@@ -662,7 +662,7 @@
             <div class="rbox card alt project-card has-shot">
               <div class="tag">project</div>
               <h3>Bahi</h3>
-              <p style="margin:6px 0 12px">Buy insurance online with Bahi.</p>
+              <p class="card-desc">Buy insurance online with Bahi.</p>
               <a class="lk" href="https://bahi.vn/" target="_blank" rel="noopener noreferrer">bahi.vn</a>
               <a class="proj-shot" href="https://bahi.vn/" target="_blank" rel="noopener noreferrer" aria-label="Open Bahi">
                 <img src="assets/projects/bahi.webp" alt="Screenshot of Bahi" width="640" height="400" loading="lazy" decoding="async">
@@ -674,7 +674,7 @@
             <div class="rbox card project-card has-shot">
               <div class="tag">hobby</div>
               <h3>Films Info</h3>
-              <p style="margin:6px 0 12px">Browse info about movies and TV shows.</p>
+              <p class="card-desc">Browse info about movies and TV shows.</p>
               <a class="lk" href="https://filmsinfo.netlify.app/" target="_blank" rel="noopener noreferrer">filmsinfo.netlify.app</a>
               <a class="proj-shot" href="https://filmsinfo.netlify.app/" target="_blank" rel="noopener noreferrer" aria-label="Open Films Info">
                 <img src="assets/projects/filmsinfo.webp" alt="Screenshot of Films Info" width="640" height="356" loading="lazy" decoding="async">
@@ -686,7 +686,7 @@
               <span class="tape"></span>
               <div class="tag">hobby</div>
               <h3>Wedding page</h3>
-              <p style="margin:6px 0 12px">My own wedding website.</p>
+              <p class="card-desc">My own wedding website.</p>
               <a class="lk" href="https://jessiematthew.xyz/" target="_blank" rel="noopener noreferrer">jessiematthew.xyz</a>
               <a class="proj-shot" href="https://jessiematthew.xyz/" target="_blank" rel="noopener noreferrer" aria-label="Open the wedding page">
                 <img src="assets/projects/wedding.webp" alt="Screenshot of the wedding page" width="640" height="400" loading="lazy" decoding="async">
@@ -697,7 +697,7 @@
             <div class="rbox card project-card has-shot">
               <div class="tag">hobby</div>
               <h3>Snake game</h3>
-              <p style="margin:6px 0 12px">The classic snake game, playable in the browser.</p>
+              <p class="card-desc">The classic snake game, playable in the browser.</p>
               <a class="lk" href="https://tn-snakegame.netlify.app/" target="_blank" rel="noopener noreferrer">tn-snakegame.netlify.app</a>
               <a class="proj-shot" href="https://tn-snakegame.netlify.app/" target="_blank" rel="noopener noreferrer" aria-label="Open the Snake game">
                 <img src="assets/projects/snake.webp" alt="Screenshot of the Snake game" width="640" height="400" loading="lazy" decoding="async">
@@ -708,7 +708,7 @@
             <div class="rbox card alt project-card has-shot">
               <div class="tag">hobby</div>
               <h3>Portfolio, v1</h3>
-              <p style="margin:6px 0 12px">My earlier portfolio site.</p>
+              <p class="card-desc">My earlier portfolio site.</p>
               <a class="lk" href="https://truongnguyen.netlify.app/" target="_blank" rel="noopener noreferrer">truongnguyen.netlify.app</a>
               <a class="proj-shot" href="https://truongnguyen.netlify.app/" target="_blank" rel="noopener noreferrer" aria-label="Open my first portfolio">
                 <img src="assets/projects/portfolio-v1.webp" alt="Screenshot of my first portfolio" width="640" height="400" loading="lazy" decoding="async">
@@ -721,36 +721,36 @@
              05. SCHOOL & ACHIEVEMENTS
              ==================================================================== -->
         <section id="school" class="sec">
-          <svg class="dd b abs" width="100" height="100" style="right:24px;top:20px;transform:rotate(6deg)" aria-hidden="true"><use href="#d-cap"></use></svg>
-          <svg class="dd r abs" width="80" height="80" style="right:150px;top:44px;transform:rotate(-8deg)" aria-hidden="true"><use href="#d-trophy"></use></svg>
+          <svg class="dd b abs" width="100" height="100" aria-hidden="true"><use href="#d-cap"></use></svg>
+          <svg class="dd r abs" width="80" height="80" aria-hidden="true"><use href="#d-trophy"></use></svg>
           
           <h2 class="sec-title"><span class="n">05</span>School &amp; achievements</h2>
           
-          <div style="display:flex;flex-wrap:wrap;gap:48px 56px">
+          <div class="school-grid">
             <!-- Education Column -->
-            <div style="flex:1 1 400px;min-width:0">
-              <h3 class="hw red" style="margin:0 0 18px;font-size:42px;line-height:48px">Education</h3>
+            <div class="col-400">
+              <h3 class="hw red school-heading">Education</h3>
               
-              <div style="margin-bottom:30px">
-                <div class="hw blue" style="font-size:34px;line-height:36px">Open University</div>
+              <div class="mb-30">
+                <div class="hw blue hand-34">Open University</div>
                 <div>Bachelor, <span class="hl">Management of Information System</span></div>
                 <div class="note">Oct 2014 – Dec 2018</div>
               </div>
               
               <div>
-                <div class="hw blue" style="font-size:34px;line-height:36px">Nordic Coder</div>
+                <div class="hw blue hand-34">Nordic Coder</div>
                 <div>Certificate, <span class="hl">JavaScript &amp; ReactJS in Advance</span></div>
                 <div class="note">Mar 2021 – Oct 2021</div>
               </div>
             </div>
 
             <!-- Certificates & Achievements Column -->
-            <div style="flex:1 1 400px;min-width:0">
-              <h3 class="hw red" style="margin:0 0 18px;font-size:42px;line-height:48px">Certificates &amp; achievements</h3>
+            <div class="col-400">
+              <h3 class="hw red school-heading">Certificates &amp; achievements</h3>
               
               <div class="achieve-list">
                 <div class="achieve-item">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="rgba(211,236,69,.85)" stroke="#9b2c3a" stroke-width="1.6" stroke-linejoin="round" style="filter:url(#wob2)" aria-hidden="true">
+                  <svg class="wob2" width="32" height="32" viewBox="0 0 24 24" fill="rgba(211,236,69,.85)" stroke="#9b2c3a" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true">
                     <path d="M12 2 L14.8 9 L22 9.5 L16.5 14.3 L18.3 21.5 L12 17.6 L5.7 21.5 L7.5 14.3 L2 9.5 L9.2 9 Z"></path>
                   </svg>
                   <div>
@@ -760,7 +760,7 @@
                 </div>
 
                 <div class="achieve-item">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#9b2c3a" stroke-width="1.6" stroke-linejoin="round" style="filter:url(#wob2)" aria-hidden="true">
+                  <svg class="wob2" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#9b2c3a" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true">
                     <path d="M12 2 L14.8 9 L22 9.5 L16.5 14.3 L18.3 21.5 L12 17.6 L5.7 21.5 L7.5 14.3 L2 9.5 L9.2 9 Z"></path>
                   </svg>
                   <div>
@@ -770,7 +770,7 @@
                 </div>
 
                 <div class="achieve-item">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="rgba(211,236,69,.85)" stroke="#9b2c3a" stroke-width="1.6" stroke-linejoin="round" style="filter:url(#wob2)" aria-hidden="true">
+                  <svg class="wob2" width="32" height="32" viewBox="0 0 24 24" fill="rgba(211,236,69,.85)" stroke="#9b2c3a" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true">
                     <path d="M12 2 L14.8 9 L22 9.5 L16.5 14.3 L18.3 21.5 L12 17.6 L5.7 21.5 L7.5 14.3 L2 9.5 L9.2 9 Z"></path>
                   </svg>
                   <div>
@@ -780,7 +780,7 @@
                 </div>
 
                 <div class="achieve-item">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1f40a8" stroke-width="1.6" stroke-linejoin="round" style="filter:url(#wob2)" aria-hidden="true">
+                  <svg class="wob2" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1f40a8" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true">
                     <path d="M12 2 L14.8 9 L22 9.5 L16.5 14.3 L18.3 21.5 L12 17.6 L5.7 21.5 L7.5 14.3 L2 9.5 L9.2 9 Z"></path>
                   </svg>
                   <div>
@@ -790,7 +790,7 @@
                 </div>
 
                 <div class="achieve-item">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1f40a8" stroke-width="1.6" stroke-linejoin="round" style="filter:url(#wob2)" aria-hidden="true">
+                  <svg class="wob2" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1f40a8" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true">
                     <path d="M12 2 L14.8 9 L22 9.5 L16.5 14.3 L18.3 21.5 L12 17.6 L5.7 21.5 L7.5 14.3 L2 9.5 L9.2 9 Z"></path>
                   </svg>
                   <div>
@@ -800,7 +800,7 @@
                 </div>
 
                 <div class="achieve-item">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4a4d63" stroke-width="1.6" stroke-linejoin="round" style="filter:url(#wob2)" aria-hidden="true">
+                  <svg class="wob2" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4a4d63" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true">
                     <path d="M12 2 L14.8 9 L22 9.5 L16.5 14.3 L18.3 21.5 L12 17.6 L5.7 21.5 L7.5 14.3 L2 9.5 L9.2 9 Z"></path>
                   </svg>
                   <div>
@@ -816,35 +816,35 @@
         <!-- ====================================================================
              06. SAY HI / CONTACT
              ==================================================================== -->
-        <section id="contact" class="sec" style="padding-bottom:90px">
-          <svg class="dd b abs" width="110" height="110" style="right:30px;top:90px;transform:rotate(-8deg)" aria-hidden="true"><use href="#d-mail"></use></svg>
-          <svg class="dd r abs" width="64" height="64" style="right:170px;top:60px;transform:rotate(10deg)" aria-hidden="true"><use href="#d-heart"></use></svg>
-          <svg class="dd r abs" width="96" height="96" style="right:60px;top:230px" aria-hidden="true"><use href="#d-sun"></use></svg>
+        <section id="contact" class="sec sec-last">
+          <svg class="dd b abs" width="110" height="110" aria-hidden="true"><use href="#d-mail"></use></svg>
+          <svg class="dd r abs" width="64" height="64" aria-hidden="true"><use href="#d-heart"></use></svg>
+          <svg class="dd r abs" width="96" height="96" aria-hidden="true"><use href="#d-sun"></use></svg>
           
           <h2 class="sec-title"><span class="n">06</span>Say hi</h2>
           
           <div class="rbox r contact-card">
             <span class="tape"></span>
-            <p class="hw" style="margin:0;font-size:46px;line-height:60px;font-weight:500">
+            <p class="hw contact-lead">
               Want to <span class="hl">build something</span> together?
             </p>
-            <p style="margin:12px 0 0">I'm based in Ho Chi Minh City. Drop me a line:</p>
-            <div class="fill" style="margin-top:18px">
+            <p class="mt-12">I'm based in Ho Chi Minh City. Drop me a line:</p>
+            <div class="fill mt-18">
               <b>Email:</b>
-              <span><a class="lk" style="overflow-wrap:anywhere" href="mailto:ng.manhtruong1996@gmail.com">ng.manhtruong1996@gmail.com</a></span>
+              <span><a class="lk wrap-anywhere" href="mailto:ng.manhtruong1996@gmail.com">ng.manhtruong1996@gmail.com</a></span>
             </div>
-            <div class="fill" style="margin-top:12px">
+            <div class="fill mt-12">
               <b>LinkedIn:</b>
-              <span><a class="lk" style="overflow-wrap:anywhere" href="https://www.linkedin.com/in/ngmanhtruong" target="_blank" rel="noopener noreferrer">linkedin.com/in/ngmanhtruong</a></span>
+              <span><a class="lk wrap-anywhere" href="https://www.linkedin.com/in/ngmanhtruong" target="_blank" rel="noopener noreferrer">linkedin.com/in/ngmanhtruong</a></span>
             </div>
-            <div class="fill" style="margin-top:12px">
+            <div class="fill mt-12">
               <b>GitHub:</b>
-              <span><a class="lk" style="overflow-wrap:anywhere" href="https://github.com/ngmanhtruong" target="_blank" rel="noopener noreferrer">github.com/ngmanhtruong</a></span>
+              <span><a class="lk wrap-anywhere" href="https://github.com/ngmanhtruong" target="_blank" rel="noopener noreferrer">github.com/ngmanhtruong</a></span>
             </div>
           </div>
           
           <div class="footer-bar">
-            <span class="note" style="display:inline-flex;align-items:center;gap:12px">
+            <span class="note note-row">
               thanks for flipping through my notebook! 
             </span>
             <span class="heart-widget">
@@ -854,7 +854,7 @@
             </button>
             <span class="visit-label" hidden><span class="visits-count">0</span> visits so far</span>
           </span>
-            <span class="hw red" style="font-size:34px">— 1 —</span>
+            <span class="hw red fs-34">— 1 —</span>
           </div>
         </section>
       </main>

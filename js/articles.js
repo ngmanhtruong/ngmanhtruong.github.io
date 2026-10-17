@@ -441,10 +441,10 @@ class ArticlesManager {
         <div class="tag-filter-bar">
           <div class="tag-filter-header">
             <span class="tag-filter-title note">
-              <svg class="dd r" width="22" height="22" style="display:inline-block;vertical-align:middle"><use href="#d-star"></use></svg>
+              <svg class="dd r dd-inline" width="22" height="22"><use href="#d-star"></use></svg>
               Filter by topic:
             </span>
-            <button class="clear-filter-btn" id="clear-filter-btn" style="display:${selectedTag || selectedType !== 'all' ? 'inline-block' : 'none'}">
+            <button class="clear-filter-btn${selectedTag || selectedType !== 'all' ? '' : ' is-hidden'}" id="clear-filter-btn">
               ✕ Clear filters
             </button>
           </div>
@@ -504,12 +504,12 @@ class ArticlesManager {
       if (filtered.length === 0) {
         container.innerHTML = `
           <div class="empty-notes rbox card">
-            <span class="hw" style="font-size:52px;color:var(--red);display:block;margin-bottom:12px"><svg class="doodle-ic" aria-hidden="true" style="width:1em;height:1em"><use href="#ic-bubbles"></use></svg></span>
-            <h3 class="hw ink" style="font-size:36px;margin:0 0 8px">No notes found here yet!</h3>
-            <p style="font-size:22px;color:var(--pencil);max-width:480px;margin:0 auto 20px">
+            <span class="hw empty-icon"><svg class="doodle-ic" aria-hidden="true"><use href="#ic-bubbles"></use></svg></span>
+            <h3 class="hw ink empty-title">No notes found here yet!</h3>
+            <p class="empty-text">
               No articles match the selected filter (${selectedType !== 'all' ? selectedType : ''} ${selectedTag ? '#' + selectedTag : ''}). Try selecting another category or clear the filter.
             </p>
-            <button class="btn rbox r" id="empty-reset-btn" style="font-size:22px;padding:6px 20px">Reset all filters</button>
+            <button class="btn btn-xs rbox r" id="empty-reset-btn">Reset all filters</button>
           </div>
         `;
         const resetBtn = container.querySelector('#empty-reset-btn');
@@ -539,18 +539,18 @@ class ArticlesManager {
             </span>
           </div>
           <h3>
-            <a class="lk" href="article.html?slug=${a.slug}" style="color:var(--ink)">
+            <a class="lk c-ink" href="article.html?slug=${a.slug}">
               ${a.title}
             </a>
           </h3>
-          <p style="margin:12px 0 16px;font-size:22px;line-height:30px">
+          <p class="card-excerpt">
             ${String(a.summary).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}
           </p>
           <div class="article-tags">
             ${a.tags.map(t => `<span class="article-tag" data-tag-filter="${t}">#${t}</span>`).join('')}
           </div>
-          <div style="margin-top:20px">
-            <a class="btn rbox r" href="article.html?slug=${a.slug}" style="font-size:26px;padding:6px 20px">Read note →</a>
+          <div class="mt-20">
+            <a class="btn btn-sm rbox r" href="article.html?slug=${a.slug}">Read note →</a>
           </div>
         </article>
       `).join('');
@@ -619,22 +619,22 @@ class ArticlesManager {
 
     // Code blocks
     body = body.replace(/```([a-z0-9_-]*)\n([\s\S]*?)```/g, (match, lang, code) => {
-      return `<pre class="rbox" style="padding:16px 20px;overflow-x:auto;background:rgba(255,255,255,0.6);margin:24px 0"><code>${escapeHtml(code.trim())}</code></pre>`;
+      return `<pre class="rbox"><code>${escapeHtml(code.trim())}</code></pre>`;
     });
 
     // Inline code
-    body = body.replace(/`([^`\n]+)`/g, (m, code) => `<code style="background:rgba(211,236,69,0.3);padding:2px 6px;border-radius:3px;font-family:monospace;font-size:0.9em">${escapeHtml(code)}</code>`);
+    body = body.replace(/`([^`\n]+)`/g, (m, code) => `<code>${escapeHtml(code)}</code>`);
 
     // Headers
-    body = body.replace(/^# (.*$)/gm, '<h1 class="hw ink" style="font-size: clamp(38px, 6vw, 56px); margin: 36px 0 16px; color: var(--ink);">$1</h1>\n\n');
-    body = body.replace(/^## (.*$)/gm, '<h2 class="hw red" style="font-size: 38px; margin: 32px 0 14px; position:relative; display:inline-block;">$1</h2>\n\n');
-    body = body.replace(/^### (.*$)/gm, '<h3 class="hw blue" style="font-size: 32px; margin: 24px 0 10px;">$1</h3>\n\n');
+    body = body.replace(/^# (.*$)/gm, '<h1 class="hw ink">$1</h1>\n\n');
+    body = body.replace(/^## (.*$)/gm, '<h2 class="hw red">$1</h2>\n\n');
+    body = body.replace(/^### (.*$)/gm, '<h3 class="hw blue">$1</h3>\n\n');
 
     // Horizontal rule
     body = body.replace(/^---$/gm, '\n\n<div class="rule" aria-hidden="true"></div>\n\n');
 
     // Blockquotes
-    body = body.replace(/^> (.*$)/gm, '<blockquote class="rbox alt card" style="margin:24px 0;padding:18px 24px;font-family:\'Patrick Hand\',cursive;font-size:24px;line-height:32px;color:var(--blue)">$1</blockquote>\n\n');
+    body = body.replace(/^> (.*$)/gm, '<blockquote class="rbox alt card">$1</blockquote>\n\n');
 
     // Bold / Strong / Italics
     body = body.replace(/\*\*([^*]+)\*\*/g, '<strong class="hl">$1</strong>');
@@ -644,15 +644,15 @@ class ArticlesManager {
     body = body.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a class="lk" href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
 
     // Images
-    body = body.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%;border-radius:4px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,0.15)">');
+    body = body.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
 
     // Unordered lists
     body = body.replace(/^\s*[-*]\s+(.*)$/gm, '<li class="dash-item">$1</li>');
-    body = body.replace(/(<li class="dash-item">.*<\/li>(\n|$))+/g, '\n\n<ul class="dash" style="margin:16px 0;">$&</ul>\n\n');
+    body = body.replace(/(<li class="dash-item">.*<\/li>(\n|$))+/g, '\n\n<ul class="dash">$&</ul>\n\n');
 
     // Ordered lists
-    body = body.replace(/^\s*\d+\.\s+(.*)$/gm, '<li class="num-item" style="margin-left:24px;margin-bottom:8px">$1</li>');
-    body = body.replace(/(<li class="num-item"[^>]*>.*<\/li>(\n|$))+/g, '\n\n<ol style="margin:16px 0;padding-left:16px">$&</ol>\n\n');
+    body = body.replace(/^\s*\d+\.\s+(.*)$/gm, '<li class="num-item">$1</li>');
+    body = body.replace(/(<li class="num-item"[^>]*>.*<\/li>(\n|$))+/g, '\n\n<ol>$&</ol>\n\n');
 
     // Paragraphs
     const paragraphs = body.split(/\n{2,}/);
@@ -660,7 +660,7 @@ class ArticlesManager {
       p = p.trim();
       if (!p) return '';
       if (/^<(h[1-6]|ul|ol|pre|blockquote|div|img)/.test(p)) return p;
-      return `<p style="margin: 16px 0; line-height: 1.6;">${p.replace(/\n/g, '<br>')}</p>`;
+      return `<p>${p.replace(/\n/g, '<br>')}</p>`;
     }).join('\n');
 
     return body;

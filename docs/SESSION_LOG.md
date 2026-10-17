@@ -257,3 +257,11 @@ Unfinished / needs the user: Optionally add a visible credit line in the page fo
 
 Done: Added `js/page-flip.js` (loaded in the head of all 3 pages) and the `@view-transition` / `page-turn-*` CSS. Verified in the in-app browser that index -> articles gets `page-forward` and articles -> index gets `page-back`. The visual animation itself could not be watched (the in-app browser renders slowly), so timing/feel needs a look on a real browser.
 Tuning knobs in `css/style.css`: duration 0.75s (0.55s at <=640px), easing, `perspective(2400px)`, end angle -100deg, shadow in the `page-turn-away` / `page-turn-in` keyframes. Not pushed.
+
+## 2026-10-17 — Inline Style Cleanup & Color Variables
+
+Done:
+- Removed all 139 inline `style=""` attributes from `index.html`, `articles.html`, `article.html` and the markup built in `js/articles.js` (card, empty state, markdown renderer). Repeated patterns became utilities (`.mt-*`, `.fs-*`, `.col-*`, `.rot-*`, `.wob2`...), one-offs became semantic classes (`.about-grid`, `.page-title`, `.article-sheet`, `.empty-*`...), and the 25 hand-placed floating doodles are now positioned in CSS per section (`#about > .dd.abs:nth-of-type(n)`). Markdown body elements are styled under `.article-content`.
+- Colors: `:root` now holds RGB triplets (`--red-rgb`, `--blue-rgb`, `--lime-rgb`, ...) and named one-off tokens (`--sticky`, `--pin-light`, `--paper-bright`...); 67 `rgba(...)` and 11 hex literals in `css/style.css` now use them. `--paper/--ink/--red/--blue/--pencil` derive from the triplets.
+- Verified with before/after full-page screenshots (headless Chrome, desktop and narrow): home page identical (apart from the live visit counter), articles list identical, article detail identical on desktop. On narrow screens the articles/article header now uses the same 8px top padding as the home page (the old inline `padding-top:24px` was overriding the mobile rule), shifting the page up 16px: intended.
+Unfinished / needs the user: `js/pencil-draw.js` still injects a small `<style>` with a few literal colors for its toolbar. Not pushed.

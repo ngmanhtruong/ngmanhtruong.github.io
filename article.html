@@ -30,7 +30,7 @@
 <body>
 
   <!-- SVG Filter & Doodle Symbol Definitions -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <svg class="svg-defs" width="0" height="0" aria-hidden="true" focusable="false">
     <defs>
       <!-- Same wobble as #wob, but with generous margins on one axis so very thin (2-3px) edge lines are not clipped -->
       <filter id="wob-h" x="-3%" y="-1000%" width="106%" height="2100%">
@@ -104,7 +104,7 @@
 
       <!-- Pinned Sticky Navigation Note -->
       <div class="stickwrap">
-        <nav class="nav stick" aria-label="Sections" style="width: 480px;">
+        <nav class="nav stick stick-sm" aria-label="Sections">
           <a href="articles.html">← Articles</a>
           <a href="index.html">Notebook</a>
           <a href="index.html#contact">Contact</a>
@@ -112,19 +112,19 @@
       </div>
 
       <!-- Header -->
-      <header style="padding-top:24px">
+      <header>
         <div class="header-bar">
-          <a href="index.html" class="hw blue ink logo-text" style="text-decoration:none">Matthew N.</a>
+          <a href="index.html" class="hw blue ink logo-text">Matthew N.</a>
         </div>
       </header>
 
       <!-- Main Article Container -->
-      <main class="article-detail-wrap" style="padding-top: 36px;">
+      <main class="article-detail-wrap">
         <div class="article-back-nav">
           <a class="lk" href="articles.html">← Back to all articles</a>
         </div>
 
-        <article class="rbox card" style="position:relative;padding:48px 44px 40px;background:rgba(250,246,234,0.85)">
+        <article class="rbox card article-sheet">
           <span class="tape"></span>
           <i class="rbox-edge t" aria-hidden="true"></i><i class="rbox-edge b" aria-hidden="true"></i><i class="rbox-edge l" aria-hidden="true"></i><i class="rbox-edge r" aria-hidden="true"></i>
 
@@ -139,11 +139,11 @@
 
           <!-- Dynamic Markdown Render Target -->
           <div id="article-body-container" class="article-content">
-            <p class="note" style="font-size:32px;color:var(--blue)">Loading note from markdown...</p>
+            <p class="note loading-note">Loading note from markdown...</p>
           </div>
 
           <!-- Tags Footer -->
-          <div id="article-tags-container" class="article-tags" style="margin-top:36px"></div>
+          <div id="article-tags-container" class="article-tags mt-36"></div>
 
           <!-- Reactions (counts stored by the counter Worker; each reader's picks live in localStorage) -->
           <section id="article-reactions" class="reactions" aria-label="Reactions" hidden>
@@ -159,17 +159,17 @@
         </article>
 
         <!-- Navigation Buttons Below Article -->
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:40px;gap:20px;flex-wrap:wrap">
+        <div class="article-footer-nav">
           <a class="btn rbox r" href="articles.html">← All articles</a>
           <a class="btn rbox r alt" href="index.html">Go to home notebook →</a>
         </div>
       </main>
 
       <!-- Footer -->
-      <footer style="margin-top:80px;padding-bottom:60px">
+      <footer class="site-footer">
         <div class="rule" aria-hidden="true"></div>
         <div class="footer-bar">
-          <span class="note" style="display:inline-flex;align-items:center;gap:12px">
+          <span class="note note-row">
             switch on “Draw” (bottom-left) to doodle or annotate with your pencil!
           </span>
           <span class="heart-widget">
@@ -179,7 +179,7 @@
             </button>
             <span class="visit-label" hidden><span class="visits-count">0</span> visits so far</span>
           </span>
-          <span class="hw red" style="font-size:34px">— 3 —</span>
+          <span class="hw red fs-34">— 3 —</span>
         </div>
       </footer>
 
@@ -237,8 +237,8 @@
           }
         } else {
           document.getElementById('article-body-container').innerHTML = `
-            <div style="text-align:center;padding:40px 0">
-              <h2 class="hw red" style="font-size:42px">Note Not Found</h2>
+            <div class="not-found">
+              <h2 class="hw red fs-42">Note Not Found</h2>
               <p>Could not locate the requested article.</p>
               <a class="btn rbox r" href="articles.html">← Back to articles</a>
             </div>
