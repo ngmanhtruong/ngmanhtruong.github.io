@@ -221,3 +221,7 @@ Done: Wrapped the two project cards in HTML comments (`<!-- Temporarily hidden: 
 
 Done: Added the author-supplied screenshots (`assets/projects/nanlms.webp`, `kbm.webp`, 640px wide) to the Nan LMS and Internal Confluence (KBM) cards as torn-paper photos. Not pushed.
 Unfinished / needs the user: Screenshots still missing for Wattsup EVBike and Koncierge Plus.
+
+## 2026-10-17 — Nan LMS Name
+
+Done: Added "(Hooyoung)" after Nan LMS in the KBTGVN work bullet and the project card title. Not pushed.
