@@ -265,3 +265,13 @@ Done:
 - Colors: `:root` now holds RGB triplets (`--red-rgb`, `--blue-rgb`, `--lime-rgb`, ...) and named one-off tokens (`--sticky`, `--pin-light`, `--paper-bright`...); 67 `rgba(...)` and 11 hex literals in `css/style.css` now use them. `--paper/--ink/--red/--blue/--pencil` derive from the triplets.
 - Verified with before/after full-page screenshots (headless Chrome, desktop and narrow): home page identical (apart from the live visit counter), articles list identical, article detail identical on desktop. On narrow screens the articles/article header now uses the same 8px top padding as the home page (the old inline `padding-top:24px` was overriding the mobile rule), shifting the page up 16px: intended.
 Unfinished / needs the user: `js/pencil-draw.js` still injects a small `<style>` with a few literal colors for its toolbar. Not pushed.
+
+## 2026-10-17 — Meta-Engineering Article Discussion & 3D Note Favicon
+
+Done:
+- Conducted interactive dialogue exploring the project's AI-first methodology, three-tier memory architecture (`instructions.md`, `CLAUDE.md`, `docs/`), human-in-the-loop architectural control, and the Dual-Agent Rule for security (independent adversarial auditing).
+- Authored a concise 3-minute article (~650 words) titled *"Stop Letting AI Agents Wreck Your Codebase: Architecture, Memory, and the Dual-Agent Rule"* and exported it to `/Users/apple/Downloads/stop-letting-ai-agents-wreck-your-codebase.md`.
+- Updated website favicon across `index.html`, `articles.html`, and `article.html` from the pencil SVG (`✏️`) to the 3D stickle notebook & pen icon (`https://img.icons8.com/3d-stickle/100/note.png`).
+- Downloaded local asset copy to `assets/note.png`.
+Unfinished / needs the user: None. Not pushed.
+
