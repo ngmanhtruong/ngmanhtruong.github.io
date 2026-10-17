@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- Source for assets/og-image.jpg (1200x630 social preview).
+     Regenerate: python3 scripts/serve.py 4173, then
+     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --window-size=1200,630 \
+       --virtual-time-budget=8000 --screenshot=og.png http://localhost:4173/assets/og-source.html
+     and convert og.png to assets/og-image.jpg (e.g. sips -s format jpeg og.png --out assets/og-image.jpg) -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>OG image source</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&family=Reenie+Beanie&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { width: 1200px; height: 630px; overflow: hidden; }
+    .og { position: relative; width: 1200px; height: 630px; overflow: hidden; }
+    .og .pg { height: 630px; min-height: 0; padding: 0 70px 0 var(--ml); }
+    .og-inner { padding-top: 92px; position: relative; z-index: 10; }
+    .og-kicker { font-family: 'Reenie Beanie', cursive; font-size: 44px; color: var(--blue); }
+    .og-name { font-size: 132px; line-height: 1; margin: 6px 0 0; }
+    .og-role { font-size: 54px; line-height: 64px; margin: 18px 0 0; font-weight: 500; }
+    .og-tags { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 12px 22px; font-family: 'Patrick Hand', cursive; font-size: 30px; color: var(--pencil); }
+    .og-tags span { position: relative; padding: 2px 4px; }
+    .og-tape { position: absolute; top: 34px; right: 110px; transform: rotate(4deg); width: 130px; height: 40px; background: var(--tape-color); }
+  </style>
+</head>
+<body>
+  <div class="og">
+    <div class="pg">
+      <span class="og-tape"></span>
+      <div class="og-inner">
+        <div class="og-kicker">portfolio · resume · cv</div>
+        <h1 class="hw ink og-name">Matthew <span class="blue">Nguyen</span><span class="red">.</span></h1>
+        <p class="hw og-role"><span class="hl">Senior Software Engineer</span> from Ho Chi Minh City, Vietnam</p>
+        <div class="og-tags"><span>React / Next.js</span><span>AI coding agents</span><span>Web3 &amp; smart contracts</span><span>Cloud</span></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

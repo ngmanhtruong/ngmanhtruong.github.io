@@ -1,0 +1,15 @@
+# Everything is public and meant to be found.
+User-agent: *
+Allow: /
+
+# AI / answer-engine crawlers are welcome too.
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://matthewnguyen.vercel.app/sitemap.xml

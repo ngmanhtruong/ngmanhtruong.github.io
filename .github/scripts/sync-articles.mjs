@@ -27,3 +27,17 @@ const issues = (await res.json())
 
 await writeFile('content/issues.json', JSON.stringify(issues, null, 2) + '\n');
 console.log(`Wrote ${issues.length} articles`);
+
+// sitemap.xml: home, articles list and every article (kept in sync with the issues)
+const BASE = 'https://matthewnguyen.vercel.app';
+const today = new Date().toISOString().slice(0, 10);
+const entry = (loc, lastmod, changefreq, priority) =>
+  `  <url>\n    <loc>${loc.replace(/&/g, '&amp;')}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>\n`;
+const sitemap =
+  '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+  entry(`${BASE}/`, today, 'weekly', '1.0') +
+  entry(`${BASE}/articles.html`, issues[0]?.created_at.slice(0, 10) || today, 'weekly', '0.8') +
+  issues.map((i) => entry(`${BASE}/article.html?slug=${i.number}`, i.created_at.slice(0, 10), 'monthly', '0.6')).join('') +
+  '</urlset>\n';
+await writeFile('sitemap.xml', sitemap);
+console.log('Wrote sitemap.xml');

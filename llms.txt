@@ -1,0 +1,11 @@
+# Matthew Nguyen: portfolio, resume and CV
+
+> Matthew Nguyen (Nguyen Manh Truong) is a Senior Software Engineer based in Ho Chi Minh City, Vietnam. He builds web apps with React, Next.js, Vue and Angular, writes smart contracts, ships SaaS learning portals, and works with AI coding agents (context engineering, verification loops, MCP, safe agent use). This site is his handwritten-notebook portfolio.
+
+## Pages
+- [Portfolio, resume and CV](https://matthewnguyen.vercel.app/): about, projects, education and certificates, work experience, skills, contact
+- [Notes and articles](https://matthewnguyen.vercel.app/articles.html): notes on AI coding agents, front-end architecture and performance
+
+## Profiles
+- [LinkedIn](https://www.linkedin.com/in/ngmanhtruong)
+- [GitHub](https://github.com/ngmanhtruong)
