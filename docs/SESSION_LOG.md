@@ -212,3 +212,7 @@ Done:
 - Captured hero screenshots with headless Chrome for 9 sites (TR Store, Acecook, The Untold Story, Tet Wishes, Memecoin page, Bahi, Snake game, Portfolio v1, Wedding page) into `assets/projects/*.webp` (640px wide, 7-37 KB each).
 - Cards with a screenshot (`.has-shot`) show it bottom-right as a taped, torn-edge photo (`.proj-shot`: clip-path torn edge, tape strip, drop shadow, slight rotation; links to the site).
 Unfinished / needs the user: Screenshots for Wattsup (site unreachable), Nan LMS (access denied for bots), Koncierge Plus, KBM (internal), Dili D.I.S.C (SSL error), Films Info (API error at capture time). Send them as 16:10 images and they will be added. The wedding and portfolio-v1 shots show personal photos; remove them if unwanted. Not pushed.
+
+## 2026-10-17 — Temporarily Hide Bahi and Dili D.I.S.C
+
+Done: Wrapped the two project cards in HTML comments (`<!-- Temporarily hidden: ... -->`) in `index.html`; remove the comment markers to restore them. `assets/projects/bahi.webp` is kept. Not pushed.
