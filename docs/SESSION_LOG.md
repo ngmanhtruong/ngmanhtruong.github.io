@@ -272,5 +272,6 @@ Done:
 - Conducted interactive dialogue exploring the project's AI-first methodology, three-tier memory architecture (`instructions.md`, `CLAUDE.md`, `docs/`), human-in-the-loop architectural control, and the Dual-Agent Rule for security (independent adversarial auditing).
 - Authored a concise 3-minute article (~650 words) titled *"Stop Letting AI Agents Wreck Your Codebase: Architecture, Memory, and the Dual-Agent Rule"* and exported it to `/Users/apple/Downloads/stop-letting-ai-agents-wreck-your-codebase.md`.
 - Updated website favicon across `index.html`, `articles.html`, and `article.html` to `assets/note-svg.svg`.
+- Optimized scroll handwriting reveal speed specifically for mobile/touch devices (`js/reveal.js`, `css/style.css`): faster word intervals (10ms vs 22ms), capped paragraph duration (650ms vs 1700ms), shorter queue handoff (180ms vs 700ms), snappier CSS transitions (0.25s vs 0.45s), and earlier IntersectionObserver rootMargin (40px pre-trigger); desktop timing remains 100% unchanged.
 Unfinished / needs the user: None. Not pushed.
 

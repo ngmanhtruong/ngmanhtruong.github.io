@@ -25,10 +25,25 @@
   ].join(',');
   const BOXES = '.rbox.card, .notebook-card, .contact-card, .article-card, .empty-notes';
   const SKIP_TAGS = new Set(['SCRIPT', 'STYLE', 'SVG', 'INPUT', 'BUTTON', 'TEXTAREA', 'PRE']);
-  const WORD_DELAY = 22;       // ms between words (words overlap, so the pen moves in one flowing wave)
-  const MAX_UNIT_TIME = 1700;  // ms: very long paragraphs speed up so they never drag
-  const BOX_TIME = 300;        // ms a box takes to fade in before its content is written
-  const MAX_WAIT = 700;        // ms: longest a block waits for the pen before starting
+
+  const isMobile = () => window.matchMedia('(max-width: 768px), ((hover: none) and (pointer: coarse))').matches;
+
+  // On mobile devices, pages are vertically longer and users scroll much faster with flick gestures.
+  // Word intervals, queue waits, and paragraph duration caps are tuned faster for mobile,
+  // while desktop timing remains completely untouched.
+  const getTiming = () => {
+    const m = isMobile();
+    return {
+      wordDelay: m ? 10 : 22,        // ms between words (flowing wave on desktop vs brisk pace on mobile)
+      maxUnitTime: m ? 650 : 1700,   // ms: cap on very long paragraphs so they never drag
+      boxTime: m ? 160 : 300,        // ms for box fade-in
+      maxWait: m ? 180 : 700,        // ms: longest a block waits for the pen before starting
+      leadTime: m ? 120 : 250,       // ms: base buffer for text finish
+      queueHandoff: m ? 0.35 : 0.6,  // fraction of duration before next block can start
+      finishDelay: m ? 400 : 900,    // ms before unwrapping spans
+      wholeTime: m ? 280 : 600,      // ms for filtered title reveal
+    };
+  };
 
   const wrapWords = (unit) => {
     const nodes = [];
@@ -59,7 +74,8 @@
     });
     pieces.forEach(([node, frag]) => node.parentNode.replaceChild(frag, node));
 
-    const step = Math.min(WORD_DELAY, MAX_UNIT_TIME / Math.max(count, 1));
+    const timing = getTiming();
+    const step = Math.min(timing.wordDelay, timing.maxUnitTime / Math.max(count, 1));
     unit.style.setProperty('--step', step + 'ms');
     unit.dataset.rvTime = String(Math.round(count * step));
   };
@@ -84,6 +100,7 @@
 
   const io = new IntersectionObserver((entries) => {
     const now = performance.now();
+    const timing = getTiming();
     entries
       .filter((e) => e.isIntersecting)
       .sort((a, b) => (a.boundingClientRect.top - b.boundingClientRect.top) ||
@@ -92,19 +109,19 @@
         const el = e.target;
         io.unobserve(el);
         const isBox = el.classList.contains('rv-box');
-        const duration = isBox ? BOX_TIME : (parseInt(el.dataset.rvTime, 10) || 0) + 250;
-        const start = Math.min(Math.max(now, queueEnd), now + MAX_WAIT);
+        const duration = isBox ? timing.boxTime : (parseInt(el.dataset.rvTime, 10) || 0) + timing.leadTime;
+        const start = Math.min(Math.max(now, queueEnd), now + timing.maxWait);
         el.style.setProperty('--base', Math.round(start - now) + 'ms');
         // Boxes only delay what follows slightly; text hands the pen over a bit early.
-        queueEnd = start + (isBox ? duration * 0.5 : duration * 0.6);
+        queueEnd = start + (isBox ? duration * 0.4 : duration * timing.queueHandoff);
         el.classList.add('rv-on');
         // Once the block is fully written, drop the per-word spans again so long articles do not
         // keep hundreds of clipped inline-blocks (extra paint work) while scrolling.
         if (!isBox) {
-          setTimeout(() => finish(el), Math.round(start - now) + (parseInt(el.dataset.rvTime, 10) || 0) + 900);
+          setTimeout(() => finish(el), Math.round(start - now) + (parseInt(el.dataset.rvTime, 10) || 0) + timing.finishDelay);
         }
       });
-  }, { rootMargin: '0px 0px -60px 0px', threshold: 0.01 });
+  }, { rootMargin: isMobile() ? '0px 0px 40px 0px' : '0px 0px -60px 0px', threshold: 0.01 });
 
   const isWrapped = (unit) => unit.classList.contains('rv') &&
     (unit.classList.contains('rv-whole') || unit.classList.contains('rv-fin') || unit.querySelector('.rv-w'));
@@ -122,7 +139,7 @@
       if (getComputedStyle(u).filter !== 'none') {
         // Filtered blocks (titles) are revealed as a single piece, see .rv-whole in the CSS.
         u.classList.add('rv', 'rv-whole');
-        u.dataset.rvTime = '600';
+        u.dataset.rvTime = String(getTiming().wholeTime);
       } else {
         wrapWords(u);
         u.classList.add('rv');

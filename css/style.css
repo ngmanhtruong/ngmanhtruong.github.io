@@ -2071,17 +2071,40 @@ header {
   transition: none;
 }
 
-/* Touch devices: fade only, no clip-path on filtered titles */
-@media (hover: none) and (pointer: coarse) {
+/* Touch & Mobile devices: faster reveal transitions to keep pace with rapid flick scrolling */
+@media (max-width: 768px), ((hover: none) and (pointer: coarse)) {
+  .rv-ready .rv-w {
+    transition: clip-path 0.25s cubic-bezier(0.25, 0.7, 0.3, 1),
+                opacity 0.2s ease-out,
+                translate 0.25s cubic-bezier(0.25, 0.7, 0.3, 1);
+  }
+
   .rv-ready .rv-whole {
     clip-path: none;
-    translate: 0 0.2em;
-    transition: opacity 0.5s ease-out, translate 0.5s ease-out;
+    translate: 0 0.15em;
+    transition: opacity 0.3s ease-out, translate 0.3s ease-out;
     transition-delay: var(--base, 0ms);
   }
 
   .rv-ready .rv-whole.rv-on {
     translate: 0 0;
+  }
+
+  .rv-ready .rv-box {
+    transition: opacity 0.3s ease-out, translate 0.3s cubic-bezier(0.25, 0.7, 0.3, 1);
+  }
+
+  .rv-ready .rv.rv-on .hl {
+    transition: background-size 0.35s ease-out 0.15s;
+  }
+
+  .rv-ready .rv.rv-on .u::after,
+  .rv-ready .rv.rv-on .lk::after {
+    transition: transform 0.3s ease-out 0.15s;
+  }
+
+  .rv-ready .sec-title.rv-on::after {
+    transition: transform 0.35s ease-out 0.15s;
   }
 }
 
