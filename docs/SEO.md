@@ -18,3 +18,6 @@ Canonical site: **https://matthewnguyen.vercel.app** (hard-coded in `index.html`
 
 ## Realistic targets
 Generic words ("portfolio", "resume", "cv", "AI resume") are dominated by templates, builders and big sites; a personal site will not reach page 1-2 for them. Winnable: your name ("Matthew Nguyen developer", "Nguyen Manh Truong"), and long-tail terms such as "senior front-end developer Vietnam", "Vietnam software engineer portfolio", "AI engineer portfolio Vietnam", "context engineering AI-first repo".
+
+## Search Console verification
+The home page carries `<meta name="google-site-verification" ...>` (in `index.html`). Verify the URL-prefix property `https://matthewnguyen.vercel.app/` with the "HTML tag" method. The DNS TXT method only works for a domain you control (a custom domain), not for `*.vercel.app`.
