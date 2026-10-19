@@ -346,3 +346,8 @@ Not pushed.
 
 Done: Replaced the canonical base `matthewnguyen.vercel.app` with `matthewnguyen.dev` in the three pages (canonical, Open Graph, JSON-LD), `robots.txt`, `sitemap.xml`, `llms.txt`, the sync/build scripts, and rebuilt the 9 static `notes/` pages. Added `vercel.json` (301 from `matthewnguyen.vercel.app` and `www.matthewnguyen.dev` to the new domain). The counter Worker now also allows `https://matthewnguyen.dev` and `https://www.matthewnguyen.dev`.
 Unfinished / needs the user: Redeploy the Worker (`cd worker && npx wrangler deploy`) or the counters are hidden on the new domain; in Search Console add the new property for `matthewnguyen.dev` and resubmit the sitemap. Not pushed.
+
+## 2026-10-19 — Fix: matthewnguyen.dev Redirect Loop
+
+Cause: the Vercel dashboard redirected `matthewnguyen.dev` -> `www.matthewnguyen.dev` (308) while the `vercel.json` rule added the previous day redirected `www.matthewnguyen.dev` -> `matthewnguyen.dev` (308): an endless loop (browsers show ERR_TOO_MANY_REDIRECTS). Removed the www rule from `vercel.json`; only `matthewnguyen.vercel.app` -> `.dev` stays.
+Needs the user: in Vercel (Settings, Domains) make `matthewnguyen.dev` the primary (no redirect) and set `www.matthewnguyen.dev` to redirect to it, so it matches the canonical URL used everywhere. Not pushed.

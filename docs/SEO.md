@@ -1,6 +1,6 @@
 # SEO notes
 
-Canonical site: **https://matthewnguyen.dev** (custom domain; `vercel.json` 301-redirects `matthewnguyen.vercel.app` and `www.matthewnguyen.dev` to it) (hard-coded in `index.html`, `articles.html`, `article.html`, `robots.txt`, `sitemap.xml`, `llms.txt`, `assets/README.md` and the sync script). If you move to a custom domain, replace it everywhere (`grep -rn matthewnguyen.dev .`).
+Canonical site: **https://matthewnguyen.dev** (custom domain; `vercel.json` redirects `matthewnguyen.vercel.app` to it. The apex/www redirect is configured ONLY in the Vercel dashboard (Settings, Domains): make `matthewnguyen.dev` the primary and let `www.matthewnguyen.dev` redirect to it; never add a second www/apex redirect in `vercel.json`, it causes a redirect loop) (hard-coded in `index.html`, `articles.html`, `article.html`, `robots.txt`, `sitemap.xml`, `llms.txt`, `assets/README.md` and the sync script). If you move to a custom domain, replace it everywhere (`grep -rn matthewnguyen.dev .`).
 
 ## What is in place
 - Per-page `<title>`, meta description, canonical, robots, Open Graph and Twitter cards; share image `assets/og-image.jpg` (source: `assets/og-source.html`).
