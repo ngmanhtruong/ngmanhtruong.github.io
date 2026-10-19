@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://matthewnguyen.vercel.app/</loc>
+    <loc>https://matthewnguyen.dev/</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/articles.html</loc>
+    <loc>https://matthewnguyen.dev/articles.html</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/notes/9-why-young-people-are-lying-flat-and-putting-off-kids-a.html</loc>
+    <loc>https://matthewnguyen.dev/notes/9-why-young-people-are-lying-flat-and-putting-off-kids-a.html</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/notes/8-stop-letting-ai-agents-wreck-your-codebase-architecture.html</loc>
+    <loc>https://matthewnguyen.dev/notes/8-stop-letting-ai-agents-wreck-your-codebase-architecture.html</loc>
     <lastmod>2026-10-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/notes/7-random-thoughts-on-the-day-ai-agents-left-its-sandbox.html</loc>
+    <loc>https://matthewnguyen.dev/notes/7-random-thoughts-on-the-day-ai-agents-left-its-sandbox.html</loc>
     <lastmod>2026-10-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/notes/6-investigating-scroll-jank-svg-feturbulence-and-gpu.html</loc>
+    <loc>https://matthewnguyen.dev/notes/6-investigating-scroll-jank-svg-feturbulence-and-gpu.html</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/notes/5-jev-and-system-one-models-ai-that-doesn-t-need-to-write-text.html</loc>
+    <loc>https://matthewnguyen.dev/notes/5-jev-and-system-one-models-ai-that-doesn-t-need-to-write-text.html</loc>
     <lastmod>2026-10-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/notes/4-why-physical-notebooks-and-doodles-still-beat-digital-note.html</loc>
+    <loc>https://matthewnguyen.dev/notes/4-why-physical-notebooks-and-doodles-still-beat-digital-note.html</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/notes/3-how-i-work-with-ai-coding-agents-as-a-senior-engineer.html</loc>
+    <loc>https://matthewnguyen.dev/notes/3-how-i-work-with-ai-coding-agents-as-a-senior-engineer.html</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/notes/2-lean-front-end-architecture-shipping-less-js-getting-more.html</loc>
+    <loc>https://matthewnguyen.dev/notes/2-lean-front-end-architecture-shipping-less-js-getting-more.html</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://matthewnguyen.vercel.app/notes/1-lessons-from-building-metaverse-and-real-time-web.html</loc>
+    <loc>https://matthewnguyen.dev/notes/1-lessons-from-building-metaverse-and-real-time-web.html</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

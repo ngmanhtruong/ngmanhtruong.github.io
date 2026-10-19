@@ -15,6 +15,8 @@ const REACTION_TYPES = ['love', 'clap', 'learned', 'disagree', 'confusing'];
 const POST_ID = /^[a-z0-9-]{1,64}$/i;
 
 const ALLOWED_ORIGINS = [
+  'https://matthewnguyen.dev',
+  'https://www.matthewnguyen.dev',
   'https://matthewnguyen.vercel.app',
   'https://ngmanhtruong.github.io',
 ];

@@ -8,17 +8,17 @@
   <meta name="author" content="Matthew Nguyen">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <meta name="theme-color" content="#faf6ea">
-  <link rel="canonical" href="https://matthewnguyen.vercel.app/articles.html">
+  <link rel="canonical" href="https://matthewnguyen.dev/articles.html">
 
   <!-- Open Graph (title, description, URL and JSON-LD are updated per article by the page script) -->
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Matthew Nguyen — Portfolio">
-  <meta property="og:url" content="https://matthewnguyen.vercel.app/articles.html">
+  <meta property="og:url" content="https://matthewnguyen.dev/articles.html">
   <meta property="og:title" content="Article — Matthew Nguyen">
   <meta property="og:description" content="Technical notes on AI coding agents, front-end architecture and performance.">
-  <meta property="og:image" content="https://matthewnguyen.vercel.app/assets/og-image.jpg">
+  <meta property="og:image" content="https://matthewnguyen.dev/assets/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://matthewnguyen.vercel.app/assets/og-image.jpg">
+  <meta name="twitter:image" content="https://matthewnguyen.dev/assets/og-image.jpg">
 
   <!-- Favicon (Notebook & pen) -->
   <link rel="icon" type="image/svg+xml" href="assets/note-svg.svg">
@@ -256,7 +256,7 @@
 
           // SEO: per-article description, canonical/OG URL and BlogPosting structured data
           (function updateSeo() {
-            const BASE = 'https://matthewnguyen.vercel.app';
+            const BASE = 'https://matthewnguyen.dev';
             const url = meta.path ? `${BASE}/${meta.path}` : `${BASE}/article.html?slug=${encodeURIComponent(meta.id || meta.slug)}`;
             const desc = (meta.summary || '').slice(0, 300);
             const set = (sel, attr, val) => { const el = document.querySelector(sel); if (el && val) el.setAttribute(attr, val); };

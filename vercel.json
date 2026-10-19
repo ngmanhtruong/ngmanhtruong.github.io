@@ -1,0 +1,27 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "matthewnguyen.vercel.app"
+        }
+      ],
+      "destination": "https://matthewnguyen.dev/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.matthewnguyen.dev"
+        }
+      ],
+      "destination": "https://matthewnguyen.dev/$1",
+      "permanent": true
+    }
+  ]
+}

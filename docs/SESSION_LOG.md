@@ -341,3 +341,8 @@ Unfinished / needs the user: Redeploy the Worker (`cd worker && npx wrangler dep
 Done: Added project cards (right after TR Store) for Idamura NFT collection (idamura.xyz), Agoran NFT Marketplace (agoran.io) and Raramuri running app (raramuri.io) with the author's screenshots (`assets/projects/idamura|agoran|raramuri.webp`); descriptions and links come from the existing Work experience bullets. Hid Koncierge Plus and Memecoin launch page (HTML comments). Re-alternated the `alt` card class over the 14 visible cards.
 Note: the third screenshot is the Raramuri site ("Running Reimagined"), so the card is named Raramuri running app, not "Idamura running app".
 Not pushed.
+
+## 2026-10-19 — Moved to matthewnguyen.dev
+
+Done: Replaced the canonical base `matthewnguyen.vercel.app` with `matthewnguyen.dev` in the three pages (canonical, Open Graph, JSON-LD), `robots.txt`, `sitemap.xml`, `llms.txt`, the sync/build scripts, and rebuilt the 9 static `notes/` pages. Added `vercel.json` (301 from `matthewnguyen.vercel.app` and `www.matthewnguyen.dev` to the new domain). The counter Worker now also allows `https://matthewnguyen.dev` and `https://www.matthewnguyen.dev`.
+Unfinished / needs the user: Redeploy the Worker (`cd worker && npx wrangler deploy`) or the counters are hidden on the new domain; in Search Console add the new property for `matthewnguyen.dev` and resubmit the sitemap. Not pushed.

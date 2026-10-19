@@ -10,7 +10,7 @@
 import { readFile, writeFile, mkdir, readdir, rm } from 'node:fs/promises';
 import vm from 'node:vm';
 
-const BASE = 'https://matthewnguyen.vercel.app';
+const BASE = 'https://matthewnguyen.dev';
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 /** "6" + "Investigating Scroll Jank: SVG feTurbulence…" -> "6-investigating-scroll-jank-svg-feturbulence" */

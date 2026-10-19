@@ -43,7 +43,7 @@ await buildNotes(issues);
 console.log(`Wrote ${issues.length} static pages in notes/`);
 
 // sitemap.xml: home, articles list and every article (kept in sync with the issues)
-const BASE = 'https://matthewnguyen.vercel.app';
+const BASE = 'https://matthewnguyen.dev';
 const today = new Date().toISOString().slice(0, 10);
 const entry = (loc, lastmod, changefreq, priority) =>
   `  <url>\n    <loc>${loc.replace(/&/g, '&amp;')}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>\n`;
