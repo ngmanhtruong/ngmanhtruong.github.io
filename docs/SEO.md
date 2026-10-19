@@ -20,6 +20,6 @@ Canonical site: **https://matthewnguyen.dev** (custom domain; `vercel.json` 301-
 Generic words ("portfolio", "resume", "cv", "AI resume") are dominated by templates, builders and big sites; a personal site will not reach page 1-2 for them. Winnable: your name ("Matthew Nguyen developer", "Nguyen Manh Truong"), and long-tail terms such as "senior front-end developer Vietnam", "Vietnam software engineer portfolio", "AI engineer portfolio Vietnam", "context engineering AI-first repo".
 
 ## Search Console verification
-The home page carries `<meta name="google-site-verification" ...>` (in `index.html`). Verify the URL-prefix property `https://matthewnguyen.dev/` with the "HTML tag" method. With the custom domain you can also verify a "Domain" property with the DNS TXT record.
+The site is verified with the DNS TXT record on the domain (`google-site-verification=...` added at the DNS provider), so no meta tag is needed in `index.html`. If DNS verification is ever lost, re-add the TXT record or use the "HTML tag" method.
 
 The counter Worker must allow the site's origin (`ALLOWED_ORIGINS` in `worker/index.js`): after changing it run `npx wrangler deploy`, otherwise visits/hearts/reactions are hidden.
