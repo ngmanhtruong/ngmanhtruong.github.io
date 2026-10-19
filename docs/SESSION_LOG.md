@@ -335,3 +335,9 @@ Unfinished / needs the user: Push, then check the Action regenerates `notes/` wh
 
 Done: Counters were hidden when running `python3 -m http.server 8000` because the Worker's CORS allow-list only had localhost:4173/3000 (production origins verified fine: 74 visits, 23 hearts). The Worker now lets any localhost/127.0.0.1 port READ; writes stay restricted to production. `js/stats.js` and `js/reactions.js` skip POSTs on localhost (read-only counters), so local testing no longer inflates the real numbers.
 Unfinished / needs the user: Redeploy the Worker (`cd worker && npx wrangler deploy`); until then local pages still show no counts. Not pushed.
+
+## 2026-10-19 — Three Kardiachain / Whydah Projects, Hide Two
+
+Done: Added project cards (right after TR Store) for Idamura NFT collection (idamura.xyz), Agoran NFT Marketplace (agoran.io) and Raramuri running app (raramuri.io) with the author's screenshots (`assets/projects/idamura|agoran|raramuri.webp`); descriptions and links come from the existing Work experience bullets. Hid Koncierge Plus and Memecoin launch page (HTML comments). Re-alternated the `alt` card class over the 14 visible cards.
+Note: the third screenshot is the Raramuri site ("Running Reimagined"), so the card is named Raramuri running app, not "Idamura running app".
+Not pushed.

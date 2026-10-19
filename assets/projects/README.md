@@ -9,3 +9,5 @@ Supplied by the author (sites not reachable for automated capture): `nanlms.webp
 Also supplied by the author: `filmsinfo.webp`.
 
 Still missing: Wattsup EVBike, Koncierge Plus; Dili D.I.S.C and Bahi are temporarily hidden.
+
+Added 2026-10-19 (author-supplied): `idamura.webp` (Idamura NFT collection), `agoran.webp` (Agoran NFT Marketplace), `raramuri.webp` (Raramuri running app). Hidden cards: Koncierge Plus, Memecoin launch page (`memecoin.webp` kept), Dili D.I.S.C, Bahi.
