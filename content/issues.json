@@ -1,5 +1,19 @@
 [
   {
+    "number": 10,
+    "title": "Will Developers Be Replaced by AI Agents?",
+    "state": "open",
+    "created_at": "2026-10-26T04:53:24Z",
+    "updated_at": "2026-10-26T04:53:24Z",
+    "html_url": "https://github.com/ngmanhtruong/ngmanhtruong.github.io/issues/10",
+    "user": {
+      "login": "ngmanhtruong"
+    },
+    "labels": [],
+    "body": "**Questions to answer**\n- Do AI agents really write more than 90 percent of the code?\n- Will developers be replaced in the near future?\n\n**Coding is just one part of the job**\n- Developers don't just write code. They have to understand it, maintain it, and ship it securely. They also take part in the process: choosing the right thing to build, and taking responsibility when bugs happen. As a project grows, the workload of reviewing, debugging, and maintaining grows with it, and someone has to keep the codebase healthy.\n\n**The upward shift in value**\n- As AI agents become more effective, developers have to change how they think and work. It's no longer just about coding, but about defining the problem and choosing the right architecture. Developers also have to control the agents' output and orchestrate multiple agents (sometimes we switch to another agent because our quota runs out).\n\n**Who is affected the most?**\n- Entry-level work used to help newcomers learn: fixing minor bugs, building a button, writing missing test cases. Now AI agents do much of it, so juniors suffer the most. The old pyramid shape of the industry is turning into a diamond.\n\n**What should juniors do to earn recognition?**\n- I don't have a definite answer, but from my own experience, juniors now need to learn and practice more so they can explain their code and the problems they face. A plus is being able to point out an AI agent's mistake with a specific case, and to debug when the agent gets stuck.\n- They should also build and deploy a real, usable product, not just a \"homework\" or \"exercise\" project like in the old days, and know where they stand on the vast scale of programming knowledge.\n\n**The uncertainty**\n- With the AI boom and the pace of technological change, nobody knows what tomorrow holds. I imagine that in the near future, developers may become something like factory owners: building a company and using agents as an automated assembly line. They would need the knowledge to build, maintain, debug, and fix issues, and also to find customers who will buy their products.\n- The standard for developers today is still unclear, and nobody knows whether their approach is right. All we can do is adapt, learn, and grow. Try your best to learn a little every day, and don't let yourself fall behind.\n\n**In conclusion**\n- The job isn't dying (yet). It's transforming.\n- If you were the interviewer, what would you ask juniors? How would you tell their actual strength apart from someone who only relies on AI? (It's hard, right?)\n- If you were a senior who lost all your knowledge today, what would you learn first? Would you be confident enough to survive in this market?\n",
+    "slug": "10-will-developers-be-replaced-by-ai-agents"
+  },
+  {
     "number": 9,
     "title": "Why Young People Are Lying Flat and Putting Off Kids :(",
     "state": "open",
